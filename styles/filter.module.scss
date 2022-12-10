@@ -1,1 +1,72 @@
-.filter {}
+.filter {
+  margin: 20px 0 20px 40px;
+  padding: 20px;
+  background-color: white;
+
+  .icon {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .groupCheckBox {
+    padding: 10px;
+
+    .first,
+    .second {
+      display: flex;
+      justify-content: space-around;
+      margin: 12px 0;
+
+      div {
+        width: 50%;
+
+        input[type=radio] {
+          width: 15px;
+          height: 15px;
+          accent-color: green;
+        }
+      }
+    }
+  }
+
+  .textinput {
+    padding: 10px;
+
+    input {
+      margin-top: 5px;
+      width: 35%;
+      padding: 4px;
+    }
+
+    input:focus {
+      transition: width 0.4s ease-in-out;
+      outline: black;
+      width: 100%;
+    }
+  }
+
+  .range {
+    padding: 10px;
+
+    input {
+      margin-top: 5px;
+      width: 100%;
+    }
+  }
+
+  .apply {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  @media all and (max-width: 480px) {
+    margin: 20px;
+  }
+}

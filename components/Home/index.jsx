@@ -32,12 +32,20 @@ const HomeComponent = () => {
 			</div>
 			<div className={styles.controls}>
 				<Link href='#start'>
-					<Fab size='small' aria-label='scroll back to top'>
+					<Fab
+						size='small'
+						aria-label='scroll back to top'
+						sx={{ backgroundColor: 'white' }}
+					>
 						<KeyboardArrowUpIcon />
 					</Fab>
 				</Link>
 				<Link href='#end'>
-					<Fab size='small' aria-label='scroll to bottom'>
+					<Fab
+						size='small'
+						aria-label='scroll to bottom'
+						sx={{ backgroundColor: 'white' }}
+					>
 						<KeyboardArrowDownIcon />
 					</Fab>
 				</Link>
