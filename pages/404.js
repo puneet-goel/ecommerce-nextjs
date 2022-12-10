@@ -1,5 +1,5 @@
-import styles from '../styles/Error.module.scss';
+import styles from '../styles/error.module.scss';
 
 export default function Error() {
-  return <div>Error</div>;
+	return <div>Error</div>;
 }

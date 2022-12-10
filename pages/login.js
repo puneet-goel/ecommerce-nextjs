@@ -1,5 +1,5 @@
-import styles from '../styles/Login.module.scss';
+import styles from '../styles/login.module.scss';
 
 export default function Login() {
-  return <div>Login</div>;
+	return <div>Login</div>;
 }

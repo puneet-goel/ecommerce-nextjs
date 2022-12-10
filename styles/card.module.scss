@@ -1,0 +1,88 @@
+.card {
+  padding: 8px;
+  margin: 16px auto 16px;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ebebeb;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px, rgb(0 0 0 / 12%) 0px 1px 10px 0px;
+
+  &:hover {
+    box-shadow: rgb(0 0 0 / 20%) 0px 11px 15px -7px, rgb(0 0 0 / 14%) 0px 24px 38px 3px, rgb(0 0 0 / 12%) 0px 9px 46px 8px;
+  }
+
+  .header {
+    display: flex;
+    margin-bottom: 4px;
+
+    .functionality {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      .green {
+        &:hover {
+          color: #05994e;
+        }
+      }
+
+      .red {
+        &:hover {
+          color: #d70000;
+        }
+      }
+    }
+
+    .content {
+      padding: 0 4px 8px 8px;
+      width: 100%;
+
+      em {
+        font-size: smaller;
+        text-align: end;
+        display: block;
+        color: gray;
+
+        @media all and (max-width: 768px) {
+          font-size: x-small;
+        }
+      }
+
+      .subcontent {
+        padding: 0 4px 4px 4px;
+
+        h2 {
+          margin-bottom: 4px;
+
+          @media all and (max-width: 768px) {
+            font-size: larger;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-around;
+
+    span {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 4px;
+      }
+    }
+
+    @media all and (max-width: 768px) {
+      font-size: small;
+    }
+  }
+
+  @media all and (max-width: 480px) {
+    width: 80%;
+  }
+}

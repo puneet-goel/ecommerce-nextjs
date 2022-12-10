@@ -1,0 +1,46 @@
+.home {
+  .content {
+    display: flex;
+    height: calc(100vh - 70px);
+
+    .left {
+      width: 30%;
+      overflow: scroll;
+      margin-right: 4px;
+
+      @media all and (max-width: 480px) {
+        width: 100%;
+      }
+    }
+
+    .right {
+      width: 70%;
+      overflow: scroll;
+
+      @media all and (max-width: 480px) {
+        width: 100%;
+      }
+    }
+
+    @media all and (max-width: 480px) {
+      flex-direction: column;
+      height: auto;
+    }
+  }
+
+  .controls {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-bottom: 10px;
+    }
+
+    @media all and (max-width: 480px) {
+      position: fixed;
+    }
+  }
+}
