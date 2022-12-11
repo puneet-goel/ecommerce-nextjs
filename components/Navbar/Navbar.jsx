@@ -20,6 +20,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/userSlice';
 
 const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
@@ -65,9 +67,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-	const [totalDiscussions, setTotalDiscussions] = useState('0');
+	const dispatch = useDispatch();
+
+	const username = useSelector((state) => state?.users?.username);
+	console.log(username);
+	const totalDiscussions = useSelector((state) => {
+		const total =
+			0 ||
+			state?.discussions?.discussions?.reduce(
+				(prev, cur) => cur.createdBy === username,
+				0
+			);
+		return total;
+	});
+
 	const [updates, setUpdates] = useState('0');
-	const [username, setUsername] = useState('puneet');
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -77,7 +91,7 @@ const Navbar = () => {
 
 	const [offCanvas, setOffCanvas] = useState(false);
 
-	const handleOffCanvas = (event) => {
+	const handleOffCanvas = () => {
 		setOffCanvas(!offCanvas);
 	};
 
@@ -96,6 +110,11 @@ const Navbar = () => {
 
 	const handleMobileMenuOpen = (event) => {
 		setMobileMoreAnchorEl(event.currentTarget);
+	};
+
+	const handleLogout = () => {
+		dispatch(logout());
+		handleMenuClose();
 	};
 
 	const menuId = 'primary-search-account-menu';
@@ -119,7 +138,7 @@ const Navbar = () => {
 				<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 			</Link>
 
-			<MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+			<MenuItem onClick={handleLogout}>Logout</MenuItem>
 		</Menu>
 	);
 
