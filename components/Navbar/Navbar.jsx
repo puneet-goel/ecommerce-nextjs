@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import Offcanvas from './Offcanvas';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -73,6 +74,12 @@ const Navbar = () => {
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+	const [offCanvas, setOffCanvas] = useState(false);
+
+	const handleOffCanvas = (event) => {
+		setOffCanvas(!offCanvas);
+	};
 
 	const handleProfileMenuOpen = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -173,7 +180,7 @@ const Navbar = () => {
 	);
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box sx={{ flexGrow: 1, height: '70px' }}>
 			<AppBar position='static'>
 				<Toolbar>
 					<IconButton
@@ -182,6 +189,7 @@ const Navbar = () => {
 						color='inherit'
 						aria-label='open drawer'
 						sx={{ mr: 2 }}
+						onClick={handleOffCanvas}
 					>
 						<MenuIcon />
 					</IconButton>
@@ -266,6 +274,11 @@ const Navbar = () => {
 			</AppBar>
 			{renderMobileMenu}
 			{renderMenu}
+			<Offcanvas
+				offCanvas={offCanvas}
+				handleOffCanvas={handleOffCanvas}
+				username={username}
+			/>
 		</Box>
 	);
 };

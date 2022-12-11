@@ -6,7 +6,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Card from './Card';
 import Fab from '@mui/material/Fab';
 import Filter from './Filter';
-import Navbar from './Navbar';
 import { x } from './rawdata';
 
 const HomeComponent = () => {
@@ -15,8 +14,6 @@ const HomeComponent = () => {
 
 	return (
 		<div className={styles.home}>
-			<Navbar />
-
 			<div className={styles.content}>
 				<div className={styles.left}>
 					<Filter />

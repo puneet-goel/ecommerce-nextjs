@@ -55,8 +55,8 @@ const Filter = ({}) => {
 				onClick={() => setCollapse(!collapse)}
 			>
 				<div>
-					<h4>Filters</h4>
 					<FilterAltOutlinedIcon fontSize='large' sx={{ color: '#1976d2' }} />
+					<h4>Filters</h4>
 				</div>
 
 				{collapse ? <AddIcon /> : <RemoveIcon />}
