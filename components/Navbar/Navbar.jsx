@@ -75,7 +75,7 @@ const Navbar = () => {
 		const total =
 			0 ||
 			state?.discussions?.discussions?.reduce(
-				(prev, cur) => cur.createdBy === username,
+				(prev, cur) => prev + cur.createdBy === username,
 				0
 			);
 		return total;
