@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Offcanvas from './Offcanvas';
@@ -218,7 +217,7 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 									display: { xs: 'none', sm: 'block' },
 									marginRight: '4px',
 									cursor: 'pointer',
-									color: 'white',
+									color: 'floralwhite',
 								}}
 							/>
 						</Link>
@@ -228,7 +227,10 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 							variant='h6'
 							noWrap
 							component='div'
-							sx={{ display: { xs: 'none', sm: 'block' }, color: 'white' }}
+							sx={{
+								display: { xs: 'none', sm: 'block' },
+								color: 'floralwhite',
+							}}
 						>
 							Discussion
 						</Typography>

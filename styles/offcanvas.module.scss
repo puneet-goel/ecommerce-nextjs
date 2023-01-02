@@ -25,15 +25,11 @@
         a button {
           margin-top: 4px;
           font-size: 1em;
-          width: 100%;
-          font-weight: bolder;
           padding: 1em;
-          border: none;
-          cursor: pointer;
           border-bottom: 1px solid #c6ccd1;
           background-color: aliceblue;
           text-align: start;
-          border-radius: 8px;
+          color: black;
 
           &:hover {
             background-color: #edf2f7;

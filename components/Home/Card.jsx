@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from '../../styles/card.module.scss';
+import { useState } from 'react';
+import styles from '../../styles/home/card.module.scss';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -20,7 +20,10 @@ const Card = ({ summary }) => {
 	};
 
 	return (
-		<Link href={`/discussion/${summary._id}`} className={styles.card}>
+		<Link
+			href={`/discussion/${summary._id}`}
+			className={`${styles.card} elevation`}
+		>
 			<div className={styles.header}>
 				<div className={styles.functionality}>
 					<ArrowDropUpIcon

@@ -1,0 +1,27 @@
+.signup_container {
+  display: flex;
+  height: calc(80vh - 70px);
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+
+  .signup_box {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    form {
+      margin-top: 15px;
+    }
+  }
+
+  @media all and (min-width: 480px) {
+    width: 60%;
+  }
+
+  @media all and (min-width: 768px) {
+    width: 30%;
+  }
+}

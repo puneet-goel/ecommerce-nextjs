@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import styles from '../../styles/home.module.scss';
+import { useEffect, useState, useMemo } from 'react';
+import styles from '../../styles/home/home.module.scss';
 import Link from 'next/link';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';

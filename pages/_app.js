@@ -1,11 +1,23 @@
-import '../styles/globals.scss';
+import React, { useState } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Navbar from '../components/Navbar/Navbar';
+import AuthNavbar from '../components/AuthNavbar/AuthNavbar';
+import { AuthContextProvider } from '../context/AuthContext.jsx';
 import { Provider } from 'react-redux';
 import store from '../store/index';
+import '../styles/globals.scss';
+
+const authRoutes = ['/login', '/signup'];
 
 function MyApp({ Component, pageProps }) {
+	const [searchText, setSearchText] = useState('');
+	const router = useRouter();
+
+	const isAuthRoute = authRoutes.includes(router.route);
+
 	return (
-		<Provider store={store}>
+		<>
 			<Head>
 				<title>Discussion Forum</title>
 				<meta
@@ -14,8 +26,17 @@ function MyApp({ Component, pageProps }) {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Component {...pageProps} />
-		</Provider>
+			<AuthContextProvider>
+				<Provider store={store}>
+					{isAuthRoute ? (
+						<AuthNavbar />
+					) : (
+						<Navbar searchText={searchText} setSearchText={setSearchText} />
+					)}
+					<Component {...pageProps} searchText={searchText} />
+				</Provider>
+			</AuthContextProvider>
+		</>
 	);
 }
 

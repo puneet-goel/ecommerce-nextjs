@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
 import HomeComponent from '../components/Home';
-import Navbar from '../components/Navbar/Navbar';
 
-export default function Home() {
-	const [searchText, setSearchText] = useState('');
+const Home = ({ searchText }) => {
+	return <HomeComponent searchText={searchText} />;
+};
 
-	return (
-		<>
-			<Navbar searchText={searchText} setSearchText={setSearchText} />
-			<HomeComponent searchText={searchText} />
-		</>
-	);
-}
+export default Home;
 

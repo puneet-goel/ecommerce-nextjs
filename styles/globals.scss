@@ -17,5 +17,83 @@ body {
 
 a {
   text-decoration: none;
-  color: black;
+}
+
+input[type=radio] {
+  width: 15px;
+  height: 15px;
+  accent-color: green;
+}
+
+.button {
+  width: 100%;
+  background-color: #1976d2;
+  color: floralwhite;
+  padding: 8px;
+  border: none;
+  font-size: large;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.button_outlined {
+  background-color: #ffffff;
+  color: #1976d2;
+  border: 1px solid #8cb8e1;
+}
+
+.elevation {
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px, rgb(0 0 0 / 12%) 0px 1px 10px 0px;
+}
+
+.navbar {
+  height: 70px;
+}
+
+.alert_text {
+  color: #f44336;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  background: aliceblue;
+  border: 1px solid gray;
+  border-radius: 4px;
+
+  &:focus {
+    outline: none;
+    border: 2px solid #1976d2;
+  }
+}
+
+.input_floating_label {
+  margin: 15px 0;
+  position: relative;
+
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px;
+    color: grey;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+  }
+
+  input:focus+label {
+    color: #1976d2;
+    padding: 0;
+    background-color: aliceblue;
+    transform: scale(1) translateY(-0.5rem) translateX(0.5rem);
+  }
+
+  input:not([value=""]):not(:focus)+label {
+    color: gray;
+    padding: 0;
+    background-color: aliceblue;
+    transform: scale(1) translateY(-0.5rem) translateX(0.5rem);
+  }
 }

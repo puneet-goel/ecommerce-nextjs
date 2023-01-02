@@ -1,5 +1,7 @@
-import styles from '../styles/signup.module.scss';
+import SignupComponent from '../components/Signup/Signup.jsx';
 
-export default function Signup() {
-	return <div>Signup</div>;
-}
+const Signup = () => {
+	return <SignupComponent />;
+};
+
+export default Signup;

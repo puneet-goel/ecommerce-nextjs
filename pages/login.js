@@ -1,5 +1,7 @@
-import styles from '../styles/login.module.scss';
+import LoginComponent from '../components/Login/Login.jsx';
 
-export default function Login() {
-	return <div>Login</div>;
-}
+const Login = () => {
+	return <LoginComponent />;
+};
+
+export default Login;

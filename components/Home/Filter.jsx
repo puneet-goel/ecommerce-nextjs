@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from '../../styles/filter.module.scss';
+import { useState } from 'react';
+import styles from '../../styles/home/filter.module.scss';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -154,6 +154,7 @@ const Filter = ({ filters, setFilters }) => {
 				<div className={styles.textinput}>
 					<h4>Search by username</h4>
 					<input
+						className='input'
 						type='text'
 						id='username'
 						name='username'
@@ -168,6 +169,7 @@ const Filter = ({ filters, setFilters }) => {
 				<div className={styles.textinput}>
 					<h4>Search by Title</h4>
 					<input
+						className='input'
 						type='text'
 						id='title'
 						name='title'
@@ -196,14 +198,9 @@ const Filter = ({ filters, setFilters }) => {
 				</div>
 
 				<div className={styles.apply}>
-					<Button
-						variant='contained'
-						onClick={handleReseting}
-						color='success'
-						sx={{ marginRight: '5px' }}
-					>
+					<button className='button' onClick={handleReseting}>
 						Reset
-					</Button>
+					</button>
 				</div>
 			</div>
 		</div>

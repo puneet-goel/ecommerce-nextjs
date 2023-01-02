@@ -1,5 +1,4 @@
 .home {
-
   .content {
     display: flex;
     padding-top: 70px;
@@ -22,6 +21,7 @@
     .right {
 
       @media all and (min-width: 520px) {
+        min-height: calc(100vh - 70px);
         width: 60%;
         margin-left: 40%;
       }

@@ -1,4 +1,3 @@
-import React, { useEffect, useMemo } from 'react';
 import styles from '../../styles/offcanvas.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
@@ -25,32 +24,32 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 				<ul onClick={handleOffCanvas}>
 					<li>
 						<Link href='/'>
-							<button>Home</button>
+							<button className='button'>Home</button>
 						</Link>
 					</li>
 					<li>
 						<Link href={`/statistics/${username}/`}>
-							<button>Account Statistics</button>
+							<button className='button'>Account Statistics</button>
 						</Link>
 					</li>
 					<li>
 						<Link href='/users'>
-							<button>Users</button>
+							<button className='button'>Users</button>
 						</Link>
 					</li>
 					<li>
 						<Link href='/tags'>
-							<button>Tags</button>
+							<button className='button'>Tags</button>
 						</Link>
 					</li>
 					<li>
 						<Link href={`/profile/${username}`}>
-							<button>Profile</button>
+							<button className='button'>Profile</button>
 						</Link>
 					</li>
 					<li>
 						<Link href='/createTopic/'>
-							<button>Create New Topic</button>
+							<button className='button'>Create New Topic</button>
 						</Link>
 					</li>
 					<li>
@@ -59,11 +58,11 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 							target='_blank'
 							rel='noreferrer'
 						>
-							<button>Video Chat</button>
+							<button className='button'>Video Chat</button>
 						</a>
 					</li>
 					<li>
-						<button>Logout</button>
+						<button className='button'>Logout</button>
 					</li>
 				</ul>
 			</div>

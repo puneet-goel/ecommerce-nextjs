@@ -1,5 +1,5 @@
 import Discussion from '../../models/Discussion.js';
-import dbConnect from '../../mongodb.js';
+import dbConnect from '../../connections/mongodb.js';
 
 const handleGet = async (req, res) => {
 	try {
