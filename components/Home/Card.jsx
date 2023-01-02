@@ -9,7 +9,7 @@ import moment from 'moment';
 import Link from 'next/link';
 
 const Card = ({ summary }) => {
-	const [totalVotes, setTotalVotes] = useState(0);
+	const totalVotes = summary.upVotes?.length - summary.downVotes?.length;
 
 	const handleUpVote = (e) => {
 		e.preventDefault();
@@ -20,7 +20,7 @@ const Card = ({ summary }) => {
 	};
 
 	return (
-		<Link href={`/discussion/${summary.title}`} className={styles.card}>
+		<Link href={`/discussion/${summary._id}`} className={styles.card}>
 			<div className={styles.header}>
 				<div className={styles.functionality}>
 					<ArrowDropUpIcon
@@ -51,7 +51,7 @@ const Card = ({ summary }) => {
 			<div className={styles.footer}>
 				<span>
 					<Groups3Icon sx={{ color: 'gray' }} />
-					{summary.comments}
+					{summary.activeUsers?.length + 1}
 				</span>
 				<span>
 					<VisibilityIcon sx={{ color: 'gray' }} />
@@ -59,7 +59,7 @@ const Card = ({ summary }) => {
 				</span>
 				<span>
 					<ForumTwoToneIcon sx={{ color: 'gray' }} />
-					{summary.activeUsers}
+					{summary.comments?.length}
 				</span>
 			</div>
 		</Link>

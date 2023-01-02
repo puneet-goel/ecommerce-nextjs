@@ -2,47 +2,49 @@
 
   .content {
     display: flex;
-    height: calc(100vh - 70px);
+    padding-top: 70px;
 
     .left {
-      width: 30%;
-      overflow: scroll;
+      position: static;
 
-      @media all and (max-width: 480px) {
-        width: 100%;
+      @media all and (min-width: 520px) {
+        width: 40%;
+        overflow: scroll;
+        height: calc(100vh - 70px);
+        position: fixed;
       }
 
-      @media all and (min-width: 481px) and (max-width: 768px) {
-        width: 50%;
+      @media all and (min-width: 768px) {
+        width: 30%;
       }
     }
 
     .right {
-      width: 70%;
-      overflow: scroll;
 
-      @media all and (max-width: 480px) {
-        width: 100%;
+      @media all and (min-width: 520px) {
+        width: 60%;
+        margin-left: 40%;
       }
 
-      @media all and (min-width: 481px) and (max-width: 768px) {
-        width: 50%;
+      @media all and (min-width: 768px) {
+        width: 70%;
+        margin-left: 30%;
       }
     }
 
-    @media all and (max-width: 480px) {
+    @media all and (max-width: 520px) {
       flex-direction: column;
       height: auto;
     }
   }
 
   .controls {
-    position: absolute;
+    position: fixed;
     right: 30px;
     bottom: 30px;
     display: flex;
     flex-direction: column;
-    z-index: 1050;
+    z-index: 1101;
 
     button {
       margin-bottom: 10px;

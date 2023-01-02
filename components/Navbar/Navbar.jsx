@@ -66,11 +66,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const Navbar = () => {
+const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 	const dispatch = useDispatch();
 
 	const username = useSelector((state) => state?.users?.username);
-	console.log(username);
 	const totalDiscussions = useSelector((state) => {
 		const total =
 			0 ||
@@ -199,8 +198,8 @@ const Navbar = () => {
 	);
 
 	return (
-		<Box sx={{ flexGrow: 1, height: '70px' }}>
-			<AppBar position='static'>
+		<Box>
+			<AppBar position='fixed'>
 				<Toolbar>
 					<IconButton
 						size='large'
@@ -224,23 +223,29 @@ const Navbar = () => {
 							/>
 						</Link>
 					</Tooltip>
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ display: { xs: 'none', sm: 'block' } }}
-					>
-						Discussion
-					</Typography>
-					<Search>
-						<SearchIconWrapper>
-							<SearchIcon />
-						</SearchIconWrapper>
-						<StyledInputBase
-							placeholder='Search…'
-							inputProps={{ 'aria-label': 'search' }}
-						/>
-					</Search>
+					<Link href='/'>
+						<Typography
+							variant='h6'
+							noWrap
+							component='div'
+							sx={{ display: { xs: 'none', sm: 'block' }, color: 'white' }}
+						>
+							Discussion
+						</Typography>
+					</Link>
+					{!disableSearch && (
+						<Search>
+							<SearchIconWrapper>
+								<SearchIcon />
+							</SearchIconWrapper>
+							<StyledInputBase
+								value={searchText}
+								onChange={(e) => setSearchText(e.target.value)}
+								placeholder='Search…'
+								inputProps={{ 'aria-label': 'search' }}
+							/>
+						</Search>
+					)}
 					<Box sx={{ flexGrow: 1 }} />
 					<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 						<Tooltip title='Your Discussions' placement='bottom'>

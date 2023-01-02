@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styles from '../../styles/home.module.scss';
 import Link from 'next/link';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -6,25 +6,137 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Card from './Card';
 import Fab from '@mui/material/Fab';
 import Filter from './Filter';
-import { x } from './rawdata';
+import moment from 'moment';
+import axios from 'axios';
 
-const HomeComponent = () => {
-	const [summaries, setSummaries] = useState(x);
-	useEffect(() => {}, []);
+const HomeComponent = ({ searchText }) => {
+	const [summaries, setSummaries] = useState([]);
+	const [filters, setFilters] = useState({
+		sort: '',
+		datePosted: '',
+		username: '',
+		title: '',
+		views: 0,
+	});
+
+	useEffect(
+		() => async () => {
+			let { data } = await axios.get('/api/');
+			setSummaries(data.data || []);
+		},
+		[]
+	);
+
+	/**
+	 * @description filter according to searchBar
+	 */
+	let filteredSummaries = useMemo(() => {
+		const pattern = searchText.toLowerCase().trim();
+		if (pattern === '') return summaries;
+
+		return summaries.filter((summary) => {
+			if (summary.title.toLowerCase().includes(pattern)) return true;
+			if (summary.subtitle.toLowerCase().includes(pattern)) return true;
+			if (summary.createdBy.toLowerCase().includes(pattern)) return true;
+			return false;
+		});
+	}, [searchText, summaries]);
+
+	/**
+	 * @description filter according to username
+	 */
+	filteredSummaries = useMemo(() => {
+		const filterUsername = filters.username.toLowerCase().trim();
+
+		if (filterUsername === '') return filteredSummaries;
+		return filteredSummaries.filter((summary) =>
+			summary.createdBy.toLowerCase().includes(filterUsername)
+		);
+	}, [filters.username, filteredSummaries]);
+
+	/**
+	 * @description filter according to title
+	 */
+	filteredSummaries = useMemo(() => {
+		const filterTitle = filters.title.toLowerCase().trim();
+
+		if (filterTitle === '') return filteredSummaries;
+		return filteredSummaries.filter((summary) =>
+			summary.title.toLowerCase().includes(filterTitle)
+		);
+	}, [filters.title, filteredSummaries]);
+
+	/**
+	 * @description filter according to views
+	 */
+	filteredSummaries = useMemo(() => {
+		return filteredSummaries.filter(
+			(summary) => summary.views >= filters.views
+		);
+	}, [filters.views, filteredSummaries]);
+
+	/**
+	 * @description sort filters
+	 */
+	switch (filters.sort) {
+		case 'views':
+			filteredSummaries.sort((a, b) => a.views - b.views);
+			break;
+		case 'comments':
+			filteredSummaries.sort((a, b) => a.comments.length - b.comments.length);
+			break;
+		case 'votes':
+			filteredSummaries.sort(
+				(a, b) =>
+					a.upVotes.length -
+					a.downVotes.length -
+					b.upVotes.length +
+					b.downVotes.length
+			);
+			break;
+		case 'users':
+			filteredSummaries.sort(
+				(a, b) => a.activeUsers.length - b.activeUsers.length
+			);
+			break;
+		default:
+			filteredSummaries.sort((a, b) => a._id - b._id);
+	}
+
+	/**
+	 * @description sort filter according to DatePosted
+	 */
+	filteredSummaries = filteredSummaries.filter((summary) => {
+		switch (filters.datePosted) {
+			case 'hour':
+				if (moment(summary.createAt).fromNow() === 'an hour ago') return true;
+				break;
+			case 'week':
+				if (moment(summary.createAt).fromNow() === 'an hour ago') return true;
+				break;
+			case 'month':
+				break;
+			case 'any':
+			default:
+				return true;
+				break;
+		}
+		return false;
+	});
 
 	return (
 		<div className={styles.home}>
+			<div id='start' />
 			<div className={styles.content}>
 				<div className={styles.left}>
-					<Filter />
+					<Filter filters={filters} setFilters={setFilters} />
 				</div>
 				<div className={styles.right}>
-					<div id='start' />
-					{summaries?.length &&
-						summaries.map((summary, idx) => {
-							return <Card key={idx} summary={summary} />;
-						})}
-					<div id='end' />
+					{filteredSummaries.length > 0
+						? filteredSummaries.map((summary, idx) => {
+								return <Card key={idx} summary={summary} />;
+						  })
+						: 'Refresh the page'}
 				</div>
 			</div>
 			<div className={styles.controls}>
@@ -47,6 +159,7 @@ const HomeComponent = () => {
 					</Fab>
 				</Link>
 			</div>
+			<div id='end' />
 		</div>
 	);
 };

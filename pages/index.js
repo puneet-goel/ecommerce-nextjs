@@ -1,20 +1,15 @@
-import Head from 'next/head';
+import React, { useState } from 'react';
 import HomeComponent from '../components/Home';
+import Navbar from '../components/Navbar/Navbar';
 
 export default function Home() {
-	return (
-		<div>
-			<Head>
-				<title>Discussion Forum</title>
-				<meta
-					name='description'
-					content='Application that provides discussion platform to users'
-				/>
-				<link rel='icon' href='/favicon.ico' />
-			</Head>
+	const [searchText, setSearchText] = useState('');
 
-			<HomeComponent />
-		</div>
+	return (
+		<>
+			<Navbar searchText={searchText} setSearchText={setSearchText} />
+			<HomeComponent searchText={searchText} />
+		</>
 	);
 }
 

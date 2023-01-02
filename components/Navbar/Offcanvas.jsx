@@ -50,7 +50,7 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 					</li>
 					<li>
 						<Link href='/createTopic/'>
-							<button>Create New Discussion</button>
+							<button>Create New Topic</button>
 						</Link>
 					</li>
 					<li>

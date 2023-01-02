@@ -5,19 +5,8 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const Filter = ({}) => {
+const Filter = ({ filters, setFilters }) => {
 	const [collapse, setCollapse] = useState(false);
-	const [filter, setFilter] = useState({
-		sort: '',
-		datePosted: '',
-		username: '',
-		title: '',
-		views: 0,
-	});
-
-	const handleFiltering = (event) => {
-		event.preventDefault();
-	};
 
 	const handleReseting = (event) => {
 		event.preventDefault();
@@ -28,7 +17,7 @@ const Filter = ({}) => {
 			'input[name="datePosted"]:checked'
 		);
 		if (dateCheck) dateCheck.checked = false;
-		setFilter({
+		setFilters({
 			sort: '',
 			datePosted: '',
 			username: '',
@@ -39,11 +28,10 @@ const Filter = ({}) => {
 
 	const handleCheckbox = (event) => {
 		const { name, value } = event.target;
-		setFilter({
-			...filter,
+		setFilters({
+			...filters,
 			[name]: value,
 		});
-		console.log(filter);
 	};
 
 	return (
@@ -170,9 +158,9 @@ const Filter = ({}) => {
 						id='username'
 						name='username'
 						placeholder='Username'
-						value={filter.username}
+						value={filters.username}
 						onChange={(val) =>
-							setFilter({ ...filter, username: val.target.value })
+							setFilters({ ...filters, username: val.target.value })
 						}
 					/>
 				</div>
@@ -184,25 +172,25 @@ const Filter = ({}) => {
 						id='title'
 						name='title'
 						placeholder='Title'
-						value={filter.title}
+						value={filters.title}
 						onChange={(val) =>
-							setFilter({ ...filter, title: val.target.value })
+							setFilters({ ...filters, title: val.target.value })
 						}
 					/>
 				</div>
 
 				<hr />
 				<div className={styles.range}>
-					<h4>Minimum Views: {filter.views}</h4>
+					<h4>Minimum Views: {filters.views}</h4>
 					<input
 						type='range'
 						id='views'
 						name='views'
 						min='0'
 						max='1000'
-						value={filter.views}
+						value={filters.views}
 						onChange={(val) =>
-							setFilter({ ...filter, views: val.target.value })
+							setFilters({ ...filters, views: val.target.value })
 						}
 					/>
 				</div>
@@ -215,9 +203,6 @@ const Filter = ({}) => {
 						sx={{ marginRight: '5px' }}
 					>
 						Reset
-					</Button>
-					<Button variant='contained' onClick={handleFiltering}>
-						Apply
 					</Button>
 				</div>
 			</div>
