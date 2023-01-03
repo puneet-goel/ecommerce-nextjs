@@ -53,7 +53,7 @@ input[type=radio] {
 }
 
 .alert_text {
-  color: #f44336;
+  color: #f44336 !important;
 }
 
 .input {
@@ -95,5 +95,48 @@ input[type=radio] {
     padding: 0;
     background-color: aliceblue;
     transform: scale(1) translateY(-0.5rem) translateX(0.5rem);
+  }
+}
+
+.bubbles {
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+  z-index: 0;
+
+  &>div {
+    position: absolute;
+    z-index: -1;
+    background-color: #1976d2;
+    border-radius: 50%;
+  }
+
+  div:nth-child(1) {
+    bottom: -175px;
+    left: -175px;
+    width: 350px;
+    height: 350px;
+  }
+
+  div:nth-child(2) {
+    top: -175px;
+    right: -175px;
+    width: 350px;
+    height: 350px;
+  }
+
+  div:nth-child(3) {
+    top: 42vh;
+    right: 29vw;
+    width: 150px;
+    height: 150px;
+  }
+
+  div:nth-child(4) {
+    top: 14vh;
+    right: 56vw;
+    width: 150px;
+    height: 150px;
   }
 }

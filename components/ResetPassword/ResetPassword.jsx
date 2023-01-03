@@ -1,16 +1,13 @@
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { ToastContainer, toast } from 'react-toastify';
-import styles from '../../styles/auth.module.scss';
 import Link from 'next/link';
+import styles from '../../styles/auth.module.scss';
 
-const LoginComponent = () => {
-	const router = useRouter();
-	const { login } = useAuth();
+const ResetPasswordComponent = () => {
+	const { resetPassword } = useAuth();
 	const [data, setData] = useState({
 		email: '',
-		password: '',
 	});
 
 	const handleChange = (e) => {
@@ -21,15 +18,21 @@ const LoginComponent = () => {
 		});
 	};
 
-	const handleLogin = async (e) => {
+	const handleResetPassword = async (e) => {
 		e.preventDefault();
-		const toastID = toast.loading('Logging in');
-		const status = await login(data.email, data.password);
+		const toastID = toast.loading('Sending Email');
+		const status = await resetPassword(data.email);
 		if (status) {
-			router.push('/');
+			toast.update(toastID, {
+				render: 'Email sent, please check your inbox for further instructions',
+				type: 'success',
+				hideProgressBar: true,
+				isLoading: false,
+				autoClose: 3000,
+			});
 		} else {
 			toast.update(toastID, {
-				render: 'Could not log in to your account',
+				render: 'Failed to reset password',
 				type: 'error',
 				hideProgressBar: true,
 				isLoading: false,
@@ -48,11 +51,12 @@ const LoginComponent = () => {
 			</div>
 			<div className={styles.auth_container}>
 				<div className={`${styles.auth_box} elevation`}>
-					<h1>Log in</h1>
+					<h1>Forgot Your Password?</h1>
 					<p>
-						Not a member?&nbsp;<Link href='/signup'>Register now</Link>
+						Enter the email address associated with your account and we&apos;ll
+						send you a link to reset your password.
 					</p>
-					<form onSubmit={handleLogin}>
+					<form onSubmit={handleResetPassword}>
 						<div className='input_floating_label'>
 							<input
 								className='input'
@@ -64,25 +68,12 @@ const LoginComponent = () => {
 							/>
 							<label>Email</label>
 						</div>
-
-						<div className='input_floating_label'>
-							<input
-								className='input'
-								onChange={handleChange}
-								value={data.password}
-								name='password'
-								minLength={6}
-								required
-								type='password'
-							/>
-							<label>Password</label>
-						</div>
 						<button type='submit' className='button'>
-							Log in
+							reset password
 						</button>
 					</form>
-					<Link href='/reset-password'>
-						<div className={styles.auth_footer}>Recover Password</div>
+					<Link href='/login'>
+						<div className={styles.auth_footer}>Login</div>
 					</Link>
 				</div>
 				<ToastContainer />
@@ -91,4 +82,4 @@ const LoginComponent = () => {
 	);
 };
 
-export default LoginComponent;
+export default ResetPasswordComponent;

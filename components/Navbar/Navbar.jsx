@@ -132,7 +132,7 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 			open={isMenuOpen}
 			onClose={handleMenuClose}
 		>
-			<Link href={`/profile/${username}`}>
+			<Link href={`/profile/${username}`} style={{ color: 'black' }}>
 				<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 			</Link>
 

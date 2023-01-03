@@ -1,0 +1,49 @@
+.auth_container {
+  display: flex;
+  height: calc(100vh - 70px);
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+
+  .auth_box {
+    padding: 30px;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    background-color: aliceblue;
+
+    p {
+      margin-top: 10px;
+      color: gray;
+
+      a {
+        color: #1976d2;
+      }
+    }
+
+    form {
+      margin-top: 15px;
+
+      button {
+        border-radius: 8px;
+      }
+    }
+
+    .auth_footer {
+      text-align: end;
+      color: gray;
+      margin-top: 10px;
+    }
+
+    @media all and (min-width: 480px) {
+      width: 60%;
+    }
+
+    @media all and (min-width: 768px) {
+      width: 30%;
+    }
+  }
+}

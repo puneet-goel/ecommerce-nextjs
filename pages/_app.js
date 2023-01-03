@@ -7,8 +7,10 @@ import { AuthContextProvider } from '../context/AuthContext.jsx';
 import { Provider } from 'react-redux';
 import store from '../store/index';
 import '../styles/globals.scss';
+import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 
-const authRoutes = ['/login', '/signup'];
+const authRoutes = ['/login', '/signup', '/reset-password'];
 
 function MyApp({ Component, pageProps }) {
 	const [searchText, setSearchText] = useState('');
@@ -29,11 +31,16 @@ function MyApp({ Component, pageProps }) {
 			<AuthContextProvider>
 				<Provider store={store}>
 					{isAuthRoute ? (
-						<AuthNavbar />
+						<>
+							<AuthNavbar />
+							<Component {...pageProps} />
+						</>
 					) : (
-						<Navbar searchText={searchText} setSearchText={setSearchText} />
+						<ProtectedRoute>
+							<Navbar searchText={searchText} setSearchText={setSearchText} />
+							<Component {...pageProps} searchText={searchText} />
+						</ProtectedRoute>
 					)}
-					<Component {...pageProps} searchText={searchText} />
 				</Provider>
 			</AuthContextProvider>
 		</>

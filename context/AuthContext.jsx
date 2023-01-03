@@ -4,10 +4,13 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 	onAuthStateChanged,
+	sendPasswordResetEmail,
+	updateEmail,
+	updatePassword,
 } from 'firebase/auth';
 import { firebaseAuth } from '../connections/firebase.js';
 
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
@@ -36,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
 			await createUserWithEmailAndPassword(firebaseAuth, email, password);
 			return true;
 		} catch (err) {
-			console.error(err);
+			console.error(err.message);
 			return false;
 		}
 	};
@@ -46,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
 			await signInWithEmailAndPassword(firebaseAuth, email, password);
 			return true;
 		} catch (err) {
-			console.error(err);
+			console.error(err.message);
 			return false;
 		}
 	};
@@ -57,13 +60,53 @@ export const AuthContextProvider = ({ children }) => {
 			await signOut(firebaseAuth);
 			return true;
 		} catch (err) {
-			console.error(err);
+			console.error(err.message);
+			return false;
+		}
+	};
+
+	const resetPassword = async (email) => {
+		try {
+			await sendPasswordResetEmail(firebaseAuth, email);
+			return true;
+		} catch (err) {
+			console.error(err.message);
+			return false;
+		}
+	};
+
+	const updateUserEmail = async (email) => {
+		try {
+			await updateEmail(firebaseAuth, email);
+			return true;
+		} catch (err) {
+			console.error(err.message);
+			return false;
+		}
+	};
+
+	const updateUserPassword = async (password) => {
+		try {
+			await updatePassword(firebaseAuth, password);
+			return true;
+		} catch (err) {
+			console.error(err.message);
 			return false;
 		}
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, login, signup, logout }}>
+		<AuthContext.Provider
+			value={{
+				user,
+				login,
+				signup,
+				logout,
+				resetPassword,
+				updateUserEmail,
+				updateUserPassword,
+			}}
+		>
 			{loading ? null : children}
 		</AuthContext.Provider>
 	);
