@@ -140,3 +140,18 @@ input[type=radio] {
     height: 150px;
   }
 }
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-transform: capitalize;
+  width: 40px;
+  height: 40px;
+}
+
+.avatar_text {
+  color: floralwhite;
+  font-weight: bold;
+}

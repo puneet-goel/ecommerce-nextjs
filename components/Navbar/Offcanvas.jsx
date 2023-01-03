@@ -1,8 +1,16 @@
 import styles from '../../styles/offcanvas.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
+	const { logout } = useAuth();
+
+	const handleLogout = (event) => {
+		event.preventDefault();
+		logout();
+	};
+
 	return (
 		<div
 			className={`
@@ -62,7 +70,9 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 						</a>
 					</li>
 					<li>
-						<button className='button'>Logout</button>
+						<button className='button' onClick={handleLogout}>
+							Logout
+						</button>
 					</li>
 				</ul>
 			</div>

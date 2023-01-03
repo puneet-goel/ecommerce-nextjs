@@ -36,6 +36,7 @@ const SignupComponent = () => {
 
 		const status = await signup(data.email, data.password);
 		if (status) {
+			toast.dismiss(toastID);
 			router.push('/');
 		} else {
 			toast.update(toastID, {

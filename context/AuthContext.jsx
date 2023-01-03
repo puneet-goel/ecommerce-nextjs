@@ -56,8 +56,8 @@ export const AuthContextProvider = ({ children }) => {
 
 	const logout = async () => {
 		try {
-			setUser(null);
 			await signOut(firebaseAuth);
+			setUser(null);
 			return true;
 		} catch (err) {
 			console.error(err.message);

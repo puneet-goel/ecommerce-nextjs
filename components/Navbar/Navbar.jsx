@@ -20,7 +20,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../store/userSlice';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { stringToColor } from '../../utility/index.js';
 
 const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
@@ -67,8 +68,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 	const dispatch = useDispatch();
+	const { user, logout } = useAuth();
 
-	const username = useSelector((state) => state?.users?.username);
+	const username = user.email.split('@')[0]; // useSelector((state) => state?.users?.username);
 	const totalDiscussions = useSelector((state) => {
 		const total =
 			0 ||
@@ -110,9 +112,9 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 		setMobileMoreAnchorEl(event.currentTarget);
 	};
 
-	const handleLogout = () => {
-		dispatch(logout());
-		handleMenuClose();
+	const handleLogout = (event) => {
+		event.preventDefault();
+		logout();
 	};
 
 	const menuId = 'primary-search-account-menu';
@@ -281,7 +283,12 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 							onClick={handleProfileMenuOpen}
 							color='inherit'
 						>
-							<AccountCircle />
+							<div
+								className='avatar'
+								style={{ backgroundColor: stringToColor(username) }}
+							>
+								<div className='avatar_text'> {username[0]}</div>
+							</div>
 						</IconButton>
 					</Box>
 					<Box sx={{ display: { xs: 'flex', md: 'none' } }}>
