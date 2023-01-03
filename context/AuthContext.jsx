@@ -25,7 +25,9 @@ export const AuthContextProvider = ({ children }) => {
 					uid: user.uid,
 					email: user.email,
 				});
+				localStorage.setItem('email', user.email);
 			} else {
+				localStorage.removeItem('email');
 				setUser(null);
 			}
 			setLoading(false);

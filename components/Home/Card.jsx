@@ -7,9 +7,12 @@ import Groups3Icon from '@mui/icons-material/Groups3';
 import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
 import moment from 'moment';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 
 const Card = ({ summary }) => {
-	const totalVotes = summary.upVotes?.length - summary.downVotes?.length;
+	const dispatch = useDispatch();
+	const totalVotes =
+		summary.metaData.upVotes?.length - summary.metaData.downVotes?.length;
 
 	const handleUpVote = (e) => {
 		e.preventDefault();
@@ -42,7 +45,7 @@ const Card = ({ summary }) => {
 				</div>
 				<div className={styles.content}>
 					<em>
-						by {summary.createdBy}, {moment(summary.createAt).fromNow()}
+						by {summary.createdBy}, {moment(summary.createdAt).fromNow()}
 					</em>
 					<div className={styles.subcontent}>
 						<h2> {summary.title} </h2>
@@ -54,11 +57,11 @@ const Card = ({ summary }) => {
 			<div className={styles.footer}>
 				<span>
 					<Groups3Icon sx={{ color: 'gray' }} />
-					{summary.activeUsers?.length + 1}
+					{summary.metaData.activeUsers?.length}
 				</span>
 				<span>
 					<VisibilityIcon sx={{ color: 'gray' }} />
-					{summary.views}
+					{summary.metaData.views}
 				</span>
 				<span>
 					<ForumTwoToneIcon sx={{ color: 'gray' }} />

@@ -3,7 +3,9 @@
  */
 
 const nextConfig = {
-  reactStrictMode: true,
+	reactStrictMode: true,
+	trailingSlash: true,
 };
 
 module.exports = nextConfig;
+

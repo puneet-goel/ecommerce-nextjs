@@ -1,5 +1,39 @@
 import mongoose from 'mongoose';
 
+const DiscussionMetaDataSchema = new mongoose.Schema({
+	views: {
+		type: Number,
+		default: 1,
+	},
+	activeUsers: {
+		type: [String],
+		default: [],
+	},
+	upVotes: {
+		type: [String],
+		default: [],
+	},
+	downVotes: {
+		type: [String],
+		default: [],
+	},
+});
+
+const CommentSchema = new mongoose.Schema({
+	commentedBy: {
+		type: String,
+		default: '',
+	},
+	message: {
+		type: String,
+		default: '',
+	},
+	commentedAt: {
+		type: Date,
+		default: new Date(),
+	},
+});
+
 const DiscussionSchema = new mongoose.Schema({
 	title: {
 		type: String,
@@ -13,6 +47,10 @@ const DiscussionSchema = new mongoose.Schema({
 		type: String,
 		default: '',
 	},
+	tags: {
+		type: [],
+		default: '',
+	},
 	createdBy: {
 		type: String,
 		required: true,
@@ -22,24 +60,12 @@ const DiscussionSchema = new mongoose.Schema({
 		default: new Date(),
 	},
 	comments: {
-		type: Array,
+		type: [CommentSchema],
 		default: [],
 	},
-	views: {
-		type: Number,
-		default: 1,
-	},
-	activeUsers: {
-		type: Array,
-		default: [],
-	},
-	upVotes: {
-		type: Array,
-		default: [],
-	},
-	downVotes: {
-		type: Array,
-		default: [],
+	metaData: {
+		type: DiscussionMetaDataSchema,
+		default: () => ({}),
 	},
 });
 

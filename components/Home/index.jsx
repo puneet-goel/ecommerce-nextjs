@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import styles from '../../styles/home/home.module.scss';
 import Link from 'next/link';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -7,10 +7,10 @@ import Card from './Card';
 import Fab from '@mui/material/Fab';
 import Filter from './Filter';
 import moment from 'moment';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const HomeComponent = ({ searchText }) => {
-	const [summaries, setSummaries] = useState([]);
+	const summaries = useSelector((state) => state.discussions.discussions);
 	const [filters, setFilters] = useState({
 		sort: '',
 		datePosted: '',
@@ -18,14 +18,6 @@ const HomeComponent = ({ searchText }) => {
 		title: '',
 		views: 0,
 	});
-
-	useEffect(
-		() => async () => {
-			let { data } = await axios.get('/api/');
-			setSummaries(data.data || []);
-		},
-		[]
-	);
 
 	/**
 	 * @description filter according to searchBar
@@ -71,7 +63,7 @@ const HomeComponent = ({ searchText }) => {
 	 */
 	filteredSummaries = useMemo(() => {
 		return filteredSummaries.filter(
-			(summary) => summary.views >= filters.views
+			(summary) => summary.metaData.views >= filters.views
 		);
 	}, [filters.views, filteredSummaries]);
 
@@ -80,7 +72,7 @@ const HomeComponent = ({ searchText }) => {
 	 */
 	switch (filters.sort) {
 		case 'views':
-			filteredSummaries.sort((a, b) => a.views - b.views);
+			filteredSummaries.sort((a, b) => a.metaData.views - b.metaData.views);
 			break;
 		case 'comments':
 			filteredSummaries.sort((a, b) => a.comments.length - b.comments.length);
@@ -88,15 +80,15 @@ const HomeComponent = ({ searchText }) => {
 		case 'votes':
 			filteredSummaries.sort(
 				(a, b) =>
-					a.upVotes.length -
-					a.downVotes.length -
-					b.upVotes.length +
-					b.downVotes.length
+					a.metaData.upVotes.length -
+					a.metaData.downVotes.length -
+					b.metaData.upVotes.length +
+					b.metaData.downVotes.length
 			);
 			break;
 		case 'users':
 			filteredSummaries.sort(
-				(a, b) => a.activeUsers.length - b.activeUsers.length
+				(a, b) => a.metaData.activeUsers.length - b.metaData.activeUsers.length
 			);
 			break;
 		default:
@@ -109,17 +101,15 @@ const HomeComponent = ({ searchText }) => {
 	filteredSummaries = filteredSummaries.filter((summary) => {
 		switch (filters.datePosted) {
 			case 'hour':
-				if (moment(summary.createAt).fromNow() === 'an hour ago') return true;
+				if (moment(summary.createdAt).fromNow() === 'an hour ago') return true;
 				break;
 			case 'week':
-				if (moment(summary.createAt).fromNow() === 'an hour ago') return true;
+				if (moment(summary.createdAt).fromNow() === 'an hour ago') return true;
 				break;
 			case 'month':
 				break;
-			case 'any':
 			default:
 				return true;
-				break;
 		}
 		return false;
 	});

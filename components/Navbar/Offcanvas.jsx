@@ -41,25 +41,26 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 						</Link>
 					</li>
 					<li>
+						<Link href='/create-topic/'>
+							<button className='button'>Create New Topic</button>
+						</Link>
+					</li>
+					<li>
 						<Link href='/users'>
 							<button className='button'>Users</button>
 						</Link>
 					</li>
 					<li>
-						<Link href='/tags'>
+						<Link href='/tags/'>
 							<button className='button'>Tags</button>
 						</Link>
 					</li>
 					<li>
-						<Link href={`/profile/${username}`}>
+						<Link href={`/profile/${username}/`}>
 							<button className='button'>Profile</button>
 						</Link>
 					</li>
-					<li>
-						<Link href='/createTopic/'>
-							<button className='button'>Create New Topic</button>
-						</Link>
-					</li>
+
 					<li>
 						<a
 							href='https://v-meet-puneet.netlify.app/'

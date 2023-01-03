@@ -72,13 +72,7 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 
 	const username = user.email.split('@')[0]; // useSelector((state) => state?.users?.username);
 	const totalDiscussions = useSelector((state) => {
-		const total =
-			0 ||
-			state?.discussions?.discussions?.reduce(
-				(prev, cur) => prev + cur.createdBy === username,
-				0
-			);
-		return total;
+		return 0;
 	});
 
 	const [updates, setUpdates] = useState('0');

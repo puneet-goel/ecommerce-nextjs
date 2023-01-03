@@ -1,3 +1,7 @@
-export default function CreateTopic() {
-  return <div>Create Topic</div>;
-}
+import CreateTopicComponent from '../components/CreateTopic/CreateTopic.jsx';
+
+const CreateTopic = () => {
+	return <CreateTopicComponent />;
+};
+
+export default CreateTopic;

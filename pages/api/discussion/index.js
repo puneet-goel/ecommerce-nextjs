@@ -1,5 +1,5 @@
-import Discussion from '../../models/Discussion.js';
-import dbConnect from '../../connections/mongodb.js';
+import Discussion from '../../../models/Discussion.js';
+import dbConnect from '../../../connections/mongodb.js';
 
 const handleGet = async (req, res) => {
 	try {
@@ -12,13 +12,21 @@ const handleGet = async (req, res) => {
 
 const handlePost = async (req, res) => {
 	try {
-		// 	await Discussion.create({
-		// 		title: x[i].title,
-		// 		subtitle: x[i].subtitle,
-		// 		createdBy: x[i].createdBy,
-		// 	});
-		const data = await Discussion.find().lean();
-		return res.status(200).json({ message: 'ok', data });
+		const newDiscussion = new Discussion({
+			title: req.body.title,
+			subtitle: req.body.subtitle,
+			message: req.body.message,
+			tags: req.body.tags.split(/[ ,]/).filter((ele) => ele),
+			createdBy: req.body.createdBy,
+			createdAt: new Date(),
+			metaData: {
+				activeUsers: [req.body.createdBy],
+			},
+		});
+
+		await newDiscussion.save();
+
+		return res.status(200).json({ message: 'ok', data: newDiscussion });
 	} catch (err) {
 		return res.status(500).json({ message: 'error' });
 	}
