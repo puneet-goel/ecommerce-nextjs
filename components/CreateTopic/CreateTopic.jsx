@@ -32,7 +32,6 @@ const CreateTopicComponent = () => {
 		const { type } = await dispatch(
 			createDiscussion({ ...data, createdBy: user.email })
 		);
-		console.log(type);
 
 		if (type === 'discussion/createDiscussion/fulfilled') {
 			toast.dismiss(toastID);

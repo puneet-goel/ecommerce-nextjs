@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const handlePatch = async (req, res) => {
 	try {
-		const { discussionId } = req.body;
+		const { discussionId, email, action } = req.body;
 
 		if (!mongoose.Types.ObjectId.isValid(discussionId)) {
 			return res.status(400).json({ message: 'Invalid Id' });
@@ -18,7 +18,31 @@ const handlePatch = async (req, res) => {
 			return res.status(400).json({ message: 'Invalid Id' });
 		}
 
-		metaData.views += 1;
+		const upIndex = metaData.upVotes.indexOf(email);
+		const downIndex = metaData.downVotes.indexOf(email);
+
+		if (action === 'upvote') {
+			if (upIndex >= 0) {
+				metaData.upVotes.splice(upIndex, 1);
+			} else {
+				metaData.upVotes.push(email);
+				if (downIndex >= 0) {
+					metaData.downVotes.splice(downIndex, 1);
+				}
+			}
+		} else if (action === 'downvote') {
+			const downIndex = metaData.downVotes.indexOf(email);
+
+			if (downIndex >= 0) {
+				metaData.downVotes.splice(downIndex, 1);
+			} else {
+				metaData.downVotes.push(email);
+				if (upIndex >= 0) {
+					metaData.upVotes.splice(upIndex, 1);
+				}
+			}
+		}
+
 		const updatedDiscussion = await Discussion.findByIdAndUpdate(
 			discussionId,
 			{ metaData: metaData },

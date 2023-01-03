@@ -8,16 +8,16 @@ const SpecificTopicDiscussionComponent = () => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const discussionID = router.query.discussionID;
+	const discussionId = router.query.discussionId;
 	const discussion = useSelector((state) => {
 		return state.discussions.discussions.find(
-			(cur) => discussionID === cur._id
+			(cur) => discussionId === cur._id
 		);
 	});
 
 	useEffect(() => {
-		if (discussionID) dispatch(updateView(discussionID));
-	}, [dispatch, discussionID]);
+		if (discussionId) dispatch(updateView(discussionId));
+	}, [dispatch, discussionId]);
 
 	return (
 		<div style={{ marginTop: '70px' }}>

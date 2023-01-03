@@ -5,14 +5,10 @@ export const fetchAllDiscussions = createAsyncThunk(
 	'discussion/fetchAllDiscussions',
 	async () => {
 		const {
-			data: { data, message },
+			data: { data },
 		} = await axios.get('/api/discussion/');
 
-		if (message === 'error') {
-			return [];
-		} else {
-			return data;
-		}
+		return data;
 	}
 );
 
@@ -20,14 +16,10 @@ export const updateDiscussion = createAsyncThunk(
 	'discussion/updateDiscussion',
 	async (updatedDiscussion) => {
 		const {
-			data: { data, message },
+			data: { data },
 		} = await axios.patch('/api/discussion/', updatedDiscussion);
 
-		if (message === 'error') {
-			return [];
-		} else {
-			return data;
-		}
+		return data;
 	}
 );
 
@@ -35,14 +27,10 @@ export const createDiscussion = createAsyncThunk(
 	'discussion/createDiscussion',
 	async (newDiscussion) => {
 		const {
-			data: { data, message },
+			data: { data },
 		} = await axios.post('/api/discussion/', newDiscussion);
 
-		if (message === 'error') {
-			return null;
-		} else {
-			return data;
-		}
+		return data;
 	}
 );
 
@@ -50,16 +38,23 @@ export const updateView = createAsyncThunk(
 	'discussion/updateView',
 	async (discussionId) => {
 		const {
-			data: { data, message },
+			data: { data },
 		} = await axios.patch('/api/discussion/updateView/', {
 			discussionId: discussionId,
 		});
 
-		if (message === 'error') {
-			return [];
-		} else {
-			return data;
-		}
+		return data;
+	}
+);
+
+export const updateVote = createAsyncThunk(
+	'discussion/updateVote',
+	async (voteData) => {
+		const {
+			data: { data },
+		} = await axios.patch('/api/discussion/updateVote/', voteData);
+
+		return data;
 	}
 );
 
@@ -86,6 +81,13 @@ const discussionSlice = createSlice({
 				state.discussions.push(action.payload);
 			})
 			.addCase(updateView.fulfilled, (state, action) => {
+				state.discussions.forEach((cur, idx) => {
+					if (cur._id === action.payload._id) {
+						state.discussions[idx] = action.payload;
+					}
+				});
+			})
+			.addCase(updateVote.fulfilled, (state, action) => {
 				state.discussions.forEach((cur, idx) => {
 					if (cur._id === action.payload._id) {
 						state.discussions[idx] = action.payload;

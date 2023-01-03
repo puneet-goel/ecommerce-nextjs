@@ -7,18 +7,38 @@ import Groups3Icon from '@mui/icons-material/Groups3';
 import ForumTwoToneIcon from '@mui/icons-material/ForumTwoTone';
 import moment from 'moment';
 import Link from 'next/link';
+import { useAuth } from '../../context/AuthContext.jsx';
 import { useDispatch } from 'react-redux';
+import { updateVote } from '../../store/discussionSlice.js';
 
 const Card = ({ summary }) => {
 	const dispatch = useDispatch();
+	const { user } = useAuth();
+
 	const totalVotes =
 		summary.metaData.upVotes?.length - summary.metaData.downVotes?.length;
+	const upvote = summary.metaData.upVotes.find((cur) => cur === user.email);
+	const downvote = summary.metaData.downVotes.find((cur) => cur === user.email);
 
 	const handleUpVote = (e) => {
+		dispatch(
+			updateVote({
+				discussionId: summary._id,
+				email: user.email,
+				action: 'upvote',
+			})
+		);
 		e.preventDefault();
 	};
 
 	const handleDownVote = (e) => {
+		dispatch(
+			updateVote({
+				discussionId: summary._id,
+				email: user.email,
+				action: 'downvote',
+			})
+		);
 		e.preventDefault();
 	};
 
@@ -33,14 +53,14 @@ const Card = ({ summary }) => {
 						fontSize='large'
 						sx={{ color: 'gray' }}
 						onClick={handleUpVote}
-						className={styles.green}
+						className={`${styles.green} ${upvote ? 'success_text' : ''}`}
 					/>
 					<p>{totalVotes}</p>
 					<ArrowDropDownIcon
 						fontSize='large'
 						sx={{ color: 'gray' }}
 						onClick={handleDownVote}
-						className={styles.red}
+						className={`${styles.red} ${downvote ? 'alert_text' : ''}`}
 					/>
 				</div>
 				<div className={styles.content}>

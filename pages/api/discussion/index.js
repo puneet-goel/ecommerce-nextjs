@@ -26,7 +26,7 @@ const handlePost = async (req, res) => {
 
 		await newDiscussion.save();
 
-		return res.status(200).json({ message: 'ok', data: newDiscussion });
+		return res.status(201).json({ message: 'ok', data: newDiscussion });
 	} catch (err) {
 		return res.status(500).json({ message: 'error' });
 	}

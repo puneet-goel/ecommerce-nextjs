@@ -1,6 +1,21 @@
 import mongoose from 'mongoose';
 
-const UserDataSchema = new mongoose.Schema({
+const UserMetaDataSchema = new mongoose.Schema({
+	upVotes: {
+		type: Number,
+		default: 0,
+	},
+	downVotes: {
+		type: Number,
+		default: 0,
+	},
+	totalComments: {
+		type: Number,
+		default: 0,
+	},
+});
+
+const UserInfoDataSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		default: '',
@@ -25,6 +40,13 @@ const UserDataSchema = new mongoose.Schema({
 		type: String,
 		default: '',
 	},
+	externalLinks: {
+		facebook: String,
+		github: String,
+		twitter: String,
+		linkedin: String,
+		other: String,
+	},
 });
 
 const UserSchema = new mongoose.Schema({
@@ -33,38 +55,21 @@ const UserSchema = new mongoose.Schema({
 		unique: true,
 		required: true,
 	},
-	username: String,
-	firstName: String,
-	lastName: String,
-	phoneNo: Number,
-	address: String,
-	about: String,
 	joinedOn: {
 		type: Date,
 		default: new Date(),
 	},
-	upVotes: {
-		type: Number,
-		default: 0,
-	},
-	downVotes: {
-		type: Number,
-		default: 0,
-	},
-	totalComments: {
-		type: Number,
-		default: 0,
-	},
 	userDiscussions: {
-		type: Array,
+		type: [String],
 		default: [],
 	},
-	externalLinks: {
-		facebook: String,
-		github: String,
-		twitter: String,
-		linkedin: String,
-		others: String,
+	infoData: {
+		type: UserInfoDataSchema,
+		default: () => ({}),
+	},
+	metaData: {
+		type: UserMetaDataSchema,
+		default: () => ({}),
 	},
 });
 
