@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from '../../styles/home/card.module.scss';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -51,14 +50,12 @@ const Card = ({ summary }) => {
 				<div className={styles.functionality}>
 					<ArrowDropUpIcon
 						fontSize='large'
-						sx={{ color: 'gray' }}
 						onClick={handleUpVote}
 						className={`${styles.green} ${upvote ? 'success_text' : ''}`}
 					/>
 					<p>{totalVotes}</p>
 					<ArrowDropDownIcon
 						fontSize='large'
-						sx={{ color: 'gray' }}
 						onClick={handleDownVote}
 						className={`${styles.red} ${downvote ? 'alert_text' : ''}`}
 					/>
@@ -76,15 +73,15 @@ const Card = ({ summary }) => {
 
 			<div className={styles.footer}>
 				<span>
-					<Groups3Icon sx={{ color: 'gray' }} />
+					<Groups3Icon />
 					{summary.metaData.activeUsers?.length}
 				</span>
 				<span>
-					<VisibilityIcon sx={{ color: 'gray' }} />
+					<VisibilityIcon />
 					{summary.metaData.views}
 				</span>
 				<span>
-					<ForumTwoToneIcon sx={{ color: 'gray' }} />
+					<ForumTwoToneIcon />
 					{summary.comments?.length}
 				</span>
 			</div>

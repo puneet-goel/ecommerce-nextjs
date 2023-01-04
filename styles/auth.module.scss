@@ -1,6 +1,8 @@
+@use "styles/variable";
+
 .auth_container {
   display: flex;
-  height: calc(100vh - 70px);
+  height: calc(100vh - variable.$navbar-height);
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -13,14 +15,14 @@
     width: 80%;
     flex-direction: column;
     justify-content: center;
-    background-color: aliceblue;
+    background-color: variable.$default-background-color;
 
     p {
       margin-top: 10px;
-      color: gray;
+      color: variable.$grey-color;
 
       a {
-        color: #1976d2;
+        color: variable.$primary-color;
       }
     }
 
@@ -34,7 +36,7 @@
 
     .auth_footer {
       text-align: end;
-      color: gray;
+      color: variable.$grey-color;
       margin-top: 10px;
     }
 

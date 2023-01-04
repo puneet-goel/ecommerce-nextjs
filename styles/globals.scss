@@ -1,3 +1,5 @@
+@use "styles/variable";
+
 * {
   margin: 0px;
   padding: 0px;
@@ -12,7 +14,8 @@
 }
 
 body {
-  background-color: aliceblue;
+  background-color: variable.$default-background-color;
+  font-family: variable.$default-font-family;
 }
 
 a {
@@ -22,13 +25,17 @@ a {
 input[type=radio] {
   width: 15px;
   height: 15px;
-  accent-color: green;
+  accent-color: variable.$success-color;
+}
+
+button {
+  font-family: variable.$button-font-family;
 }
 
 .button {
   width: 100%;
-  background-color: #1976d2;
-  color: floralwhite;
+  background-color: variable.$primary-color;
+  color: variable.$floralwhite-color;
   padding: 8px;
   border: none;
   font-size: large;
@@ -39,37 +46,37 @@ input[type=radio] {
 }
 
 .button_outlined {
-  background-color: #ffffff;
-  color: #1976d2;
-  border: 1px solid #8cb8e1;
+  background-color: variable.$white-color;
+  color: variable.$primary-color;
+  border: 1px solid variable.$primary-outline-color;
 }
 
 .elevation {
-  box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px, rgb(0 0 0 / 12%) 0px 1px 10px 0px;
+  box-shadow: variable.$paper-shadow;
 }
 
 .navbar {
-  height: 70px;
+  height: variable.$navbar-height;
 }
 
 .alert_text {
-  color: #f44336 !important;
+  color: variable.$danger-color !important;
 }
 
 .success_text {
-  color: #2e7d32 !important;
+  color: variable.$success-color !important;
 }
 
 .input {
   width: 100%;
   padding: 12px;
-  background: aliceblue;
-  border: 1px solid gray;
+  background-color: variable.$default-background-color;
+  border: 1px solid variable.$grey-color;
   border-radius: 4px;
 
   &:focus {
     outline: none;
-    border: 2px solid #1976d2;
+    border: 2px solid variable.$primary-color;
   }
 }
 
@@ -82,22 +89,22 @@ input[type=radio] {
     top: 0;
     left: 0;
     padding: 12px;
-    color: grey;
+    color: variable.$grey-color;
     transform-origin: 0 0;
     transition: opacity .1s ease-in-out, transform .1s ease-in-out;
   }
 
   input:focus+label {
-    color: #1976d2;
+    color: variable.$primary-color;
     padding: 0;
-    background-color: aliceblue;
+    background-color: variable.$default-background-color;
     transform: scale(1) translateY(-0.5rem) translateX(0.5rem);
   }
 
   input:not([value=""]):not(:focus)+label {
-    color: gray;
+    color: variable.$grey-color;
     padding: 0;
-    background-color: aliceblue;
+    background-color: variable.$default-background-color;
     transform: scale(1) translateY(-0.5rem) translateX(0.5rem);
   }
 }
@@ -105,14 +112,14 @@ input[type=radio] {
 .bubbles {
   position: absolute;
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - variable.$navbar-height);
   overflow: hidden;
   z-index: 0;
 
   &>div {
     position: absolute;
     z-index: -1;
-    background-color: #1976d2;
+    background-color: variable.$primary-color;
     border-radius: 50%;
   }
 
@@ -156,6 +163,11 @@ input[type=radio] {
 }
 
 .avatar_text {
-  color: floralwhite;
+  color: variable.$floralwhite-color;
   font-weight: bold;
+}
+
+.ck-editor__editable {
+  min-height: 250px;
+  max-height: 250px;
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styles from '../../styles/home/filter.module.scss';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
@@ -35,20 +34,18 @@ const Filter = ({ filters, setFilters }) => {
 	};
 
 	return (
-		<div className={styles.filter}>
-			<Button
-				variant='outlined'
-				className={styles.icon}
-				color='info'
+		<div className={`${styles.filter} elevation`}>
+			<button
+				className={`${styles.icon} button button_outlined`}
 				onClick={() => setCollapse(!collapse)}
 			>
 				<div>
-					<FilterAltOutlinedIcon fontSize='large' sx={{ color: '#1976d2' }} />
+					<FilterAltOutlinedIcon fontSize='large' />
 					<h4>Filters</h4>
 				</div>
 
 				{collapse ? <AddIcon /> : <RemoveIcon />}
-			</Button>
+			</button>
 
 			<div style={{ display: collapse ? 'none' : 'block' }}>
 				<div className={styles.groupCheckBox}>

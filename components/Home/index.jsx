@@ -131,20 +131,12 @@ const HomeComponent = ({ searchText }) => {
 			</div>
 			<div className={styles.controls}>
 				<Link href='#start'>
-					<Fab
-						size='small'
-						aria-label='scroll back to top'
-						sx={{ backgroundColor: 'white' }}
-					>
+					<Fab size='small' aria-label='scroll back to top'>
 						<KeyboardArrowUpIcon />
 					</Fab>
 				</Link>
 				<Link href='#end'>
-					<Fab
-						size='small'
-						aria-label='scroll to bottom'
-						sx={{ backgroundColor: 'white' }}
-					>
+					<Fab size='small' aria-label='scroll to bottom'>
 						<KeyboardArrowDownIcon />
 					</Fab>
 				</Link>

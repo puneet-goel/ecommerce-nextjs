@@ -1,18 +1,27 @@
+@use "styles/variable";
+
 .filter {
   margin: 20px 0 20px 40px;
   padding: 20px;
-  background-color: white;
+  background-color: variable.$white-color;
 
   .icon {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: variable.$lightest-primary-color;
+    }
 
     div {
       display: flex;
       align-items: center;
     }
   }
+
 
   .groupCheckBox {
     padding: 10px;
@@ -59,7 +68,7 @@
     margin-top: 20px;
 
     button {
-      background-color: #2e7d32;
+      background-color: variable.$success-color;
       width: 50%;
     }
   }

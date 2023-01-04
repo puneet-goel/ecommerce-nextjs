@@ -1,3 +1,5 @@
+@use "styles/variable";
+
 .offcanvas {
   position: fixed;
   width: 100%;
@@ -10,7 +12,7 @@
     height: 100vh;
     width: 250px;
     overflow: scroll;
-    background-color: aliceblue;
+    background-color: variable.$default-background-color;
     transform: translate(-250px);
     transition: transform 0.5s ease-out;
 
@@ -26,13 +28,13 @@
           margin-top: 4px;
           font-size: 1em;
           padding: 1em;
-          border-bottom: 1px solid #c6ccd1;
-          background-color: aliceblue;
+          border-bottom: 1px solid variable.$light-grey-color;
+          background-color: variable.$white-color;
           text-align: start;
-          color: black;
+          color: variable.$black-color;
 
           &:hover {
-            background-color: #edf2f7;
+            background-color: variable.$default-background-color;
             transition: background-color 0.15s ease-in-out;
           }
         }
@@ -44,7 +46,7 @@
       top: 0;
       left: 225px;
       border-style: none;
-      background-color: aliceblue;
+      background-color: variable.$default-background-color;
       cursor: pointer;
     }
   }
@@ -57,6 +59,6 @@
 
 .offcanvas__open {
   transform: translate(0);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: variable.$black-transparent-color;
   transition-property: background-color;
 }

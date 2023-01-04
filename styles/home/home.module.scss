@@ -1,7 +1,9 @@
+@use "styles/variable";
+
 .home {
   .content {
     display: flex;
-    padding-top: 70px;
+    padding-top: variable.$navbar-height;
 
     .left {
       position: static;
@@ -9,7 +11,7 @@
       @media all and (min-width: 520px) {
         width: 40%;
         overflow: scroll;
-        height: calc(100vh - 70px);
+        height: calc(100vh - variable.$navbar-height);
         position: fixed;
       }
 
@@ -21,7 +23,7 @@
     .right {
 
       @media all and (min-width: 520px) {
-        min-height: calc(100vh - 70px);
+        min-height: calc(100vh - variable.$navbar-height);
         width: 60%;
         margin-left: 40%;
       }
@@ -48,6 +50,7 @@
 
     button {
       margin-bottom: 10px;
+      background-color: variable.$white-color;
     }
 
     @media all and (max-width: 480px) {
