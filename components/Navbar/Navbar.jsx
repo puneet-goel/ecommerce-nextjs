@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Offcanvas from './Offcanvas';
 import AppBar from '@mui/material/AppBar';
@@ -13,15 +13,15 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import ForumIcon from '@mui/icons-material/Forum';
-import HomeIcon from '@mui/icons-material/Home';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
-import { useSelector, useDispatch } from 'react-redux';
-import { useAuth } from '../../context/AuthContext.jsx';
-import { stringToColor } from '../../utility/index.js';
+import { logout } from 'firebase-auth/firebase-client.js';
+import { stringToColor, getUserEmail } from 'utility/client.js';
+import cartLogo from 'public/shopping-cart.png';
+import Image from 'next/Image';
 
 const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
@@ -66,16 +66,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const Navbar = ({ searchText, setSearchText, disableSearch }) => {
-	const dispatch = useDispatch();
-	const { user, logout } = useAuth();
+const Navbar = () => {
+	const [email, setEmail] = useState(null);
+	const [loading, setLoading] = useState(true);
 
-	const username = user.email.split('@')[0]; // useSelector((state) => state?.users?.username);
-	const totalDiscussions = useSelector((state) => {
-		return 0;
-	});
+	useEffect(() => {
+		const x = getUserEmail();
+		if (x !== '') {
+			setEmail(x);
+		} else {
+			setEmail(null);
+		}
+		setLoading(false);
+	}, []);
 
-	const [updates, setUpdates] = useState('0');
+	const [cartItems, setCartItems] = useState('0');
+	const [searchText, setSearchText] = useState('');
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -108,7 +114,7 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 
 	const handleLogout = (event) => {
 		event.preventDefault();
-		logout();
+		if (email) logout();
 	};
 
 	const menuId = 'primary-search-account-menu';
@@ -128,11 +134,20 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 			open={isMenuOpen}
 			onClose={handleMenuClose}
 		>
-			<Link href={`/profile/${username}`} style={{ color: 'black' }}>
-				<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-			</Link>
-
-			<MenuItem onClick={handleLogout}>Logout</MenuItem>
+			<MenuItem onClick={handleMenuClose}>
+				<Link href='/profile' style={{ color: 'black' }}>
+					Profile
+				</Link>
+			</MenuItem>
+			{email ? (
+				<MenuItem onClick={handleLogout}>Logout</MenuItem>
+			) : (
+				<MenuItem>
+					<Link href='/signup' style={{ color: 'black' }}>
+						Signup
+					</Link>
+				</MenuItem>
+			)}
 		</Menu>
 	);
 
@@ -154,28 +169,38 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 			onClose={handleMobileMenuClose}
 		>
 			<MenuItem>
-				<IconButton
-					size='large'
-					aria-label='show user discussions'
-					color='inherit'
-				>
-					<Badge badgeContent={totalDiscussions} color='error'>
-						<ForumIcon />
-					</Badge>
-				</IconButton>
-				<p>Discussions</p>
+				<Link href='/search' style={{ color: 'black' }}>
+					<IconButton
+						size='large'
+						aria-label='search trending products'
+						color='inherit'
+					>
+						<ManageSearchIcon />
+					</IconButton>
+					Search Products
+				</Link>
 			</MenuItem>
 			<MenuItem>
-				<IconButton
-					size='large'
-					aria-label='show notifications'
-					color='inherit'
+				<Link href='/cart' style={{ color: 'black' }}>
+					<IconButton
+						size='large'
+						aria-label='show products in cart'
+						color='inherit'
+					>
+						<Badge badgeContent={cartItems} color='error'>
+							<ShoppingCartIcon />
+						</Badge>
+					</IconButton>
+					Cart
+				</Link>
+			</MenuItem>
+			<MenuItem>
+				<Link
+					href='/order-history'
+					style={{ color: 'black', paddingLeft: '2em' }}
 				>
-					<Badge badgeContent={updates} color='error'>
-						<NotificationsIcon />
-					</Badge>
-				</IconButton>
-				<p>Notifications</p>
+					Past Orders
+				</Link>
 			</MenuItem>
 			<MenuItem onClick={handleProfileMenuOpen}>
 				<IconButton
@@ -187,7 +212,7 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 				>
 					<AccountCircle />
 				</IconButton>
-				<p>Profile</p>
+				Profile
 			</MenuItem>
 		</Menu>
 	);
@@ -206,67 +231,92 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Tooltip title='Home' placement='bottom'>
-						<Link href='/'>
-							<HomeIcon
-								sx={{
-									display: { xs: 'none', sm: 'block' },
-									marginRight: '4px',
-									cursor: 'pointer',
-									color: 'floralwhite',
-								}}
-							/>
-						</Link>
-					</Tooltip>
-					<Link href='/'>
-						<Typography
-							variant='h6'
-							noWrap
-							component='div'
-							sx={{
-								display: { xs: 'none', sm: 'block' },
-								color: 'floralwhite',
+
+					<Tooltip title='Emart Home Page' placement='bottom'>
+						<Link
+							href='/'
+							style={{
+								display: 'flex',
+								alignItems: 'center',
 							}}
 						>
-							Discussion
-						</Typography>
-					</Link>
-					{!disableSearch && (
-						<Search>
-							<SearchIconWrapper>
-								<SearchIcon />
-							</SearchIconWrapper>
-							<StyledInputBase
-								value={searchText}
-								onChange={(e) => setSearchText(e.target.value)}
-								placeholder='Search…'
-								inputProps={{ 'aria-label': 'search' }}
+							<Image
+								src={cartLogo}
+								alt='Emart home logo'
+								width='40'
+								height='40'
+								style={{
+									marginRight: '16px',
+								}}
+								priority
 							/>
-						</Search>
-					)}
+							<Typography
+								variant='h6'
+								noWrap
+								component='div'
+								sx={{
+									display: { xs: 'none', sm: 'block' },
+									color: 'floralwhite',
+								}}
+							>
+								Emart
+							</Typography>
+						</Link>
+					</Tooltip>
+
+					<Search>
+						<SearchIconWrapper>
+							<SearchIcon />
+						</SearchIconWrapper>
+						<StyledInputBase
+							value={searchText}
+							onChange={(e) => setSearchText(e.target.value)}
+							placeholder='Search…'
+							inputProps={{ 'aria-label': 'search' }}
+						/>
+					</Search>
+
 					<Box sx={{ flexGrow: 1 }} />
-					<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-						<Tooltip title='Your Discussions' placement='bottom'>
-							<IconButton
-								size='large'
-								aria-label='show user discussions'
-								color='inherit'
-							>
-								<Badge badgeContent={totalDiscussions} color='error'>
-									<ForumIcon />
-								</Badge>
-							</IconButton>
+
+					<Box
+						sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}
+					>
+						<Tooltip title='Search Trending Products' placement='bottom'>
+							<Link href='/search' style={{ color: 'white' }}>
+								<IconButton
+									size='large'
+									aria-label='search trending products'
+									color='inherit'
+								>
+									<ManageSearchIcon />
+								</IconButton>
+							</Link>
 						</Tooltip>
-						<Tooltip title='Notifications' placement='bottom'>
-							<IconButton
-								size='large'
-								aria-label='show notifications'
-								color='inherit'
+						<Tooltip title='Cart' placement='bottom'>
+							<Link href='/cart' style={{ color: 'white' }}>
+								<IconButton
+									size='large'
+									aria-label='show products in cart'
+									color='inherit'
+								>
+									<Badge badgeContent={cartItems} color='error'>
+										<ShoppingCartIcon />
+									</Badge>
+								</IconButton>
+							</Link>
+						</Tooltip>
+						<Tooltip title='Your orders' placement='bottom'>
+							<Link
+								href='/order-history'
+								style={{
+									color: 'white',
+									display: 'flex',
+									alignItems: 'center',
+									padding: '1em',
+								}}
 							>
-								<Badge badgeContent={updates} color='error'>
-									<NotificationsIcon />
-								</Badge>
-							</IconButton>
+								<p>Past Orders</p>
+							</Link>
 						</Tooltip>
 						<IconButton
 							size='large'
@@ -277,14 +327,22 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 							onClick={handleProfileMenuOpen}
 							color='inherit'
 						>
-							<div
-								className='avatar'
-								style={{ backgroundColor: stringToColor(username) }}
-							>
-								<div className='avatar_text'> {username[0]}</div>
-							</div>
+							{email ? (
+								<div
+									className='avatar'
+									style={{
+										backgroundColor: stringToColor(email),
+										margin: 'auto',
+									}}
+								>
+									<p className='avatar_text'>{email.split('@')[0][0]}</p>
+								</div>
+							) : (
+								<AccountCircle />
+							)}
 						</IconButton>
 					</Box>
+
 					<Box sx={{ display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
 							size='large'
@@ -299,12 +357,31 @@ const Navbar = ({ searchText, setSearchText, disableSearch }) => {
 					</Box>
 				</Toolbar>
 			</AppBar>
+			{!email && !loading && (
+				<div
+					className='elevation'
+					style={{
+						position: 'fixed',
+						top: '70px',
+						backgroundColor: 'white',
+						color: 'black',
+						padding: '20px',
+						right: '1em',
+						border: '1px solid #0c2e72',
+						textAlign: 'center',
+					}}
+				>
+					<Link href='/signup'>Signup</Link>
+					<br />
+					Already have an account? <Link href='/login'>Login</Link>
+				</div>
+			)}
 			{renderMobileMenu}
 			{renderMenu}
 			<Offcanvas
 				offCanvas={offCanvas}
 				handleOffCanvas={handleOffCanvas}
-				username={username}
+				email={email}
 			/>
 		</Box>
 	);

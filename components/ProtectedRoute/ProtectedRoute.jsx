@@ -1,22 +1,21 @@
 import { useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
 import { useRouter } from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllDiscussions } from '../../store/discussionSlice';
+import { useDispatch } from 'react-redux';
+import { fetchProducts } from 'store/productSlice.js';
 
-const ProtectedRoute = ({ children }) => {
-	const { user } = useAuth();
+const ProtectedRoute = ({ children, user, loading }) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
-	const summaryData = useSelector((state) => state.discussions.discussions);
 
 	useEffect(() => {
-		if (!user) {
-			router.push('/signup');
-		} else {
-			if (summaryData?.length === 0) dispatch(fetchAllDiscussions());
+		dispatch(fetchProducts());
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (!user && !loading) {
+			router.replace('/signup');
 		}
-	}, [router, user, dispatch, summaryData]);
+	}, [router, user, loading]);
 
 	return <>{user ? children : null}</>;
 };

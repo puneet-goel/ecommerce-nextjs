@@ -1,14 +1,12 @@
-import styles from '../../styles/offcanvas.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
-import { useAuth } from '../../context/AuthContext.jsx';
+import { logout } from 'firebase-auth/firebase-client.js';
+import styles from 'styles/offcanvas.module.scss';
 
-const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
-	const { logout } = useAuth();
-
+const Offcanvas = ({ offCanvas, handleOffCanvas, email }) => {
 	const handleLogout = (event) => {
 		event.preventDefault();
-		logout();
+		if (email) logout();
 	};
 
 	return (
@@ -19,6 +17,9 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 			`}
 			onClick={handleOffCanvas}
 		>
+			<button className={styles.close} onClick={handleOffCanvas}>
+				<CloseIcon fontSize='large' />
+			</button>
 			<div
 				className={`
 				${styles.offcanvas__drawer}
@@ -26,55 +27,78 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, username }) => {
 			`}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<button className={styles.close} onClick={handleOffCanvas}>
-					<CloseIcon />
-				</button>
+				<h2 className={styles.offcanvas_heading}>
+					{email ? (
+						`Hello, ${email.split('@')[0]}`
+					) : (
+						<Link href='/signup'>Signup</Link>
+					)}
+				</h2>
+
+				<hr />
 				<ul onClick={handleOffCanvas}>
 					<li>
-						<Link href='/'>
-							<button className='button'>Home</button>
+						<Link href='/'>Home</Link>
+					</li>
+					<li>
+						<Link href='/search'>
+							Search Trending Products from Best Sellers
 						</Link>
 					</li>
 					<li>
-						<Link href={`/statistics/${username}/`}>
-							<button className='button'>Account Statistics</button>
-						</Link>
+						<Link href='/coupons'> Coupons </Link>
 					</li>
 					<li>
-						<Link href='/create-topic/'>
-							<button className='button'>Create New Topic</button>
-						</Link>
+						<Link href='/cart'>Shop</Link>
 					</li>
 					<li>
-						<Link href='/users'>
-							<button className='button'>Users</button>
-						</Link>
+						<Link href='/order-history'>Your Orders</Link>
 					</li>
-					<li>
-						<Link href='/tags/'>
-							<button className='button'>Tags</button>
-						</Link>
-					</li>
-					<li>
-						<Link href={`/profile/${username}/`}>
-							<button className='button'>Profile</button>
-						</Link>
-					</li>
+				</ul>
 
+				<hr />
+				<h3>Retailer</h3>
+				<ul onClick={handleOffCanvas}>
 					<li>
-						<a
-							href='https://v-meet-puneet.netlify.app/'
-							target='_blank'
-							rel='noreferrer'
-						>
-							<button className='button'>Video Chat</button>
-						</a>
+						<Link href='/profile/statistics'>Account Statistics</Link>
 					</li>
 					<li>
-						<button className='button' onClick={handleLogout}>
-							Logout
-						</button>
+						<Link href='/add-product'>Add New Product</Link>
 					</li>
+					<li>
+						<Link href='/update-product'>Update Your Product</Link>
+					</li>
+				</ul>
+
+				<hr />
+				<h3>Informaton</h3>
+				<ul onClick={handleOffCanvas}>
+					<li>
+						<Link href='/about'>Get to know about us</Link>
+					</li>
+				</ul>
+
+				<hr />
+				<h3>Account Settings</h3>
+				<ul onClick={handleOffCanvas}>
+					<li>
+						<Link href='/profile'>Profile</Link>
+					</li>
+					<li>
+						<Link href='/profile'>Update Profile</Link>
+					</li>
+					<li>
+						<Link href='/reset-password'>Reset Password</Link>
+					</li>
+					{email ? (
+						<li onClick={handleLogout}>
+							<span>Logout</span>
+						</li>
+					) : (
+						<li>
+							<Link href='/signup'>Signup</Link>
+						</li>
+					)}
 				</ul>
 			</div>
 		</div>

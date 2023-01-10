@@ -1,0 +1,25 @@
+SEO 
+/_error (still pending) (static)
+/404 (still pending) (static)
+
+SEO Friendly + No protection needed + Auth Nav
+/login (static)
+/signup (static)
+/reset-password (static)
+
+SEO Friendly + No protection needed + Main Nav
+/ (ISR, 3)
+/search (ISR, 3)
+/search/[productId] (server)
+/cart (static)
+/about (static)
+/coupons (ISR, 10) 
+
+No SEO + Protection needed + Main Nav + Redux
+(swr)
+/profile 
+/profile/statistics 
+/order-history 
+/add-product 
+/update-product/[productId]
+/update-product

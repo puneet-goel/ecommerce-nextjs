@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import users from './userSlice';
-import discussions from './discussionSlice';
+import products from './productSlice';
 
 const combinedReducers = combineReducers({
 	users,
-	discussions,
+	products,
 });
 
 const store = configureStore({

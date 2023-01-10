@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 
 /**
- * Source:
- * https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/utils/dbConnect.js
+ * https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.js
  **/
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -31,8 +30,8 @@ async function dbConnect() {
 
 	if (!cached.promise) {
 		const opts = {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
+			// useNewUrlParser: true,
+			// useUnifiedTopology: true,
 			bufferCommands: false,
 		};
 
@@ -41,7 +40,14 @@ async function dbConnect() {
 			return mongoose;
 		});
 	}
-	cached.conn = await cached.promise;
+
+	try {
+		cached.conn = await cached.promise;
+	} catch (e) {
+		cached.promise = null;
+		throw e;
+	}
+
 	return cached.conn;
 }
 

@@ -17,9 +17,12 @@
     "@mui/material": "^5.10.17",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.2",
+    "cloudinary": "^1.33.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "firebase": "^9.15.0",
+    "firebase-admin": "^11.4.1",
+    "formik": "^2.2.9",
     "moment": "^2.29.4",
     "mongoose": "^6.8.2",
     "next": "13.0.6",
@@ -27,6 +30,7 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.1",
-    "sass": "^1.56.1"
+    "sass": "^1.56.1",
+    "yup": "^0.32.11"
   }
 }

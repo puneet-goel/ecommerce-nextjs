@@ -7,11 +7,31 @@
   align-items: center;
   padding: 0 30px;
 
+  a {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 8px;
+      width: 40px;
+      height: 40px;
+
+      @media all and (max-width: 350px) {
+        display: none;
+      }
+    }
+
+    svg {
+      margin-right: 8px;
+      color: variable.$primary-color;
+    }
+  }
+
   h1 {
     color: variable.$primary-color;
 
     @media all and (max-width: 480px) {
-      font-size: larger;
+      font-size: x-large;
     }
   }
 

@@ -1,0 +1,25 @@
+@use "styles/variable";
+
+.footer {
+  height: 200px;
+  background-color: variable.$dark-primary-color;
+  color: variable.$floralwhite-color;
+
+  .controls {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1101;
+
+    button {
+      margin-bottom: 10px;
+      background-color: variable.$white-color;
+    }
+
+    @media all and (max-width: 480px) {
+      position: fixed;
+    }
+  }
+}

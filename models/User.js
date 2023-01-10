@@ -1,25 +1,32 @@
 import mongoose from 'mongoose';
 
-const UserMetaDataSchema = new mongoose.Schema({
-	upVotes: {
-		type: Number,
-		default: 0,
+const OrderSchema = new mongoose.Schema(
+	{
+		products: [
+			{
+				productId: {
+					type: String,
+					required: true,
+				},
+				quantity: {
+					type: Number,
+					default: 1,
+				},
+				perUnitPrice: {
+					type: Number,
+					required: true,
+				},
+			},
+		],
+		totalAmount: {
+			type: Number,
+			required: true,
+		},
 	},
-	downVotes: {
-		type: Number,
-		default: 0,
-	},
-	totalComments: {
-		type: Number,
-		default: 0,
-	},
-});
+	{ timestamps: true }
+);
 
 const UserInfoDataSchema = new mongoose.Schema({
-	username: {
-		type: String,
-		default: '',
-	},
 	firstName: {
 		type: String,
 		default: '',
@@ -40,37 +47,33 @@ const UserInfoDataSchema = new mongoose.Schema({
 		type: String,
 		default: '',
 	},
-	externalLinks: {
-		facebook: String,
-		github: String,
-		twitter: String,
-		linkedin: String,
-		other: String,
-	},
 });
 
-const UserSchema = new mongoose.Schema({
-	email: {
-		type: String,
-		unique: true,
-		required: true,
+const UserSchema = new mongoose.Schema(
+	{
+		email: {
+			type: String,
+			unique: true,
+			required: true,
+		},
+		products: {
+			type: [String],
+			default: [],
+		},
+		infoData: {
+			type: UserInfoDataSchema,
+			default: () => ({}),
+		},
+		ordersData: {
+			type: OrderSchema,
+			default: () => ({}),
+		},
+		views: {
+			type: Number,
+			default: 0,
+		},
 	},
-	joinedOn: {
-		type: Date,
-		default: new Date(),
-	},
-	userDiscussions: {
-		type: [String],
-		default: [],
-	},
-	infoData: {
-		type: UserInfoDataSchema,
-		default: () => ({}),
-	},
-	metaData: {
-		type: UserMetaDataSchema,
-		default: () => ({}),
-	},
-});
+	{ timestamps: true }
+);
 
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

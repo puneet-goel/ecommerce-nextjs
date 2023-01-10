@@ -1,0 +1,36 @@
+@use "styles/variable";
+
+.search {
+  display: flex;
+
+  .left {
+
+    @media all and (min-width: 520px) {
+      width: 40%;
+    }
+
+    @media all and (min-width: 1024px) {
+      width: 30%;
+    }
+  }
+
+  .right {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: wrap;
+
+    @media all and (min-width: 520px) {
+      width: 60%;
+    }
+
+    @media all and (min-width: 1024px) {
+      width: 70%;
+    }
+  }
+
+  @media all and (max-width: 480px) {
+    flex-direction: column;
+    height: auto;
+  }
+}

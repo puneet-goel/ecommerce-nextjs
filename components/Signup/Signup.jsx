@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
+import { signup } from 'firebase-auth/firebase-client.js';
 import { ToastContainer, toast } from 'react-toastify';
-import styles from '../../styles/auth.module.scss';
+import styles from 'styles/auth.module.scss';
 import Link from 'next/link';
 
 const SignupComponent = () => {
 	const router = useRouter();
-	const { signup } = useAuth();
 	const [data, setData] = useState({
 		email: '',
 		password: '',

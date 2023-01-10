@@ -55,7 +55,8 @@ button {
   box-shadow: variable.$paper-shadow;
 }
 
-.navbar {
+.navbar,
+.start_of_page {
   height: variable.$navbar-height;
 }
 
@@ -170,4 +171,30 @@ button {
 .ck-editor__editable {
   min-height: 250px;
   max-height: 250px;
+}
+
+.badge {
+  background-color: variable.$danger-color;
+  color: variable.$floralwhite-color;
+  padding: 4px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.dropdown {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  overflow: scroll;
+  max-height: 100px;
+  padding: 1em;
+}
+
+.min_container_height {
+  min-height: calc(100vh - 3*variable.$navbar-height);
+
+  .error_align_center {
+    text-align: center;
+  }
 }

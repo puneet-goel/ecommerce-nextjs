@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
+import { resetPassword } from 'firebase-auth/firebase-client.js';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
-import styles from '../../styles/auth.module.scss';
+import styles from 'styles/auth.module.scss';
 
 const ResetPasswordComponent = () => {
-	const { resetPassword } = useAuth();
 	const [data, setData] = useState({
 		email: '',
 	});

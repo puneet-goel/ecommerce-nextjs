@@ -1,0 +1,72 @@
+@use "styles/variable";
+
+.add_product_container {
+  padding: 20px 1em;
+  word-break: break-word;
+
+  .product_heading {
+    text-align: center;
+    font-family: variable.$cursive-font;
+  }
+
+  input {
+    background-color: variable.$white-color;
+  }
+
+  .product_editor {
+    &>p {
+      margin: 1em 0;
+      text-align: center;
+      font-size: 1.3em;
+      font-family: variable.$verdana-font;
+      font-weight: bolder;
+    }
+  }
+
+  .product_controls {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      width: 100px;
+      margin: 10px;
+    }
+  }
+
+  @media all and (min-width: 768px) {
+    padding: 20px 3em;
+  }
+}
+
+.stepper1 {
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .input_group {
+      margin: 1.5em 0;
+    }
+
+    img {
+      display: flex;
+      margin: auto;
+      margin-bottom: 1.5em;
+    }
+  }
+}
+
+.stepper3 {
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .two_inputs {
+      display: flex;
+      justify-content: space-evenly;
+
+      &>div {
+        width: 45%;
+      }
+    }
+  }
+}

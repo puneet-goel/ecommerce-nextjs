@@ -8,46 +8,63 @@
   transform: translate(-100%);
   transition: transform 0.5s ease-out;
 
+  .close {
+    position: fixed;
+    top: 0;
+    z-index: 1140;
+    left: 260px;
+    border-style: none;
+    color: variable.$floralwhite-color;
+    background-color: variable.$transparent-color;
+    cursor: pointer;
+  }
+
   .offcanvas__drawer {
     height: 100vh;
     width: 250px;
     overflow: scroll;
-    background-color: variable.$default-background-color;
+    background-color: variable.$white-color;
     transform: translate(-250px);
     transition: transform 0.5s ease-out;
 
+    .offcanvas_heading {
+      padding: 0.5em;
+      word-break: break-word;
+
+      a {
+        color: variable.$black-color;
+      }
+    }
+
+    h3 {
+      padding: 0.5em 0 0 1em;
+      word-break: break-word;
+    }
+
+    hr {
+      border-bottom: 1px;
+    }
+
     ul {
-      margin-top: 1.2em;
       list-style-type: none;
-      padding: 1.5em;
+      padding: 1em 0;
 
       &>li {
 
-        button,
-        a button {
-          margin-top: 4px;
-          font-size: 1em;
-          padding: 1em;
-          border-bottom: 1px solid variable.$light-grey-color;
-          background-color: variable.$white-color;
-          text-align: start;
+        span,
+        a {
+          display: block;
+          padding: 0.5em 0 0.5em 1em;
           color: variable.$black-color;
+          font-size: larger;
+          cursor: pointer;
 
           &:hover {
-            background-color: variable.$default-background-color;
+            background-color: variable.$hover-grey-color;
             transition: background-color 0.15s ease-in-out;
           }
         }
       }
-    }
-
-    .close {
-      position: fixed;
-      top: 0;
-      left: 225px;
-      border-style: none;
-      background-color: variable.$default-background-color;
-      cursor: pointer;
     }
   }
 
