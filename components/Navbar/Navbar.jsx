@@ -219,7 +219,7 @@ const Navbar = () => {
 
 	return (
 		<Box>
-			<AppBar position='fixed'>
+			<AppBar position='fixed' style={{ backgroundColor: '#02284e' }}>
 				<Toolbar>
 					<IconButton
 						size='large'

@@ -104,7 +104,7 @@ function MyApp({ Component, pageProps }) {
 					) : (
 						<Component {...pageProps} />
 					)}
-					<Footer />
+					<Footer email={user ? user.email : null} />
 				</Provider>
 			)}
 		</>

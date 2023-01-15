@@ -68,7 +68,6 @@ const AddProductComponent = ({
 		if (
 			res === `product/${editMode ? 'editProduct' : 'addProduct'}/fulfilled`
 		) {
-			toast.dismiss(toastID);
 			router.push('/');
 		} else {
 			toast.update(toastID, {
