@@ -197,3 +197,80 @@ button {
     text-align: center;
   }
 }
+
+.carousel_container {
+  margin-bottom: 2em;
+
+  .carousel_header {
+    font-weight: bolder;
+    font-variant-caps: petite-caps;
+    font-style: italic;
+    font-size: x-large;
+    color: variable.$dark-primary-color;
+    padding-left: 0.7em;
+    margin-bottom: 0.5em;
+  }
+
+  .carousel_wrapper {
+    position: relative;
+
+    .carousel_slides {
+
+      .carousel_slide {
+        display: none;
+        width: 100%;
+        height: 175px;
+
+        @media all and (min-width: 768px) {
+          height: 300px;
+        }
+
+        @media all and (min-width: 1200px) {
+          height: 400px;
+        }
+
+        @media all and (min-width: 1800px) {
+          height: 500px;
+        }
+      }
+
+      .fade {
+        animation-name: fade;
+        animation-duration: 1s;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: .4
+        }
+
+        to {
+          opacity: 1
+        }
+      }
+    }
+
+    .carousel_controls {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background-color: variable.$black-super-light-transparent-color;
+      z-index: 1001;
+
+      &:hover {
+        background-color: variable.$black-light-transparent-color;
+      }
+    }
+
+    .carousel_left {
+      left: 0;
+    }
+
+    .carousel_right {
+      right: 0;
+    }
+  }
+}

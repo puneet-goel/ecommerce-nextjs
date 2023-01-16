@@ -6,8 +6,6 @@ import styles from 'styles/footer.module.scss';
 import { logout } from 'firebase-auth/firebase-client.js';
 
 const Footer = ({ email }) => {
-	console.log(email);
-
 	const handleLogout = (event) => {
 		event.preventDefault();
 		if (email) logout();
@@ -16,9 +14,9 @@ const Footer = ({ email }) => {
 	return (
 		<>
 			<div className={styles.footer}>
-				<div className={styles.footer_home}>
-					<Link href='/'>Go to Home Page</Link>
-				</div>
+				<Link href='/'>
+					<div className={styles.footer_home}>Go to Home Page</div>
+				</Link>
 				<div className={styles.footer_content}>
 					<div className={styles.footer_column}>
 						<h3> Features </h3>
