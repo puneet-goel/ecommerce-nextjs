@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }) {
 		return () => unsubscribe();
 	}, []);
 
-	// force refresh the token every 10 minutes
+	// force refresh the token every 1 hour
 	useEffect(() => {
 		const handle = setInterval(async () => {
 			try {

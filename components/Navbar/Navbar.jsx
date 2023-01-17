@@ -309,6 +309,7 @@ const Navbar = () => {
 						right: '1em',
 						border: '1px solid #0c2e72',
 						textAlign: 'center',
+						zIndex: 1200,
 					}}
 				>
 					<Link href='/signup'>Signup</Link>

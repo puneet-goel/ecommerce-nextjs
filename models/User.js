@@ -1,30 +1,15 @@
 import mongoose from 'mongoose';
 
-const OrderSchema = new mongoose.Schema(
-	{
-		products: [
-			{
-				productId: {
-					type: String,
-					required: true,
-				},
-				quantity: {
-					type: Number,
-					default: 1,
-				},
-				perUnitPrice: {
-					type: Number,
-					required: true,
-				},
-			},
-		],
-		totalAmount: {
-			type: Number,
-			required: true,
+const OrderSchema = new mongoose.Schema({
+	products: [
+		{
+			productId: String,
+			quantity: Number,
+			perUnitPrice: Number,
 		},
-	},
-	{ timestamps: true }
-);
+	],
+	totalAmount: Number,
+});
 
 const UserInfoDataSchema = new mongoose.Schema({
 	firstName: {
@@ -37,7 +22,7 @@ const UserInfoDataSchema = new mongoose.Schema({
 	},
 	phoneNo: {
 		type: Number,
-		default: '',
+		default: 9999999999,
 	},
 	address: {
 		type: String,
@@ -65,12 +50,8 @@ const UserSchema = new mongoose.Schema(
 			default: () => ({}),
 		},
 		ordersData: {
-			type: OrderSchema,
-			default: () => ({}),
-		},
-		views: {
-			type: Number,
-			default: 0,
+			type: [OrderSchema],
+			default: [],
 		},
 	},
 	{ timestamps: true }

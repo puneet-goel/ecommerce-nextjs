@@ -1,0 +1,50 @@
+{
+  "coupons":
+  [
+    {
+      "reason": "On Your First Shopping With Us",
+      "save": "SAVE 20%",
+      "code": "FIRSTORDER20"
+    },
+    {
+      "reason": "Special Discount Coupon",
+      "save": "SAVE 75%",
+      "code": "SPECIAL75"
+    },
+    {
+      "reason": "HALF PRICE",
+      "save": "SAVE 50%",
+      "code": "HALF50"
+    },
+    {
+      "reason": "25% Discount",
+      "save": "SAVE 25%",
+      "code": "QUARTER25"
+    },
+    {
+      "reason": "FREE GIFT",
+      "save": "Gift",
+      "code": "GIFTGIFT"
+    },
+    {
+      "reason": "FLAT 500₹ OFF",
+      "save": "SAVE 500₹",
+      "code": "FLAT500"
+    },
+    {
+      "reason": "FLAT 200₹ OFF",
+      "save": "SAVE 200₹",
+      "code": "FLAT200"
+    },
+    {
+      "reason": "FLAT 100₹ OFF",
+      "save": "SAVE 100₹",
+      "code": "FLAT100"
+    },
+    {
+      "reason": "FREE SHIPPING",
+      "save": "Shipping",
+      "code": "FREESHIP"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import Product from 'models/Product.js';
+import User from 'models/User.js';
 import dbConnect from 'connections/mongodb.js';
 import userAuthencation from 'firebase-auth/firebase-admin.js';
 import cloudinary from 'connections/cloudinary.js';
@@ -39,6 +40,10 @@ const handlePost = async (req, res) => {
 		});
 
 		await newProduct.save();
+
+		const user = await User.findOne({ email });
+		user.products.push(newProduct._id);
+		await user.save();
 
 		return res.status(201).json({ message: 'ok', data: newProduct });
 	} catch (err) {

@@ -7,10 +7,18 @@ import {
 	updatePassword,
 } from 'firebase/auth';
 import { firebaseAuth } from 'connections/firebaseClient.js';
+import axios from 'axios';
 
 export const signup = async (email, password) => {
 	try {
-		await createUserWithEmailAndPassword(firebaseAuth, email, password);
+		const auth = await createUserWithEmailAndPassword(
+			firebaseAuth,
+			email,
+			password
+		);
+
+		await axios.post('/api/user', { email: auth.user.email });
+
 		return true;
 	} catch (err) {
 		console.error(err.message);
