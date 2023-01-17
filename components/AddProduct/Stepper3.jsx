@@ -18,6 +18,7 @@ const Stepper3 = ({
 	category,
 	setData,
 	handleBack,
+	editMode,
 }) => {
 	const formik = useFormik({
 		initialValues: {
@@ -123,7 +124,7 @@ const Stepper3 = ({
 						Back
 					</button>
 					<button type='submit' className='button button_outlined'>
-						Add
+						{editMode ? 'Update' : 'Add'}
 					</button>
 				</div>
 			</form>

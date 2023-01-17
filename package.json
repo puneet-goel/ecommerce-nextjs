@@ -23,6 +23,7 @@
     "firebase": "^9.15.0",
     "firebase-admin": "^11.4.1",
     "formik": "^2.2.9",
+    "html-react-parser": "^3.0.8",
     "moment": "^2.29.4",
     "mongoose": "^6.8.2",
     "next": "13.0.6",

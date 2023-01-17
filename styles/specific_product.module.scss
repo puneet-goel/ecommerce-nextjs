@@ -1,0 +1,242 @@
+@use "styles/variable";
+
+.specific_product_container {
+  padding: 2em;
+
+  .product_wrapper {
+    display: block;
+
+    .product_image {
+      width: 100%;
+      margin-bottom: 1em;
+      height: auto;
+
+      @media all and (min-width: 768px) {
+        width: 40%;
+        height: 300px;
+        padding: 1em;
+        border-radius: 35px;
+        position: sticky;
+        top: variable.$navbar-height;
+      }
+    }
+
+    .product_content {
+      padding: 1em;
+      flex-grow: 1;
+      border: 1px solid variable.$light-grey-color;
+      border-radius: 35px;
+
+      h1,
+      h3 {
+        font-family: variable.$verdana-font;
+        text-align: center;
+      }
+
+      .retailer {
+        font-family: variable.$cursive-font;
+        color: variable.$cyan-color;
+      }
+
+      .product_rating {
+        display: flex;
+        align-items: center;
+        font-size: larger;
+
+        .golden_svg {
+          color: variable.$golden-star-color;
+        }
+
+        span {
+          margin-left: 0.3em;
+        }
+      }
+
+      .product_pricing {
+        margin: auto;
+        width: min(100%, 350px);
+        border: 1px solid variable.$light-grey-color;
+        border-collapse: collapse;
+
+        td,
+        th {
+          padding: 0.5em;
+          border: 1px solid variable.$light-grey-color;
+
+          span {
+            font-size: x-large;
+            font-weight: bolder;
+            margin: 0 0.3em;
+            color: variable.$danger-color;
+          }
+        }
+
+        th {
+          font-size: large;
+        }
+      }
+
+      .product_options_available {
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid variable.$light-grey-color;
+        border-collapse: collapse;
+
+        th {
+          padding: 0.5em;
+          border: 1px solid variable.$light-grey-color;
+          border-radius: 8px;
+
+          p {
+            color: variable.$cyan-color;
+          }
+        }
+      }
+
+      .created_at {
+        text-align: end;
+        color: variable.$grey-color;
+        font-style: italic;
+      }
+
+      .product_specs {
+        display: flex;
+        flex-wrap: wrap;
+
+        &>div {
+          padding: 1em;
+          margin: 1em;
+          border: 1px solid variable.$light-grey-color;
+          border-radius: 8px;
+          width: 100px;
+          text-align: center;
+        }
+      }
+
+      h4 {
+        margin-top: 2em;
+
+        span {
+          color: variable.$danger-color;
+        }
+      }
+
+      .product_options_available,
+      .product_pricing,
+      .retailer,
+      .created_at,
+      h3 {
+        margin-top: 1em;
+      }
+
+      .product_rating {
+        margin-top: 0.5em;
+      }
+    }
+
+    @media all and (min-width: 768px) {
+      display: flex;
+    }
+  }
+
+  hr {
+    margin: 1em 0;
+    border-top: 0;
+    border-color: variable.$light-grey-color;
+  }
+
+  @media all and (max-width: 768px) {
+    padding: 1em;
+  }
+}
+
+.product_reviews {
+  display: flex;
+
+  .review_button {
+    width: 40%;
+    text-align: center;
+
+    button {
+      width: min(400px, 80%);
+    }
+  }
+
+  .reviews {
+    flex-grow: 1;
+
+    .review_box {
+      border: 1px solid variable.$light-grey-color;
+      padding: 1em;
+      border-radius: 30px;
+      flex-direction: column;
+      display: flex;
+      margin: 0 auto 1em auto;
+
+      .review_header {
+        display: flex;
+        align-items: center;
+        font-family: initial;
+        font-size: x-large;
+        margin-bottom: 0.3em;
+
+        span {
+          font-style: italic;
+          font-size: small;
+          color: variable.$grey-color;
+          margin-left: 1em;
+        }
+      }
+
+      .review_time {
+        text-align: end;
+        font-style: italic;
+        font-size: small;
+        color: variable.$grey-color;
+      }
+
+      .review_rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1em;
+
+        strong {
+          margin-left: 0.5em;
+        }
+      }
+    }
+  }
+
+  .review_modal_header {
+    font-family: variable.$button-font-family;
+    text-align: center;
+  }
+
+  .review_modal_rating {
+    display: flex;
+    align-items: center;
+    margin: 2em 0 1em 0;
+
+    strong {
+      margin-left: 1em;
+      font-size: x-large;
+    }
+  }
+
+  .review_modal_button {
+    margin-top: 1em;
+  }
+
+  @media all and (max-width: 768px) {
+    display: block;
+
+    .review_button {
+      width: 100%;
+      margin-bottom: 1em;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

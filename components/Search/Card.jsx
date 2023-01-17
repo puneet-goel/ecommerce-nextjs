@@ -25,11 +25,11 @@ const Card = ({ product }) => {
 
 	return (
 		<Link
-			href={`/product/${product._id}`}
+			href={`/search/${product._id}`}
 			className={`${styles.card} elevation`}
 		>
 			<Image
-				src='/carts.png'
+				src={product.image.file}
 				alt='product'
 				className={styles.card_image}
 				width={200}

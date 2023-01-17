@@ -155,6 +155,7 @@ const AddProductComponent = ({
 					quantity={data.quantity}
 					perUnitPrice={data.perUnitPrice}
 					category={data.category}
+					editMode={editMode}
 					setData={setData}
 				/>
 			)}

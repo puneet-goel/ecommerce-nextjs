@@ -22,7 +22,7 @@ export async function getStaticProps() {
 		};
 	} catch (err) {
 		return {
-			props: { data: [] },
+			props: { data: JSON.stringify([]) },
 			revalidate: 3,
 		};
 	}

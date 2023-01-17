@@ -25,7 +25,7 @@ const Footer = ({ email }) => {
 								<Link href='/search'>Search Products</Link>
 							</li>
 							<li>
-								<Link href='/order-history'>Your Orders</Link>
+								<Link href='/order-history'>Past Orders</Link>
 							</li>
 							<li>
 								<Link href='/coupons'>Coupons</Link>

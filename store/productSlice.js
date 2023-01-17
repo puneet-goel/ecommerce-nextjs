@@ -55,34 +55,6 @@ export const addProduct = createAsyncThunk(
 	}
 );
 
-// export const updateView = createAsyncThunk(
-// 	'product/updateView',
-// 	async (productId) => {
-// 		const {
-// 			data: { data },
-// 		} = await axios.patch(
-// 			'/api/product/updateView/',
-// 			{
-// 				productId: productId,
-// 			},
-// 			payloadHeader
-// 		);
-
-// 		return data;
-// 	}
-// );
-
-// export const updateVote = createAsyncThunk(
-// 	'product/updateVote',
-// 	async (voteData) => {
-// 		const {
-// 			data: { data },
-// 		} = await axios.patch('/api/product/updateVote/', voteData, payloadHeader);
-
-// 		return data;
-// 	}
-// );
-
 const initialState = {
 	products: [],
 };
@@ -110,20 +82,6 @@ const productSlice = createSlice({
 			.addCase(addProduct.fulfilled, (state, action) => {
 				state.products.push(action.payload);
 			});
-		// .addCase(updateView.fulfilled, (state, action) => {
-		// 	state.products.forEach((cur, idx) => {
-		// 		if (cur._id === action.payload._id) {
-		// 			state.products[idx] = action.payload;
-		// 		}
-		// 	});
-		// })
-		// .addCase(updateVote.fulfilled, (state, action) => {
-		// 	state.products.forEach((cur, idx) => {
-		// 		if (cur._id === action.payload._id) {
-		// 			state.products[idx] = action.payload;
-		// 		}
-		// 	});
-		// });
 	},
 });
 

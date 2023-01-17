@@ -23,10 +23,13 @@ const userAuthencation = async (req, res) => {
 		}
 
 		const decodedToken = await admin.auth().verifyIdToken(token);
+		if (!decodedToken.email) {
+			return res.status(401).json({ message: 'Unauthorized' });
+		}
+
 		return decodedToken;
 	} catch (err) {
-		console.log(err);
-		return res.status(500).json({ message: 'Sever Error' });
+		return res.status(500).json({ message: err.message });
 	}
 };
 

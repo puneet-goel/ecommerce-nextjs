@@ -66,6 +66,10 @@ const ProductSchema = new mongoose.Schema(
 			default: 0,
 			max: 5,
 		},
+		views: {
+			type: Number,
+			default: 1,
+		},
 	},
 	{ timestamps: true }
 );
