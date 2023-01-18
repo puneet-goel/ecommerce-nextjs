@@ -1,4 +1,4 @@
-import CouponsComponent from 'components/CouponsComponent/CouponsComponent.jsx';
+import CouponsComponent from 'components/Coupons/Coupons.jsx';
 import CouponsJson from 'utility/coupons.json';
 
 const Coupons = ({ data }) => {

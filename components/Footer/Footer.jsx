@@ -1,6 +1,9 @@
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Link from 'next/link';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import EmailIcon from '@mui/icons-material/Email';
 import Fab from '@mui/material/Fab';
 import styles from 'styles/footer.module.scss';
 import { logout } from 'firebase-auth/firebase-client.js';
@@ -53,7 +56,7 @@ const Footer = ({ email }) => {
 						<h3> Get to Know Us </h3>
 						<ul>
 							<li>
-								<Link href='/about'>About us</Link>
+								<Link href='/about'>About Us</Link>
 							</li>
 						</ul>
 					</div>
@@ -84,6 +87,30 @@ const Footer = ({ email }) => {
 								Logout
 							</li>
 						</ul>
+					</div>
+				</div>
+				<div className={styles.contact_us}>
+					<h1>Emart</h1>
+					<div className={styles.contact_wrapper}>
+						<p>Contact Us</p>
+						<div className={styles.contact_icons}>
+							<Link href='https://github.com/puneet-goel' legacyBehavior>
+								<a target='_blank' rel='noopener noreferrer'>
+									<GitHubIcon />
+								</a>
+							</Link>
+							<Link
+								href='https://www.linkedin.com/in/gl-puneet/'
+								legacyBehavior
+							>
+								<a target='_blank' rel='noopener noreferrer'>
+									<LinkedInIcon />
+								</a>
+							</Link>
+							<Link href='mailto:puneetgoel016@gmail.com'>
+								<EmailIcon />
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -45,7 +45,7 @@ const CouponsComponent = ({ coupons }) => {
 			<div className={styles.coupons_container}>
 				{coupons.map((cur, idx) => {
 					return (
-						<div className={styles.coupon_wrapper} key={idx}>
+						<div className={`${styles.coupon_wrapper} elevation`} key={idx}>
 							<span className={styles.coupon_left_circle} />
 							<span className={styles.coupon_right_circle} />
 

@@ -25,7 +25,6 @@ const LoginComponent = () => {
 		const toastID = toast.loading('Logging in');
 		const status = await login(data.email, data.password);
 		if (status) {
-			toast.dismiss(toastID);
 			router.push('/');
 		} else {
 			toast.update(toastID, {

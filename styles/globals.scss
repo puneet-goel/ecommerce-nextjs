@@ -226,7 +226,7 @@ button {
         }
 
         @media all and (min-width: 1200px) {
-          height: 400px;
+          height: 450px;
         }
 
         @media all and (min-width: 1800px) {
@@ -319,4 +319,14 @@ button {
       }
     }
   }
+}
+
+.img_magnifier_glass {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
 }

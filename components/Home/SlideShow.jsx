@@ -43,7 +43,7 @@ const SlideShow = ({ id, data, title = '' }) => {
 									width='2560'
 									height='500'
 									key={idx}
-									className={`carousel_slide fade carousel_slide${id}`}
+									className={`carousel_slide fade carousel_slide${id} elevation`}
 									alt={`${title} slideshow`}
 									priority={idx === 0}
 								/>

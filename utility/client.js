@@ -79,3 +79,87 @@ export const toBase64 = (file) =>
 		reader.onload = () => resolve(reader.result);
 		reader.onerror = (error) => reject(error);
 	});
+
+export const magnify = (imgID, zoom) => {
+	if (!window) return;
+	let img = document.getElementById(imgID);
+	let glass = document.getElementsByClassName('img_magnifier_glass');
+
+	if (!img || glass.length === 0) return;
+	glass = glass[0];
+
+	/*set background properties for the magnifier glass:*/
+	glass.style.backgroundImage = "url('" + img.src + "')";
+	glass.style.backgroundSize =
+		img.width * zoom + 'px ' + img.height * zoom + 'px';
+	let bw = 3;
+	let w = glass.offsetWidth / 2;
+	let h = glass.offsetHeight / 2;
+
+	/*execute a function when someone moves the magnifier glass over the image:*/
+	glass.addEventListener('mousemove', moveMagnifier);
+	img.addEventListener('mousemove', moveMagnifier);
+	img.addEventListener('mouseout', removeMagnifier);
+	glass.addEventListener('mouseout', removeMagnifier);
+
+	/*and also for touch screens:*/
+	glass.addEventListener('touchmove', moveMagnifier);
+	img.addEventListener('touchmove', moveMagnifier);
+	img.addEventListener('touchend', removeMagnifier);
+	glass.addEventListener('touchend', removeMagnifier);
+
+	function removeMagnifier(e) {
+		e.preventDefault();
+		glass.style.display = 'none';
+		glass.style.border = '0px';
+	}
+
+	function moveMagnifier(e) {
+		e.preventDefault();
+
+		glass.style.display = 'block';
+		glass.style.border = '3px solid floralwhite';
+
+		/* Get the cursor's x and y positions: */
+		let { x, y } = getCursorPos(e);
+
+		/* Prevent the magnifier glass from being positioned outside the image: */
+		if (x > img.width - w / zoom) {
+			x = img.width - w / zoom;
+		}
+		if (x < w / zoom) {
+			x = w / zoom;
+		}
+		if (y > img.height - h / zoom) {
+			y = img.height - h / zoom;
+		}
+		if (y < h / zoom) {
+			y = h / zoom;
+		}
+
+		/* Set the position of the magnifier glass: */
+		glass.style.left = x - w + 'px';
+		glass.style.top = y - h + 'px';
+
+		/* Display what the magnifier glass "sees": */
+		glass.style.backgroundPosition =
+			'-' + (x * zoom - w + bw) + 'px -' + (y * zoom - h + bw) + 'px';
+	}
+
+	function getCursorPos(e) {
+		e = e || window.event;
+
+		/* Get the x and y positions of the image: */
+		let a = img.getBoundingClientRect();
+
+		/* Calculate the cursor's x and y coordinates, relative to the image: */
+		let x = e.pageX - a.left;
+		let y = e.pageY - a.top;
+
+		/* Consider any page scrolling: */
+		x = x - window.pageXOffset;
+		y = y - window.pageYOffset;
+
+		return { x: x, y: y };
+	}
+};

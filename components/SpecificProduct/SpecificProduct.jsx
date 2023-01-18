@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Image from 'next/Image';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -6,8 +7,13 @@ import styles from 'styles/specific_product.module.scss';
 import moment from 'moment';
 import Reviews from './Reviews';
 import parse from 'html-react-parser';
+import { magnify } from 'utility/client.js';
 
 const SpecificProductComponent = ({ product }) => {
+	useEffect(() => {
+		magnify('product_image_zoom', 3);
+	}, []);
+
 	if (!product) {
 		return <h1 className='min_container_height'>No such product</h1>;
 	}
@@ -19,14 +25,18 @@ const SpecificProductComponent = ({ product }) => {
 	return (
 		<div className={styles.specific_product_container}>
 			<div className={styles.product_wrapper}>
-				<Image
-					src={product.image.file}
-					width={1024}
-					height={400}
-					alt='product'
-					className={styles.product_image}
-					priority
-				/>
+				<div className={styles.image_wrapper}>
+					<div className='img_magnifier_glass' />
+					<Image
+						src={product.image.file}
+						width={1024}
+						height={400}
+						alt='product'
+						className={styles.product_image}
+						id='product_image_zoom'
+						priority
+					/>
+				</div>
 				<div className={`${styles.product_content} elevation`}>
 					<h1>{product.title}</h1>
 					<h3>({product.category})</h3>
@@ -111,7 +121,7 @@ const SpecificProductComponent = ({ product }) => {
 							<tr>
 								<th>
 									<Image
-										src='/fast-delivery.png'
+										src='/product/fast-delivery.png'
 										width='60'
 										height='60'
 										alt='delivery'
@@ -120,7 +130,7 @@ const SpecificProductComponent = ({ product }) => {
 								</th>
 								<th>
 									<Image
-										src='/cash-on-delivery.png'
+										src='/product/cash-on-delivery.png'
 										width='60'
 										height='60'
 										alt='delivery'
