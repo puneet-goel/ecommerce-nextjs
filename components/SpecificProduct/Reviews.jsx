@@ -22,7 +22,7 @@ const TextEditor = dynamic(
 	}
 );
 
-const Reviews = ({ reviews, _id }) => {
+const Reviews = ({ reviews, _id, setProductData }) => {
 	const [modal, setModal] = useState(false);
 	const [textData, setTextData] = useState('');
 	const [value, setValue] = useState(2.5);
@@ -41,9 +41,7 @@ const Reviews = ({ reviews, _id }) => {
 	const handleReviewSubmit = async (e) => {
 		const toastID = toast.loading('Submitting your review');
 		try {
-			const {
-				data: { message },
-			} = await axios.post(
+			const { data } = await axios.post(
 				'/api/product/review',
 				{
 					message: textData,
@@ -53,7 +51,8 @@ const Reviews = ({ reviews, _id }) => {
 				payloadHeader()
 			);
 
-			if (message === 'ok') {
+			if (data.message === 'ok') {
+				setProductData(data.data);
 				toast.update(toastID, {
 					render: 'Successfully added you review',
 					type: 'success',
@@ -61,9 +60,6 @@ const Reviews = ({ reviews, _id }) => {
 					isLoading: false,
 					autoClose: 3000,
 				});
-				if (window) {
-					window.location.reload();
-				}
 			} else {
 				throw 'Error';
 			}

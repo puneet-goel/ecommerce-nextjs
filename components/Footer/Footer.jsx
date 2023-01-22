@@ -34,7 +34,7 @@ const Footer = ({ email }) => {
 								<Link href='/coupons'>Coupons</Link>
 							</li>
 							<li>
-								<Link href='/cart'>Shop</Link>
+								<Link href='/cart'>Cart</Link>
 							</li>
 						</ul>
 					</div>

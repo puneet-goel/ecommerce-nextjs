@@ -163,3 +163,68 @@ export const magnify = (imgID, zoom) => {
 		return { x: x, y: y };
 	}
 };
+
+export const initCart = () => {
+	if (!window) return [];
+
+	const temp = localStorage.getItem('cart');
+	if (!temp) {
+		localStorage.setItem('cart', '[]');
+		return [];
+	} else {
+		return JSON.parse(temp);
+	}
+};
+
+export const addItemToCart = ({ _id, product_name, quantity, price }) => {
+	if (!window) return [];
+
+	let cart = initCart();
+	if (quantity <= 0) return cart;
+
+	cart.push({
+		_id,
+		product_name,
+		quantity,
+		price,
+	});
+
+	localStorage.setItem('cart', JSON.stringify(cart));
+	return cart;
+};
+
+export const getCartItem = ({ _id }) => {
+	let cart = initCart();
+	const exists = cart.find((item) => item._id === _id);
+	return exists;
+};
+
+export const removeCartItem = ({ _id }) => {
+	if (!window) return [];
+
+	let cart = initCart();
+	cart = cart.filter((item) => item._id !== _id);
+
+	localStorage.setItem('cart', JSON.stringify(cart));
+	return cart;
+};
+
+export const updateCartItem = ({ _id, product_name, quantity, price }) => {
+	if (!window) return [];
+
+	let cart = initCart();
+	if (quantity <= 0) return removeCartItem({ _id });
+
+	const exists = getCartItem({ _id });
+	if (!exists) return addItemToCart({ _id, product_name, quantity, price });
+
+	cart = cart.map((item) => {
+		if (item._id === _id) {
+			return { _id, product_name, quantity, price };
+		}
+		return item;
+	});
+
+	localStorage.setItem('cart', JSON.stringify(cart));
+	return cart;
+};

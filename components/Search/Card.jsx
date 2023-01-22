@@ -7,21 +7,39 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import styles from 'styles/search/card.module.scss';
+import { updateCartItem, getCartItem } from 'utility/client.js';
 
 const Card = ({ product }) => {
 	const [sale, setSale] = useState(() => false);
+	const [quantity, setQuantity] = useState(0);
 	const filledStars = Math.floor(product.rating);
 	const halfStars = product.rating - Math.floor(product.rating) > 0 ? 1 : 0;
 	const emptyStars = 5 - filledStars - halfStars;
 
 	const handleCart = (operation) => (event) => {
 		event.preventDefault();
-		console.log(operation);
+		updateCartItem({
+			_id: product._id,
+			product_name: product.title,
+			quantity: quantity + operation,
+			price: product.perUnitPrice,
+		});
+
+		const item = getCartItem({ _id: product._id });
+		if (item) {
+			setQuantity(item.quantity);
+		} else {
+			setQuantity(0);
+		}
 	};
 
 	useEffect(() => {
 		if (Math.random() > 0.5) setSale(true);
-	}, []);
+		const item = getCartItem({ _id: product._id });
+		if (item) {
+			setQuantity(item.quantity);
+		}
+	}, [product._id]);
 
 	return (
 		<Link
@@ -62,7 +80,7 @@ const Card = ({ product }) => {
 				onClick={(e) => e.preventDefault()}
 			>
 				<AddIcon fontSize='large' onClick={handleCart(1)} />
-				{'asds'}
+				{quantity}
 				<RemoveIcon fontSize='large' onClick={handleCart(-1)} />
 			</div>
 		</Link>

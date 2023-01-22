@@ -1,0 +1,74 @@
+@use "styles/variable";
+
+.cart_wrapper {
+  h1 {
+    margin-bottom: 1em;
+    text-align: center;
+    font-family: variable.$cursive-font;
+  }
+
+  .cart_container {
+    display: flex;
+    padding: 1em;
+
+    .cart_products {
+      padding: 1em;
+      overflow: scroll;
+      width: 65%;
+
+      table {
+        margin-top: 1em;
+        font-family: variable.$verdana-font;
+        border-collapse: collapse;
+        width: 100%;
+
+        .table_controls {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+        }
+      }
+
+      table th {
+        color: variable.$grey-color;
+      }
+
+      table td,
+      table th {
+        border: 1px solid variable.$grey-color;
+        border-width: 1px 0;
+        padding: 0.4em;
+      }
+
+      table tr:nth-child(odd) {
+        background-color: variable.$white-color;
+      }
+
+      table tr:nth-child(even) {
+        background-color: variable.$default-background-color;
+      }
+
+      table tr:hover {
+        background-color: variable.$hover-grey-color;
+      }
+
+      table th {
+        padding: 0.8em;
+        text-align: left;
+      }
+    }
+
+    .cart_bill {
+      width: 35%;
+    }
+
+    @media all and (max-width: 1000px) {
+      display: block;
+
+      .cart_products,
+      .cart_bill {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/Image';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -10,16 +10,18 @@ import parse from 'html-react-parser';
 import { magnify } from 'utility/client.js';
 
 const SpecificProductComponent = ({ product }) => {
+	const [productData, setProductData] = useState(product);
 	useEffect(() => {
 		magnify('product_image_zoom', 3);
 	}, []);
 
-	if (!product) {
-		return <h1 className='min_container_height'>No such product</h1>;
+	if (!productData) {
+		return <h1 className='min_container_height'>No such productData</h1>;
 	}
 
-	const filledStars = Math.floor(product.rating);
-	const halfStars = product.rating - Math.floor(product.rating) > 0 ? 1 : 0;
+	const filledStars = Math.floor(productData.rating);
+	const halfStars =
+		productData.rating - Math.floor(productData.rating) > 0 ? 1 : 0;
 	const emptyStars = 5 - filledStars - halfStars;
 
 	return (
@@ -28,7 +30,7 @@ const SpecificProductComponent = ({ product }) => {
 				<div className={styles.image_wrapper}>
 					<div className='img_magnifier_glass' />
 					<Image
-						src={product.image.file}
+						src={productData.image.file}
 						width={1024}
 						height={400}
 						alt='product'
@@ -38,13 +40,13 @@ const SpecificProductComponent = ({ product }) => {
 					/>
 				</div>
 				<div className={`${styles.product_content} elevation`}>
-					<h1>{product.title}</h1>
-					<h3>({product.category})</h3>
+					<h1>{productData.title}</h1>
+					<h3>({productData.category})</h3>
 					<p className={styles.retailer}>
-						<strong>Retailer:</strong> {product.retailer}
+						<strong>Retailer:</strong> {productData.retailer}
 					</p>
 					<p className={styles.created_at}>
-						{moment(product.createdAt).fromNow()}
+						{moment(productData.createdAt).fromNow()}
 					</p>
 					<div className={styles.product_rating}>
 						{[...Array(filledStars).keys()].map((id) => {
@@ -57,7 +59,7 @@ const SpecificProductComponent = ({ product }) => {
 							return <StarBorderIcon key={id} className={styles.golden_svg} />;
 						})}
 						<span>
-							{product.rating} ({product.reviews.length} reviews)
+							{productData.rating} ({productData.reviews.length} reviews)
 						</span>
 					</div>
 					<table className={styles.product_pricing}>
@@ -68,7 +70,7 @@ const SpecificProductComponent = ({ product }) => {
 							<tr>
 								<td>
 									<strong>M.R.P.:</strong>
-									<span>&#8377;{product.perUnitPrice}</span>
+									<span>&#8377;{productData.perUnitPrice}</span>
 								</td>
 							</tr>
 							<tr>
@@ -80,32 +82,32 @@ const SpecificProductComponent = ({ product }) => {
 							<tr>
 								<td>
 									<strong>Effective Price:</strong>
-									<span>&#8377;{product.perUnitPrice * 1.18}</span>
+									<span>&#8377;{productData.perUnitPrice * 1.18}</span>
 									(inclusive of all taxes)
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<h3>
-						{!!product.description
-							? parse(product.description)
+						{!!productData.description
+							? parse(productData.description)
 							: 'No Description'}
 					</h3>
 					<h4>
-						Available Quantity: <span>{product.quantity}</span>
+						Available Quantity: <span>{productData.quantity}</span>
 					</h4>
-					<h4> Available Sizes: {product.size === '' && '0'}</h4>
+					<h4> Available Sizes: {productData.size === '' && '0'}</h4>
 					<div className={styles.product_specs}>
-						{product.size.split(',').map((cur, idx) => {
+						{productData.size.split(',').map((cur, idx) => {
 							let x = cur.trim();
 							if (x === '') return null;
 							return <div key={idx}> {cur}</div>;
 						})}
 					</div>
 
-					<h4> Available Colors: {product.color === '' && '0'}</h4>
+					<h4> Available Colors: {productData.color === '' && '0'}</h4>
 					<div className={styles.product_specs}>
-						{product.color.split(',').map((cur, idx) => {
+						{productData.color.split(',').map((cur, idx) => {
 							let x = cur.trim();
 							if (x === '') return null;
 							return (
@@ -143,7 +145,11 @@ const SpecificProductComponent = ({ product }) => {
 				</div>
 			</div>
 			<hr />
-			<Reviews reviews={product.reviews} _id={product._id} />
+			<Reviews
+				reviews={productData.reviews}
+				_id={productData._id}
+				setProductData={setProductData}
+			/>
 		</div>
 	);
 };
