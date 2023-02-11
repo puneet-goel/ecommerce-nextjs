@@ -2,17 +2,30 @@
 
 .cart_wrapper {
   h1 {
-    margin-bottom: 1em;
-    text-align: center;
+    display: flex;
+    margin: 1em 0;
+    align-items: center;
+    justify-content: center;
     font-family: variable.$cursive-font;
+
+    img {
+      margin-right: 8px;
+    }
+  }
+
+  hr {
+    border: 1px solid variable.$light-grey-color;
+    border-bottom: 0;
   }
 
   .cart_container {
     display: flex;
-    padding: 1em;
+    border-top: 1px solid variable.$light-grey-color;
+    min-height: 80vh;
 
     .cart_products {
-      padding: 1em;
+      padding: 3em 2em;
+      border-right: 1px solid variable.$light-grey-color;
       overflow: scroll;
       width: 65%;
 
@@ -22,22 +35,30 @@
         border-collapse: collapse;
         width: 100%;
 
+        svg {
+          cursor: pointer;
+        }
+
         .table_controls {
           display: flex;
           align-items: center;
           justify-content: space-evenly;
-        }
-      }
 
-      table th {
-        color: variable.$grey-color;
+          svg {
+            background-color: variable.$dark-cyan-color;
+            border-radius: 50%;
+            color: variable.$white-color;
+          }
+        }
       }
 
       table td,
       table th {
         border: 1px solid variable.$grey-color;
         border-width: 1px 0;
+        border-color: variable.$light-grey-color;
         padding: 0.4em;
+        text-align: center;
       }
 
       table tr:nth-child(odd) {
@@ -54,20 +75,72 @@
 
       table th {
         padding: 0.8em;
-        text-align: left;
       }
+
+
     }
 
     .cart_bill {
       width: 35%;
+      padding: 2em 2em;
+
+      hr {
+        margin: 1em 0;
+      }
+
+      h2,
+      h3 {
+        margin-bottom: 1em;
+      }
+
+      a {
+        color: variable.$dark-cyan-color;
+      }
+
+      button {
+        margin-top: 1em;
+        color: variable.$success-color;
+        border-color: variable.$success-color;
+      }
+
+      .coupon_applied {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1em;
+
+        p:nth-child(2) {
+          color: variable.$danger-color;
+          font-weight: 900;
+        }
+      }
+
+      .bill_detail {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.3em 0;
+
+        p:nth-child(1) {
+          color: variable.$grey-color;
+        }
+
+        svg {
+          color: variable.$black-color;
+        }
+      }
     }
 
-    @media all and (max-width: 1000px) {
+    @media all and (max-width: 768px) {
       display: block;
 
       .cart_products,
       .cart_bill {
         width: 100%;
+      }
+
+      .cart_products {
+        padding: 2em;
+        border-right: 0;
+        border-bottom: 1px solid variable.$light-grey-color;
       }
     }
   }

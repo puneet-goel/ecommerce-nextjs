@@ -16,13 +16,24 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import { logout } from 'firebase-auth/firebase-client.js';
-import { stringToColor, getUserEmail } from 'utility/client.js';
+import { stringToColor, getUserEmail, initCart } from 'utility/client.js';
 import cartLogo from 'public/shopping-cart.png';
 import Image from 'next/Image';
 
 const Navbar = () => {
 	const [email, setEmail] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [cartItems, setCartItems] = useState(0);
+
+	//either redux or pooling
+	//preferring pooling over redux just for learning purpose
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setCartItems(initCart().length);
+		}, 1000);
+
+		return () => clearInterval(intervalId);
+	}, []);
 
 	useEffect(() => {
 		const x = getUserEmail();
@@ -34,7 +45,6 @@ const Navbar = () => {
 		setLoading(false);
 	}, []);
 
-	const [cartItems, setCartItems] = useState('0');
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -139,7 +149,7 @@ const Navbar = () => {
 						aria-label='show products in cart'
 						color='inherit'
 					>
-						<Badge badgeContent={cartItems} color='error'>
+						<Badge badgeContent={cartItems ? cartItems : '0'} color='error'>
 							<ShoppingCartIcon />
 						</Badge>
 					</IconButton>
@@ -239,7 +249,10 @@ const Navbar = () => {
 									aria-label='show products in cart'
 									color='inherit'
 								>
-									<Badge badgeContent={cartItems} color='error'>
+									<Badge
+										badgeContent={cartItems ? cartItems : '0'}
+										color='error'
+									>
 										<ShoppingCartIcon />
 									</Badge>
 								</IconButton>

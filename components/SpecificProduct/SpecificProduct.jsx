@@ -8,6 +8,7 @@ import moment from 'moment';
 import Reviews from './Reviews';
 import parse from 'html-react-parser';
 import { magnify } from 'utility/client.js';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
 
 const SpecificProductComponent = ({ product }) => {
 	const [productData, setProductData] = useState(product);
@@ -38,6 +39,10 @@ const SpecificProductComponent = ({ product }) => {
 						id='product_image_zoom'
 						priority
 					/>
+					<p className={styles.image_zoom_description}>
+						<ZoomInIcon />
+						Hover over image to view magnified view.
+					</p>
 				</div>
 				<div className={`${styles.product_content} elevation`}>
 					<h1>{productData.title}</h1>

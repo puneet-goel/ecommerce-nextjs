@@ -176,7 +176,13 @@ export const initCart = () => {
 	}
 };
 
-export const addItemToCart = ({ _id, product_name, quantity, price }) => {
+export const addItemToCart = ({
+	_id,
+	product_name,
+	quantity,
+	price,
+	image,
+}) => {
 	if (!window) return [];
 
 	let cart = initCart();
@@ -187,6 +193,7 @@ export const addItemToCart = ({ _id, product_name, quantity, price }) => {
 		product_name,
 		quantity,
 		price,
+		image,
 	});
 
 	localStorage.setItem('cart', JSON.stringify(cart));
@@ -209,18 +216,25 @@ export const removeCartItem = ({ _id }) => {
 	return cart;
 };
 
-export const updateCartItem = ({ _id, product_name, quantity, price }) => {
+export const updateCartItem = ({
+	_id,
+	product_name,
+	quantity,
+	price,
+	image,
+}) => {
 	if (!window) return [];
 
 	let cart = initCart();
 	if (quantity <= 0) return removeCartItem({ _id });
 
 	const exists = getCartItem({ _id });
-	if (!exists) return addItemToCart({ _id, product_name, quantity, price });
+	if (!exists)
+		return addItemToCart({ _id, product_name, quantity, price, image });
 
 	cart = cart.map((item) => {
 		if (item._id === _id) {
-			return { _id, product_name, quantity, price };
+			return { _id, product_name, quantity, price, image };
 		}
 		return item;
 	});

@@ -23,6 +23,7 @@ const Card = ({ product }) => {
 			product_name: product.title,
 			quantity: quantity + operation,
 			price: product.perUnitPrice,
+			image: product.image.file,
 		});
 
 		const item = getCartItem({ _id: product._id });
@@ -79,9 +80,9 @@ const Card = ({ product }) => {
 				className={`badge ${styles.card_footer}`}
 				onClick={(e) => e.preventDefault()}
 			>
-				<AddIcon fontSize='large' onClick={handleCart(1)} />
-				{quantity}
 				<RemoveIcon fontSize='large' onClick={handleCart(-1)} />
+				{quantity}
+				<AddIcon fontSize='large' onClick={handleCart(1)} />
 			</div>
 		</Link>
 	);

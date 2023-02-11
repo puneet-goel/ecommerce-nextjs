@@ -26,6 +26,17 @@
           width: 30vw;
         }
       }
+
+      .image_zoom_description {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: variable.$grey-color;
+
+        svg {
+          padding-right: 6px;
+        }
+      }
     }
 
     .product_content {

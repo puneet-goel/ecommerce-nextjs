@@ -14,7 +14,7 @@ const CouponsComponent = ({ coupons }) => {
 	const handleCoupon = (code, save) => {
 		if (window) {
 			if (curCoupon === code) {
-				localStorage.setItem('curCoupon', 'No Coupon');
+				localStorage.setItem('couponCode', 'No Coupon');
 				localStorage.setItem('save', '0');
 				setCurCoupon('No Coupon');
 			} else {

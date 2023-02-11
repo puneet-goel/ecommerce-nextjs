@@ -1,28 +1,135 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import styles from 'styles/cart.module.scss';
-import { initCart, updateCartItem } from 'utility/client.js';
+import Image from 'next/Image';
+import {
+	initCart,
+	updateCartItem,
+	removeCartItem,
+	getUserEmail,
+} from 'utility/client.js';
+import Link from 'next/link';
+import Tooltip from '@mui/material/Tooltip';
+import HelpIcon from '@mui/icons-material/Help';
 
 const CartComponent = () => {
 	const [items, setItems] = useState([]);
+	const [code, setCode] = useState('No Coupon');
+	const [subtotal, setSubtotal] = useState(0);
+	const [discountMoney, setDiscountMoney] = useState(0);
+	const [delivery, setDelivery] = useState(0);
+
+	const router = useRouter();
 
 	useEffect(() => {
-		setItems(initCart());
+		const cart = initCart();
+		setItems(cart);
+		if (window) {
+			const x = localStorage.getItem('couponCode') || '';
+			if (x) {
+				setCode(x);
+			}
+		}
 	}, []);
+
+	useEffect(() => {
+		let total = items.reduce(
+			(prev, ele) => (prev += ele.quantity * ele.price),
+			0
+		);
+
+		if (total) {
+			setDelivery(100);
+		} else {
+			setDelivery(0);
+		}
+		setSubtotal(total);
+
+		let x = '';
+		if (window) {
+			x = localStorage.getItem('save');
+		}
+
+		if (total) total += 100;
+		let money = 0;
+
+		switch (x) {
+			case 'Shipping':
+				money = total === 0 ? 0 : 100;
+				break;
+			case 'Gift':
+				money = 0;
+				break;
+			case 'SAVE 20%':
+				money = total * 0.2;
+				break;
+			case 'SAVE 25%':
+				money = total * 0.25;
+				break;
+			case 'SAVE 50%':
+				money = total * 0.5;
+				break;
+			case 'SAVE 75%':
+				money = total * 0.75;
+				break;
+			case 'SAVE 500₹':
+				money = Math.min(500, total);
+				break;
+			case 'SAVE 200₹':
+				money = Math.min(200, total);
+				break;
+			case 'SAVE 100₹':
+				money = Math.min(100, total);
+				break;
+			default:
+				money = 0;
+				break;
+		}
+
+		setDiscountMoney(money);
+	}, [items]);
+
+	const placeOrder = (e) => {
+		e.preventDefault();
+		//call backend and update order and check user exists or not
+		const x = getUserEmail();
+
+		if (!x) {
+			return router.push('/login');
+		}
+
+		if (window) {
+			localStorage.setItem('couponCode', 'No Coupon');
+			localStorage.setItem('cart', '[]');
+			localStorage.setItem('save', '0');
+		}
+		router.push('/');
+	};
 
 	const handleUpdateCart = (cur) => {
 		updateCartItem(cur);
 		setItems(initCart());
 	};
 
+	const tax = (subtotal + delivery - discountMoney) * 0.18;
+
 	return (
 		<div className={styles.cart_wrapper}>
-			<h1>Cart</h1>
+			<h1>
+				<Image
+					src='/cart/shopping-bag.png'
+					alt='shopping bag'
+					width='50'
+					height='50'
+				/>
+				Your Cart
+			</h1>
 			<div className={styles.cart_container}>
 				<div className={styles.cart_products}>
-					<h3>Shopping Cart</h3>
+					<h2>Shopping Cart &nbsp; ({items.length} items)</h2>
 					<table>
 						<tbody>
 							<tr>
@@ -31,20 +138,23 @@ const CartComponent = () => {
 								<th>Price</th>
 								<th>Quantity</th>
 								<th>Subtotal</th>
+								<th>{''}</th>
 							</tr>
 							{items.map((cur, idx) => {
 								return (
 									<tr key={idx}>
 										<td>
-											<CloseIcon
-												onClick={(e) => {
-													removeCartItem({ _id: cur._id });
-													setItems(initCart());
-												}}
-											/>
+											<Link href={`/search/${cur._id}`}>
+												<Image
+													src={cur.image}
+													alt='product'
+													width='100'
+													height='100'
+												/>
+											</Link>
 										</td>
 										<td>{cur.product_name}</td>
-										<td>{cur.price}</td>
+										<td>{cur.price} &#8377;</td>
 										<td>
 											<div className={styles.table_controls}>
 												<RemoveIcon
@@ -66,7 +176,15 @@ const CartComponent = () => {
 												/>
 											</div>
 										</td>
-										<td>{cur.price * cur.quantity}</td>
+										<td>{cur.price * cur.quantity} &#8377;</td>
+										<td>
+											<CloseIcon
+												onClick={(e) => {
+													removeCartItem({ _id: cur._id });
+													setItems(initCart());
+												}}
+											/>
+										</td>
 									</tr>
 								);
 							})}
@@ -74,11 +192,50 @@ const CartComponent = () => {
 					</table>
 				</div>
 				<div className={styles.cart_bill}>
-					<h3>Cart Totals</h3>
-					<p>subtotal</p>
-					<p>delivery</p>
-					<p>tax</p>
-					<p>final</p>
+					<h2>Cart Totals</h2>
+
+					<div className={styles.coupon_applied}>
+						<p>Coupon Applied</p>
+						<p>{code}</p>
+					</div>
+
+					<div className={styles.bill_detail}>
+						<p title='subtutle'>Subtotal</p>
+						<p>{subtotal.toFixed(2)} &#8377;</p>
+					</div>
+
+					<div className={styles.bill_detail}>
+						<p>Shipping Cost</p>
+						<p>{delivery.toFixed(2)} &#8377;</p>
+					</div>
+
+					<div className={styles.bill_detail}>
+						<p>Discount</p>
+						<p>{discountMoney.toFixed(2)} &#8377;</p>
+					</div>
+
+					<div className={styles.bill_detail}>
+						<p>
+							Tax&nbsp;
+							<Tooltip title='18% GST' arrow>
+								<HelpIcon fontSize='small' />
+							</Tooltip>
+						</p>
+						<p>{tax.toFixed(2)} &#8377;</p>
+					</div>
+
+					<hr />
+					<div className={styles.bill_detail}>
+						<h3>Estimated Total</h3>
+						<h3>
+							{(subtotal + delivery - discountMoney + tax).toFixed(2)} &#8377;
+						</h3>
+					</div>
+
+					<Link href='/coupons'>Add a coupon and get a heavy discount.</Link>
+					<button className='button button_outlined' onClick={placeOrder}>
+						Place Order
+					</button>
 				</div>
 			</div>
 		</div>
