@@ -16,7 +16,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import { logout } from 'firebase-auth/firebase-client.js';
-import { stringToColor, getUserEmail, initCart } from 'utility/client.js';
+import { stringToColor, getUserEmail } from 'utility/client.js';
+import cart from 'utility/cart.js';
 import cartLogo from 'public/shopping-cart.png';
 import Image from 'next/Image';
 
@@ -29,7 +30,7 @@ const Navbar = () => {
 	//preferring pooling over redux just for learning purpose
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			setCartItems(initCart().length);
+			setCartItems(cart.getCart().length);
 		}, 1000);
 
 		return () => clearInterval(intervalId);

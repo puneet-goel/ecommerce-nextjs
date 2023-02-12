@@ -1,5 +1,7 @@
+import OrderHistoryComponent from 'components/OrderHistory/OrderHistory.jsx';
+
 const OrderHistory = () => {
-	return <p>Order History</p>;
+	return <OrderHistoryComponent />;
 };
 
 export default OrderHistory;

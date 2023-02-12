@@ -1,15 +1,31 @@
 import mongoose from 'mongoose';
 
-const OrderSchema = new mongoose.Schema({
-	products: [
-		{
-			productId: String,
-			quantity: Number,
-			perUnitPrice: Number,
+const OrderSchema = new mongoose.Schema(
+	{
+		products: [
+			{
+				productId: String,
+				productName: String,
+				quantity: Number,
+				perUnitPrice: Number,
+			},
+		],
+		totalAmount: Number,
+		paymentMode: {
+			type: String,
+			default: 'Cash on Delivery',
 		},
-	],
-	totalAmount: Number,
-});
+		deliveryStatus: {
+			type: String,
+			default: 'Processing',
+		},
+		eta: {
+			type: Date,
+			default: new Date(),
+		},
+	},
+	{ timestamps: true }
+);
 
 const UserInfoDataSchema = new mongoose.Schema({
 	firstName: {
@@ -47,7 +63,7 @@ const UserSchema = new mongoose.Schema(
 		},
 		infoData: {
 			type: UserInfoDataSchema,
-			default: () => ({}),
+			default: {},
 		},
 		ordersData: {
 			type: [OrderSchema],

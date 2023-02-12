@@ -81,7 +81,7 @@ export const toBase64 = (file) =>
 	});
 
 export const magnify = (imgID, zoom) => {
-	if (!window) return;
+	if (typeof window === 'undefined') return;
 	let img = document.getElementById(imgID);
 	let glass = document.getElementsByClassName('img_magnifier_glass');
 
@@ -164,81 +164,36 @@ export const magnify = (imgID, zoom) => {
 	}
 };
 
-export const initCart = () => {
-	if (!window) return [];
+const downloadCSV = (csv) => {
+	if (typeof window === 'undefined') return;
 
-	const temp = localStorage.getItem('cart');
-	if (!temp) {
-		localStorage.setItem('cart', '[]');
-		return [];
-	} else {
-		return JSON.parse(temp);
+	// CSV file
+	const csvFile = new Blob([csv], { type: 'text/csv' });
+
+	// Download link
+	const downloadLink = document.createElement('a');
+	downloadLink.download = 'order-history.csv';
+	downloadLink.href = window.URL.createObjectURL(csvFile);
+	downloadLink.style.display = 'none';
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+};
+
+export const exportTableToCSV = () => {
+	if (typeof window === 'undefined') return;
+	let csv = [];
+	const table = document.getElementById('order-history');
+	const rows = table.querySelectorAll('tr');
+
+	for (let i = 0; i < rows.length; i++) {
+		let row = [],
+			cols = rows[i].querySelectorAll('td, th');
+
+		for (let j = 0; j < cols.length; j++)
+			row.push('"' + cols[j].innerText + '"');
+		csv.push(row.join(','));
 	}
-};
 
-export const addItemToCart = ({
-	_id,
-	product_name,
-	quantity,
-	price,
-	image,
-}) => {
-	if (!window) return [];
-
-	let cart = initCart();
-	if (quantity <= 0) return cart;
-
-	cart.push({
-		_id,
-		product_name,
-		quantity,
-		price,
-		image,
-	});
-
-	localStorage.setItem('cart', JSON.stringify(cart));
-	return cart;
-};
-
-export const getCartItem = ({ _id }) => {
-	let cart = initCart();
-	const exists = cart.find((item) => item._id === _id);
-	return exists;
-};
-
-export const removeCartItem = ({ _id }) => {
-	if (!window) return [];
-
-	let cart = initCart();
-	cart = cart.filter((item) => item._id !== _id);
-
-	localStorage.setItem('cart', JSON.stringify(cart));
-	return cart;
-};
-
-export const updateCartItem = ({
-	_id,
-	product_name,
-	quantity,
-	price,
-	image,
-}) => {
-	if (!window) return [];
-
-	let cart = initCart();
-	if (quantity <= 0) return removeCartItem({ _id });
-
-	const exists = getCartItem({ _id });
-	if (!exists)
-		return addItemToCart({ _id, product_name, quantity, price, image });
-
-	cart = cart.map((item) => {
-		if (item._id === _id) {
-			return { _id, product_name, quantity, price, image };
-		}
-		return item;
-	});
-
-	localStorage.setItem('cart', JSON.stringify(cart));
-	return cart;
+	// Download CSV file
+	downloadCSV(csv.join('\n'));
 };

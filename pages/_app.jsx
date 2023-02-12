@@ -24,6 +24,7 @@ const routesWithGoodSEO = [
 	'/login',
 	'/signup',
 	'/reset-password',
+	'/order-history',
 ];
 
 function MyApp({ Component, pageProps }) {

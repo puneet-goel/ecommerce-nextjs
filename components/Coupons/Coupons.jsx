@@ -5,23 +5,19 @@ const CouponsComponent = ({ coupons }) => {
 	const [curCoupon, setCurCoupon] = useState('No Coupon');
 
 	useEffect(() => {
-		if (window) {
-			const code = localStorage.getItem('couponCode');
-			if (code) setCurCoupon(code);
-		}
+		const code = localStorage.getItem('couponCode');
+		if (code) setCurCoupon(code);
 	}, []);
 
 	const handleCoupon = (code, save) => {
-		if (window) {
-			if (curCoupon === code) {
-				localStorage.setItem('couponCode', 'No Coupon');
-				localStorage.setItem('save', '0');
-				setCurCoupon('No Coupon');
-			} else {
-				localStorage.setItem('couponCode', code);
-				localStorage.setItem('save', save);
-				setCurCoupon(code);
-			}
+		if (curCoupon === code) {
+			localStorage.setItem('couponCode', 'No Coupon');
+			localStorage.setItem('save', '0');
+			setCurCoupon('No Coupon');
+		} else {
+			localStorage.setItem('couponCode', code);
+			localStorage.setItem('save', save);
+			setCurCoupon(code);
 		}
 	};
 

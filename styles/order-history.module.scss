@@ -1,0 +1,86 @@
+@use "styles/variable";
+
+.order_history_wrapper {
+  padding: 2em;
+  min-height: 90vh;
+
+  h1 {
+    display: flex;
+    margin: 0.5em 0;
+    align-items: center;
+    font-family: variable.$cursive-font;
+
+    img {
+      margin-right: 8px;
+    }
+  }
+
+  hr {
+    border: 1px solid variable.$light-grey-color;
+    border-bottom: 0;
+    margin-bottom: 2em;
+  }
+
+  .csv_button {
+    text-align: end;
+
+    button {
+      width: 250px;
+      text-transform: initial;
+      color: variable.$success-color;
+      border-color: variable.$success-color;
+      background-color: variable.$light-success-color;
+    }
+  }
+
+  .order_container {
+    overflow: scroll;
+
+    table {
+      margin-top: 1em;
+      font-family: variable.$verdana-font;
+      border-collapse: collapse;
+      width: 100%;
+
+      tbody tr {
+        height: 70px;
+        background-color: variable.$white-color;
+        cursor: pointer;
+
+        td {
+          color: variable.$grey-color;
+        }
+
+        td:nth-child(5),
+        td:nth-child(2) {
+          color: variable.$black-color;
+        }
+
+        &:hover {
+          background-color: variable.$hover-grey-color;
+
+          td {
+            color: variable.$black-color;
+          }
+        }
+      }
+
+      td,
+      th {
+        border: 1px solid variable.$light-grey-color;
+        border-width: 1px 0;
+        padding: 0.4em;
+        text-align: center;
+      }
+
+      thead tr {
+        height: 70px;
+        background-color: variable.$white-color;
+
+        th {
+          padding: 0.8em;
+        }
+      }
+    }
+  }
+}

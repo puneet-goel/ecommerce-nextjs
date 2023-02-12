@@ -1,9 +1,7 @@
-import { useRouter } from 'next/router';
+import ProfileStatisticsComponent from 'components/ProfileStatistics/ProfileStatistics.jsx';
 
 const ProfileStatistics = () => {
-	const router = useRouter();
-	console.log('views', 'no of posts');
-	return <div>{router.query}</div>;
+	return <ProfileStatisticsComponent />;
 };
 
 export default ProfileStatistics;

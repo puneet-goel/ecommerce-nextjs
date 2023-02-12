@@ -5,15 +5,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import styles from 'styles/cart.module.scss';
 import Image from 'next/Image';
-import {
-	initCart,
-	updateCartItem,
-	removeCartItem,
-	getUserEmail,
-} from 'utility/client.js';
+import { getUserEmail, createToken as payloadHeader } from 'utility/client.js';
+import cart from 'utility/cart.js';
+import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
+import axios from 'axios';
 
 const CartComponent = () => {
 	const [items, setItems] = useState([]);
@@ -25,14 +23,9 @@ const CartComponent = () => {
 	const router = useRouter();
 
 	useEffect(() => {
-		const cart = initCart();
-		setItems(cart);
-		if (window) {
-			const x = localStorage.getItem('couponCode') || '';
-			if (x) {
-				setCode(x);
-			}
-		}
+		setItems(cart.getCart());
+		const x = localStorage.getItem('couponCode');
+		if (x) setCode(x);
 	}, []);
 
 	useEffect(() => {
@@ -48,10 +41,7 @@ const CartComponent = () => {
 		}
 		setSubtotal(total);
 
-		let x = '';
-		if (window) {
-			x = localStorage.getItem('save');
-		}
+		let x = localStorage.getItem('save') || '';
 
 		if (total) total += 100;
 		let money = 0;
@@ -92,29 +82,86 @@ const CartComponent = () => {
 		setDiscountMoney(money);
 	}, [items]);
 
-	const placeOrder = (e) => {
+	const placeOrder = async (e) => {
 		e.preventDefault();
-		//call backend and update order and check user exists or not
+		const toastID = toast.loading('Placing your order');
 		const x = getUserEmail();
 
 		if (!x) {
+			toast.update(toastID, {
+				render: 'Login to place your order',
+				type: 'error',
+				hideProgressBar: true,
+				isLoading: false,
+				autoClose: 1000,
+			});
 			return router.push('/login');
 		}
 
-		if (window) {
-			localStorage.setItem('couponCode', 'No Coupon');
-			localStorage.setItem('cart', '[]');
-			localStorage.setItem('save', '0');
+		const totalAmount = (subtotal + delivery - discountMoney + tax).toFixed(2);
+
+		if (totalAmount == 0) {
+			toast.update(toastID, {
+				render: 'Order value is 0',
+				type: 'error',
+				hideProgressBar: true,
+				isLoading: false,
+				autoClose: 3000,
+			});
+			return;
 		}
-		router.push('/');
+
+		const products = items.map((item) => {
+			return {
+				productId: item._id,
+				productName: item.product_name,
+				quantity: item.quantity,
+				perUnitPrice: item.price,
+			};
+		});
+
+		try {
+			const { data } = await axios.post(
+				'/api/order',
+				{
+					products,
+					totalAmount,
+					paymentMode: 'Cash on Delivery',
+				},
+				payloadHeader()
+			);
+
+			if (data.message === 'ok') {
+				localStorage.setItem('couponCode', 'No Coupon');
+				cart.removeAll();
+				localStorage.setItem('save', '0');
+				router.push('/order-history');
+			} else {
+				toast.update(toastID, {
+					render: 'Could not place your order',
+					type: 'error',
+					hideProgressBar: true,
+					isLoading: false,
+					autoClose: 3000,
+				});
+			}
+		} catch (err) {
+			toast.update(toastID, {
+				render: 'Could not place your order',
+				type: 'error',
+				hideProgressBar: true,
+				isLoading: false,
+				autoClose: 3000,
+			});
+		}
 	};
 
 	const handleUpdateCart = (cur) => {
-		updateCartItem(cur);
-		setItems(initCart());
+		setItems(cart.updateCartItem(cur));
 	};
 
 	const tax = (subtotal + delivery - discountMoney) * 0.18;
+	const finalPrice = (subtotal + delivery - discountMoney + tax).toFixed(2);
 
 	return (
 		<div className={styles.cart_wrapper}>
@@ -179,10 +226,9 @@ const CartComponent = () => {
 										<td>{cur.price * cur.quantity} &#8377;</td>
 										<td>
 											<CloseIcon
-												onClick={(e) => {
-													removeCartItem({ _id: cur._id });
-													setItems(initCart());
-												}}
+												onClick={(e) =>
+													setItems(cart.removeCartItem({ _id: cur._id }))
+												}
 											/>
 										</td>
 									</tr>
@@ -227,9 +273,7 @@ const CartComponent = () => {
 					<hr />
 					<div className={styles.bill_detail}>
 						<h3>Estimated Total</h3>
-						<h3>
-							{(subtotal + delivery - discountMoney + tax).toFixed(2)} &#8377;
-						</h3>
+						<h3>{finalPrice} &#8377;</h3>
 					</div>
 
 					<Link href='/coupons'>Add a coupon and get a heavy discount.</Link>
@@ -238,6 +282,7 @@ const CartComponent = () => {
 					</button>
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 	);
 };

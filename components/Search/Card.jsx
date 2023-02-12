@@ -7,7 +7,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import styles from 'styles/search/card.module.scss';
-import { updateCartItem, getCartItem } from 'utility/client.js';
+import cart from 'utility/cart.js';
 
 const Card = ({ product }) => {
 	const [sale, setSale] = useState(() => false);
@@ -18,7 +18,7 @@ const Card = ({ product }) => {
 
 	const handleCart = (operation) => (event) => {
 		event.preventDefault();
-		updateCartItem({
+		cart.updateCartItem({
 			_id: product._id,
 			product_name: product.title,
 			quantity: quantity + operation,
@@ -26,7 +26,7 @@ const Card = ({ product }) => {
 			image: product.image.file,
 		});
 
-		const item = getCartItem({ _id: product._id });
+		const item = cart.getCartItem({ _id: product._id });
 		if (item) {
 			setQuantity(item.quantity);
 		} else {
@@ -36,7 +36,7 @@ const Card = ({ product }) => {
 
 	useEffect(() => {
 		if (Math.random() > 0.5) setSale(true);
-		const item = getCartItem({ _id: product._id });
+		const item = cart.getCartItem({ _id: product._id });
 		if (item) {
 			setQuantity(item.quantity);
 		}
@@ -72,17 +72,19 @@ const Card = ({ product }) => {
 					{product.rating} ({product.reviews.length} reviews)
 				</span>
 			</div>
-			<div className={styles.card_pricing}>
-				&#8377;<span>{product.perUnitPrice}</span>
-				{sale && <span className={`badge ${styles.card_badge}`}>Sale</span>}
-			</div>
+			{sale && <span className={`badge ${styles.card_badge}`}>Sale</span>}
 			<div
 				className={`badge ${styles.card_footer}`}
 				onClick={(e) => e.preventDefault()}
 			>
-				<RemoveIcon fontSize='large' onClick={handleCart(-1)} />
-				{quantity}
-				<AddIcon fontSize='large' onClick={handleCart(1)} />
+				<div className={styles.card_pricing}>
+					&#8377;<span>{product.perUnitPrice}</span>
+				</div>
+				<div className={styles.card_icons}>
+					<RemoveIcon fontSize='large' onClick={handleCart(-1)} />
+					{quantity}
+					<AddIcon fontSize='large' onClick={handleCart(1)} />
+				</div>
 			</div>
 		</Link>
 	);

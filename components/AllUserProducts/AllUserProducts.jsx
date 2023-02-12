@@ -58,12 +58,6 @@ const AllUserProducts = () => {
 								{product.rating} ({product.reviews.length} reviews)
 							</span>
 						</div>
-						<div className={cardStyles.card_pricing}>
-							&#8377;<span>{product.perUnitPrice}</span>
-							{sale && (
-								<span className={`badge ${cardStyles.card_badge}`}>Sale</span>
-							)}
-						</div>
 					</Link>
 				);
 			})}

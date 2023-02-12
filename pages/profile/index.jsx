@@ -1,9 +1,7 @@
-import { useRouter } from 'next/router';
+import ProfileComponent from 'components/Profile/Profile.jsx';
 
 const Profile = () => {
-	const router = useRouter();
-
-	return <div>{router.query}</div>;
+	return <ProfileComponent />;
 };
 
 export default Profile;
