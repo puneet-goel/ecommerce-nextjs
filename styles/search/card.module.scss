@@ -28,6 +28,8 @@
   .card_image {
     margin: auto;
     display: block;
+    background-color: variable.$light-grey-color;
+    padding: 1em;
   }
 
   &:hover {
@@ -102,11 +104,12 @@
       justify-content: space-between;
       min-width: 90px;
       width: 40%;
+      color: variable.$black-color;
 
       svg {
         border-radius: 50%;
-        border: 1px solid variable.$black-color;
         background-color: variable.$dark-cyan-color;
+        color: variable.$floralwhite-color;
         cursor: pointer;
       }
     }
