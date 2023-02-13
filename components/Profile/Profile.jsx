@@ -2,17 +2,28 @@ import React from 'react';
 import styles from 'styles/profile.module.scss';
 import Link from 'next/link';
 import Image from 'next/Image';
-import PhoneInput, { isPossiblePhoneNumber } from 'react-phone-number-input';
+import {
+	createToken as payloadHeader,
+	toBase64,
+	getUserEmail,
+} from 'utility/client.js';
+import PhoneInput, {
+	isPossiblePhoneNumber,
+	formatPhoneNumberIntl,
+} from 'react-phone-number-input';
 import LaunchIcon from '@mui/icons-material/Launch';
 import 'react-phone-number-input/style.css';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
 
 class ProfileComponent extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			email: 'puneetgoelcoder@gmail.com',
+			email: getUserEmail(),
 			imageFile: '',
+			imageLoc: '/profile/account.png',
 			infoData: {
 				firstName: '',
 				lastName: '',
@@ -21,9 +32,76 @@ class ProfileComponent extends React.Component {
 				about: '',
 			},
 		};
+
+		this.handleProfileSave = this.handleProfileSave.bind(this);
 	}
 
-	handleProfileSave = (e) => {};
+	async componentDidMount() {
+		try {
+			const { data } = await axios.get('/api/user', payloadHeader());
+
+			if (data.message === 'ok') {
+				this.setState({
+					email: data.data.email,
+					imageLoc: data.data.image.file || this.state.imageLoc,
+					infoData: {
+						...data.data.infoData,
+						phoneNo: data.data.infoData.phoneNo,
+					},
+				});
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	handleProfileSave = async (e) => {
+		e.preventDefault();
+		const toastID = toast.loading('Updating your profile');
+
+		const user = {
+			fileData: null,
+			infoData: this.state.infoData,
+		};
+
+		try {
+			if (this.state.imageFile) {
+				const base64 = await toBase64(this.state.imageFile);
+				user.fileData = {
+					base64,
+					fileName: this.state.imageFile.name,
+				};
+			}
+
+			const { data } = await axios.patch('/api/user', user, payloadHeader());
+
+			if (data.message === 'ok') {
+				toast.update(toastID, {
+					render: 'Profile updated successfully',
+					type: 'success',
+					hideProgressBar: true,
+					isLoading: false,
+					autoClose: 3000,
+				});
+			} else {
+				toast.update(toastID, {
+					render: 'Could not update your profile',
+					type: 'error',
+					hideProgressBar: true,
+					isLoading: false,
+					autoClose: 3000,
+				});
+			}
+		} catch (err) {
+			toast.update(toastID, {
+				render: 'Could not update your profile',
+				type: 'error',
+				hideProgressBar: true,
+				isLoading: false,
+				autoClose: 3000,
+			});
+		}
+	};
 
 	render() {
 		return (
@@ -51,14 +129,18 @@ class ProfileComponent extends React.Component {
 					</ul>
 				</div>
 				<div className={styles.profile_container}>
-					<form>
+					<form onSubmit={this.handleProfileSave}>
 						<div className={styles.profile_subcontainer} id='profile_photo'>
 							<h1>Photo</h1>
 							<hr />
 							<div className={styles.content_photo}>
 								<div>
 									<Image
-										src='/carts.png'
+										src={
+											this.state.imageFile
+												? URL.createObjectURL(this.state.imageFile)
+												: this.state.imageLoc
+										}
 										width={200}
 										height={200}
 										alt='profile'
@@ -149,10 +231,12 @@ class ProfileComponent extends React.Component {
 							<h1>Phone Number Settings</h1>
 							<hr />
 							<PhoneInput
+								international
 								placeholder='Enter phone number'
 								defaultCountry='IN'
-								value={this.state.infoData.phoneNo}
+								value={formatPhoneNumberIntl(this.state.infoData.phoneNo)}
 								onChange={(e) =>
+									e &&
 									this.setState((prev) => ({
 										...prev,
 										infoData: {
@@ -196,7 +280,7 @@ class ProfileComponent extends React.Component {
 								<label>About:</label>
 								<textarea
 									className='input'
-									value={this.state.infoData.address}
+									value={this.state.infoData.about}
 									onChange={(e) =>
 										this.setState((prev) => ({
 											...prev,
@@ -210,6 +294,12 @@ class ProfileComponent extends React.Component {
 									name='about'
 								/>
 							</div>
+						</div>
+
+						<div className={styles.apply_button}>
+							<button type='submit' className='button'>
+								Apply changes
+							</button>
 						</div>
 					</form>
 
@@ -234,6 +324,7 @@ class ProfileComponent extends React.Component {
 						</Link>
 					</div>
 				</div>
+				<ToastContainer />
 			</div>
 		);
 	}

@@ -2,8 +2,11 @@ import User from 'models/User.js';
 import dbConnect from 'connections/mongodb.js';
 import userAuthencation from 'firebase-auth/firebase-admin.js';
 
-const handleGet = async (req, res, email) => {
+const handleGet = async (req, res) => {
 	try {
+		const decodedToken = await userAuthencation(req, res);
+		const { email } = decodedToken;
+
 		const data = await User.findOne({ email }).select({ ordersData: 1 }).lean();
 		return res.status(200).json({ message: 'ok', data: data.ordersData });
 	} catch (err) {
@@ -11,8 +14,11 @@ const handleGet = async (req, res, email) => {
 	}
 };
 
-const handlePost = async (req, res, email) => {
+const handlePost = async (req, res) => {
 	try {
+		const decodedToken = await userAuthencation(req, res);
+		const { email } = decodedToken;
+
 		const orders = await User.findOne({ email }).select({ ordersData: 1 });
 		const now = new Date();
 		now.setDate(now.getDate() + 4);
@@ -37,14 +43,11 @@ const handler = async (req, res) => {
 	const { method } = req;
 	await dbConnect();
 
-	const decodedToken = await userAuthencation(req, res);
-	const { email } = decodedToken;
-
 	switch (method) {
 		case 'GET':
-			return handleGet(req, res, email);
+			return handleGet(req, res);
 		case 'POST':
-			return handlePost(req, res, email);
+			return handlePost(req, res);
 		default:
 			return res.status(400).json({ message: 'This method is not supported' });
 	}

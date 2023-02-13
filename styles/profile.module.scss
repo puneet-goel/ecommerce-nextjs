@@ -1,12 +1,12 @@
 @use "styles/variable";
 
 .profile_wrapper {
-  min-height: 90vh;
   display: flex;
   position: relative;
 
   .profile_sidebar {
     width: 20%;
+    background-color: variable.$skyblue-color;
     overflow: scroll;
     height: 100vh;
     position: sticky;
@@ -38,6 +38,16 @@
   .profile_container {
     margin-top: 2em;
     width: 80%;
+
+    .apply_button {
+      text-align: end;
+      padding-right: 3em;
+
+      button {
+        width: 250px;
+        background-color: variable.$success-color;
+      }
+    }
 
     .profile_subcontainer {
       padding: 1em 2em 2em 2em;

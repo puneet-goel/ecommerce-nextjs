@@ -37,8 +37,8 @@ const UserInfoDataSchema = new mongoose.Schema({
 		default: '',
 	},
 	phoneNo: {
-		type: Number,
-		default: 9999999999,
+		type: String,
+		default: '',
 	},
 	address: {
 		type: String,
@@ -56,6 +56,16 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			unique: true,
 			required: true,
+		},
+		image: {
+			file: {
+				type: String,
+				default: '',
+			},
+			public_id: {
+				type: String,
+				default: '',
+			},
 		},
 		products: {
 			type: [String],

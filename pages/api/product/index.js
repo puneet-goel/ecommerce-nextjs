@@ -66,7 +66,7 @@ const handlePatch = async (req, res) => {
 			return res.status(400).json({ message: 'Invalid Id' });
 		}
 
-		if (oldProduct.retailer !== decodedToken.email) {
+		if (oldProduct.retailer !== email) {
 			return res
 				.status(403)
 				.json({ message: 'Tried to change other user data' });
