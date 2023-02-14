@@ -259,3 +259,11 @@
     }
   }
 }
+
+.error_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: variable.$monospace;
+  padding: 5em;
+}

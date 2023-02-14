@@ -72,27 +72,35 @@ const OrderSummaryComponent = ({ order }) => {
 			<div className={styles.summary_container}>
 				<div className={styles.input_box}>
 					<p>Ordered By:</p>
-					<p>{order.orderedBy}</p>
+					<p>{order.orderedBy || 'N/A'}</p>
 				</div>
 				<div className={styles.input_box}>
 					<p>Ordered On:</p>
-					<p>{moment(order.createdAt).format('MMMM Do YYYY')}</p>
+					<p>
+						{order?.createdAt
+							? moment(order.createdAt).format('MMMM Do YYYY')
+							: 'N/A'}
+					</p>
 				</div>
 				<div className={styles.input_box}>
 					<p>Order Time:</p>
-					<p>{moment(order.createdAt).format('h:mm:ss a')}</p>
+					<p>
+						{order?.createdAt
+							? moment(order.createdAt).format('h:mm:ss a')
+							: 'N/A'}
+					</p>
 				</div>
 				<div className={styles.input_box}>
 					<p>Delivery Status:</p>
-					<p>{order.deliveryStatus}</p>
+					<p>{order.deliveryStatus || 'N/A'}</p>
 				</div>
 				<div className={styles.input_box}>
 					<p>Expected Time of Arrival:</p>
-					<p>{moment(order.eta).format('MMMM Do YYYY')}</p>
+					<p>{order?.eta ? moment(order.eta).format('h:mm:ss a') : 'N/A'}</p>
 				</div>
 				<div className={styles.input_box}>
 					<p>Payment Mode:</p>
-					<p>{order.paymentMode}</p>
+					<p>{order.paymentMode || 'N/A'}</p>
 				</div>
 			</div>
 			<div className={styles.cart_container}>
@@ -137,7 +145,7 @@ const OrderSummaryComponent = ({ order }) => {
 
 					<div className={styles.coupon_applied}>
 						<p>Coupon Applied</p>
-						<p>{order.coupon}</p>
+						<p>{order.coupon || 'N/A'}</p>
 					</div>
 
 					<div className={styles.bill_detail}>
@@ -168,7 +176,7 @@ const OrderSummaryComponent = ({ order }) => {
 					<hr />
 					<div className={styles.bill_detail}>
 						<h3>Estimated Total</h3>
-						<h3>{order.totalAmount} &#8377;</h3>
+						<h3>{order.totalAmount || 0} &#8377;</h3>
 					</div>
 				</div>
 			</div>

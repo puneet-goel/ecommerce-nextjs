@@ -14,6 +14,7 @@ const OrderHistoryComponent = () => {
 
 	const caller = async () => {
 		try {
+			if (getUserEmail() === '') return;
 			const { data } = await axios.get(
 				`/api/order?email=${encodeURIComponent(getUserEmail())}`,
 				payloadHeader()
@@ -30,12 +31,6 @@ const OrderHistoryComponent = () => {
 
 	useEffect(() => {
 		caller();
-	}, []);
-
-	useEffect(() => {
-		const intervalId = setInterval(() => caller(), 3000);
-
-		return () => clearInterval(intervalId);
 	}, []);
 
 	return (

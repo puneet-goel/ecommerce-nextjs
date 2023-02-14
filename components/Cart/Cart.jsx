@@ -88,13 +88,6 @@ const CartComponent = () => {
 		const x = getUserEmail();
 
 		if (!x) {
-			toast.update(toastID, {
-				render: 'Login to place your order',
-				type: 'error',
-				hideProgressBar: true,
-				isLoading: false,
-				autoClose: 1000,
-			});
 			return router.push('/login');
 		}
 

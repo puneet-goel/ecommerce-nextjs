@@ -38,6 +38,7 @@ class ProfileComponent extends React.Component {
 
 	async componentDidMount() {
 		try {
+			if (getUserEmail() === '') return;
 			const { data } = await axios.get('/api/user', payloadHeader());
 			if (data.message === 'ok') {
 				this.setState({
@@ -62,6 +63,17 @@ class ProfileComponent extends React.Component {
 			fileData: null,
 			infoData: this.state.infoData,
 		};
+
+		if (getUserEmail() === '') {
+			toast.update(toastID, {
+				render: 'Login to update your profile',
+				type: 'error',
+				hideProgressBar: true,
+				isLoading: false,
+				autoClose: 3000,
+			});
+			return;
+		}
 
 		try {
 			if (this.state.imageFile) {

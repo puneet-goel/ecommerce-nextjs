@@ -17,7 +17,11 @@ const SpecificProductComponent = ({ product }) => {
 	}, []);
 
 	if (!productData) {
-		return <h1 className='min_container_height'>No such productData</h1>;
+		return (
+			<div className='min_container_height'>
+				<h1 className={styles.error_container}>No such product</h1>
+			</div>
+		);
 	}
 
 	const filledStars = Math.floor(productData.rating);
