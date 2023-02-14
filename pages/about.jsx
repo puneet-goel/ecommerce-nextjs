@@ -1,6 +1,7 @@
 import AboutComponent from 'components/About/About.jsx';
 import Product from 'models/Product.js';
 import User from 'models/User.js';
+import Order from 'models/Order.js';
 import dbConnect from 'connections/mongodb.js';
 
 const About = ({ data }) => {
@@ -22,10 +23,11 @@ export async function getStaticProps() {
 		await dbConnect();
 		const products = await Product.find().lean();
 		const users = await User.find().lean();
+		const orders = await Order.find().lean();
 
 		data.users = users.length;
 		data.products = products.length;
-		data.orders = users.reduce((tot, user) => tot + user.ordersData.length, 0);
+		data.orders = orders.length;
 
 		return {
 			props: { data: JSON.stringify(data) },

@@ -100,9 +100,9 @@ const CartComponent = () => {
 
 		const totalAmount = (subtotal + delivery - discountMoney + tax).toFixed(2);
 
-		if (totalAmount == 0) {
+		if (items.length === 0) {
 			toast.update(toastID, {
-				render: 'Order value is 0',
+				render: 'Cart is empty',
 				type: 'error',
 				hideProgressBar: true,
 				isLoading: false,
@@ -116,7 +116,6 @@ const CartComponent = () => {
 				productId: item._id,
 				productName: item.product_name,
 				quantity: item.quantity,
-				perUnitPrice: item.price,
 			};
 		});
 
@@ -127,6 +126,7 @@ const CartComponent = () => {
 					products,
 					totalAmount,
 					paymentMode: 'Cash on Delivery',
+					coupon: code,
 				},
 				payloadHeader()
 			);
@@ -178,7 +178,7 @@ const CartComponent = () => {
 				<div className={styles.cart_products}>
 					<h2>Shopping Cart &nbsp; ({items.length} items)</h2>
 					<table>
-						<tbody>
+						<thead>
 							<tr>
 								<th>{''}</th>
 								<th>Product</th>
@@ -187,6 +187,8 @@ const CartComponent = () => {
 								<th>Subtotal</th>
 								<th>{''}</th>
 							</tr>
+						</thead>
+						<tbody>
 							{items.map((cur, idx) => {
 								return (
 									<tr key={idx}>

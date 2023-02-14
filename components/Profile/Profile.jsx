@@ -39,7 +39,6 @@ class ProfileComponent extends React.Component {
 	async componentDidMount() {
 		try {
 			const { data } = await axios.get('/api/user', payloadHeader());
-
 			if (data.message === 'ok') {
 				this.setState({
 					email: data.data.email,

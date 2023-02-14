@@ -47,9 +47,6 @@ const Footer = ({ email }) => {
 							<li>
 								<Link href='/update-product'>Update Products</Link>
 							</li>
-							<li>
-								<Link href='/profile/statistics'>Account Statistics</Link>
-							</li>
 						</ul>
 					</div>
 					<div className={styles.footer_column}>
@@ -68,6 +65,9 @@ const Footer = ({ email }) => {
 							</li>
 							<li>
 								<Link href='/profile'>Update Profile</Link>
+							</li>
+							<li>
+								<Link href='/profile/statistics'>Account Statistics</Link>
 							</li>
 						</ul>
 					</div>

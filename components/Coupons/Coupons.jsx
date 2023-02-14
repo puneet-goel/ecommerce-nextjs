@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/Image';
 import styles from 'styles/coupon.module.scss';
 
 const CouponsComponent = ({ coupons }) => {
@@ -23,7 +24,15 @@ const CouponsComponent = ({ coupons }) => {
 
 	return (
 		<div className={styles.coupons_section}>
-			<h1> Coupons </h1>
+			<h1>
+				<Image
+					src='/coupons/price-tag.png'
+					alt='transactions'
+					width='50'
+					height='50'
+				/>
+				Coupons
+			</h1>
 			<div className={styles.coupons_subheader}>
 				<h3>Instructions:</h3>
 				<ul>

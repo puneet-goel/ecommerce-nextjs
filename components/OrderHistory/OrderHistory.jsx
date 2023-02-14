@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import styles from 'styles/order-history.module.scss';
 import Image from 'next/Image';
-import { createToken as payloadHeader } from 'utility/client.js';
+import DownloadIcon from '@mui/icons-material/Download';
+import { createToken as payloadHeader, getUserEmail } from 'utility/client.js';
 import axios from 'axios';
 import moment from 'moment';
 import { exportTableToCSV } from 'utility/client.js';
+import Link from 'next/link';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 const OrderHistoryComponent = () => {
 	const [orders, setOrders] = useState([]);
 
 	const caller = async () => {
 		try {
-			const { data } = await axios.get('/api/order', payloadHeader());
+			const { data } = await axios.get(
+				`/api/order?email=${encodeURIComponent(getUserEmail())}`,
+				payloadHeader()
+			);
 			if (data.message === 'ok') {
 				const temp = data.data;
 				temp.reverse();
@@ -50,6 +56,7 @@ const OrderHistoryComponent = () => {
 					className='button button_outlined'
 					onClick={(e) => exportTableToCSV()}
 				>
+					<DownloadIcon />
 					Export as CSV file (.csv)
 				</button>
 			</div>
@@ -62,11 +69,11 @@ const OrderHistoryComponent = () => {
 							<th>Product</th>
 							<th>Number of items</th>
 							<th>Order Date</th>
-							<th>Order Time</th>
 							<th>Delivery Pricing</th>
 							<th>Delivery Date</th>
 							<th>Delivery Status</th>
 							<th>Payment Mode</th>
+							<th>Summary</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -86,12 +93,15 @@ const OrderHistoryComponent = () => {
 
 							switch (days) {
 								case 0:
-								case 1:
 									status = 'Processing';
 									color = '#1976d2';
 									break;
-								case 2:
+								case 1:
 									status = 'Processed';
+									color = '#ffa41c';
+									break;
+								case 2:
+									status = 'Not Shipped';
 									color = '#ffa41c';
 									break;
 								case 3:
@@ -114,7 +124,6 @@ const OrderHistoryComponent = () => {
 									<td>{products}</td>
 									<td>{cur.products.length}</td>
 									<td>{moment(order_date).format('MMMM Do YYYY')}</td>
-									<td>{moment(order_date).format('h:mm:ss a')}</td>
 									<td>&#8377;{cur.totalAmount}</td>
 									<td>{moment(cur.eta).format('MMMM Do YYYY')}</td>
 									<td>
@@ -131,6 +140,16 @@ const OrderHistoryComponent = () => {
 										</div>
 									</td>
 									<td>{cur.paymentMode}</td>
+									<td>
+										<Link
+											href={{
+												pathname: '/order-summary',
+												query: { _id: cur._id },
+											}}
+										>
+											<LaunchIcon />
+										</Link>
+									</td>
 								</tr>
 							);
 						})}

@@ -11,6 +11,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
@@ -158,10 +159,16 @@ const Navbar = () => {
 				</Link>
 			</MenuItem>
 			<MenuItem>
-				<Link
-					href='/order-history'
-					style={{ color: 'black', paddingLeft: '2em' }}
-				>
+				<Link href='/order-history' style={{ color: 'black' }}>
+					<IconButton
+						size='large'
+						aria-label='order history'
+						aria-controls='primary-search-account-menu'
+						aria-haspopup='true'
+						color='inherit'
+					>
+						<ReceiptIcon />
+					</IconButton>
 					Past Orders
 				</Link>
 			</MenuItem>

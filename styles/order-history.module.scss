@@ -20,9 +20,14 @@
   }
 
   .csv_button {
-    text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
     button {
+      display: flex;
+      padding: 0.7em;
+      justify-content: center;
       width: 250px;
       text-transform: initial;
       color: variable.$success-color;
@@ -43,10 +48,13 @@
       tbody tr {
         height: 70px;
         background-color: variable.$white-color;
-        cursor: pointer;
 
         td {
           color: variable.$grey-color;
+
+          svg {
+            cursor: pointer;
+          }
         }
 
         td:nth-child(5),

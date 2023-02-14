@@ -21,7 +21,6 @@ const AllUserProducts = () => {
 				const halfStars =
 					product.rating - Math.floor(product.rating) > 0 ? 1 : 0;
 				const emptyStars = 5 - filledStars - halfStars;
-				const sale = Math.random() > 0.5;
 
 				return (
 					<Link

@@ -1,14 +1,22 @@
 import User from 'models/User.js';
+import Order from 'models/Order.js';
 import dbConnect from 'connections/mongodb.js';
 import userAuthencation from 'firebase-auth/firebase-admin.js';
 
 const handleGet = async (req, res) => {
 	try {
-		const decodedToken = await userAuthencation(req, res);
-		const { email } = decodedToken;
+		let data = await Order.find().lean();
 
-		const data = await User.findOne({ email }).select({ ordersData: 1 }).lean();
-		return res.status(200).json({ message: 'ok', data: data.ordersData });
+		data = data.filter((order) => {
+			if (req.query._id) {
+				return req.query._id === order._id;
+			} else if (req.query.email) {
+				return req.query.email === order.orderedBy;
+			}
+			return false;
+		});
+
+		return res.status(200).json({ message: 'ok', data: data });
 	} catch (err) {
 		return res.status(500).json({ message: err.message });
 	}
@@ -19,19 +27,22 @@ const handlePost = async (req, res) => {
 		const decodedToken = await userAuthencation(req, res);
 		const { email } = decodedToken;
 
-		const orders = await User.findOne({ email }).select({ ordersData: 1 });
 		const now = new Date();
 		now.setDate(now.getDate() + 4);
 
-		const newOrder = {
+		const orders = new Order({
+			orderedBy: email,
 			products: req.body.products,
 			totalAmount: req.body.totalAmount,
 			paymentMode: req.body.paymentMode,
+			coupon: req.body.coupon,
 			eta: now,
-		};
-
-		orders.ordersData.push(newOrder);
+		});
 		await orders.save();
+
+		const user = await User.findOne({ email }).select({ orders: 1 });
+		user.orders.push(orders._id);
+		await user.save();
 
 		return res.status(201).json({ message: 'ok' });
 	} catch (err) {

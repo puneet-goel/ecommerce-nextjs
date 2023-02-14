@@ -60,9 +60,6 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, email }) => {
 				<h3>Retailer</h3>
 				<ul onClick={handleOffCanvas}>
 					<li>
-						<Link href='/profile/statistics'>Account Statistics</Link>
-					</li>
-					<li>
 						<Link href='/add-product'>Add New Product</Link>
 					</li>
 					<li>
@@ -83,6 +80,9 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, email }) => {
 				<ul onClick={handleOffCanvas}>
 					<li>
 						<Link href='/profile'>Profile</Link>
+					</li>
+					<li>
+						<Link href='/profile/statistics'>Account Statistics</Link>
 					</li>
 					<li>
 						<Link href='/profile'>Update Profile</Link>

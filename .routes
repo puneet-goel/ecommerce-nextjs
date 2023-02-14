@@ -11,15 +11,16 @@ SEO Friendly + No protection needed + Main Nav
 / (ISR, 3)
 /search (ISR, 3)
 /search/[productId] (server)
+/order-summary ?_id = {} (server)
 /cart (static)
 /about (static)
 /coupons (ISR, 10) 
+/order-history (static + api)
+/profile (static + api)
 
 No SEO + Protection needed + Main Nav + Redux
 (swr)
-/profile 
 /profile/statistics 
-/order-history 
 /add-product 
 /update-product/[productId]
 /update-product

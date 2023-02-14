@@ -1,15 +1,44 @@
 @use "styles/variable";
 
-.cart_wrapper {
+.order_summary_wrapper {
+  padding: 2em;
+  min-height: 90vh;
+
   h1 {
     display: flex;
-    margin: 1em 0;
+    margin: 0.5em 0;
     align-items: center;
-    justify-content: center;
     font-family: variable.$cursive-font;
 
     img {
       margin-right: 8px;
+    }
+  }
+
+  hr {
+    margin: 1em 0;
+  }
+
+  .summary_container {
+    padding: 2em 0;
+
+    .input_box {
+      display: flex;
+      align-items: center;
+
+      p:first-child {
+        display: block;
+        font-weight: bolder;
+        font-size: larger;
+        font-family: variable.$monospace;
+        width: 35%;
+      }
+
+      p:nth-child(2) {
+        color: variable.$primary-color;
+        margin: 1em 0;
+        width: 65%;
+      }
     }
   }
 
@@ -30,22 +59,6 @@
         border-collapse: collapse;
         width: 100%;
 
-        svg {
-          cursor: pointer;
-        }
-
-        .table_controls {
-          display: flex;
-          align-items: center;
-          justify-content: space-evenly;
-
-          svg {
-            background-color: variable.$dark-cyan-color;
-            border-radius: 50%;
-            color: variable.$white-color;
-          }
-        }
-
         td,
         th {
           border: 1px solid variable.$light-grey-color;
@@ -55,13 +68,7 @@
         }
 
         tr {
-          &:nth-child(odd) {
-            background-color: variable.$white-color;
-          }
-
-          &:nth-child(even) {
-            background-color: variable.$default-background-color;
-          }
+          background-color: variable.$white-color;
         }
 
         tbody tr {
@@ -80,23 +87,9 @@
       width: 35%;
       padding: 2em 2em;
 
-      hr {
-        margin: 1em 0;
-      }
-
       h2,
       h3 {
         margin-bottom: 1em;
-      }
-
-      a {
-        color: variable.$dark-cyan-color;
-      }
-
-      button {
-        margin-top: 1em;
-        color: variable.$success-color;
-        border-color: variable.$success-color;
       }
 
       .coupon_applied {
@@ -114,14 +107,6 @@
         display: flex;
         justify-content: space-between;
         padding: 0.3em 0;
-
-        p:nth-child(1) {
-          color: variable.$grey-color;
-        }
-
-        svg {
-          color: variable.$black-color;
-        }
       }
     }
 
