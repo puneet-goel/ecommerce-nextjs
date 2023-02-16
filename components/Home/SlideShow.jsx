@@ -1,7 +1,7 @@
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useEffect, useState } from 'react';
-import Image from 'next/Image';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const SlideShow = ({ id, data, title = '' }) => {

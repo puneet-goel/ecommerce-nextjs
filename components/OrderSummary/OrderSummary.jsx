@@ -1,6 +1,6 @@
 import styles from 'styles/order-summary.module.scss';
 import Link from 'next/link';
-import Image from 'next/Image';
+import Image from 'next/image';
 import Tooltip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
 import moment from 'moment';

@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import styles from 'styles/cart.module.scss';
-import Image from 'next/Image';
+import Image from 'next/image';
 import { getUserEmail, createToken as payloadHeader } from 'utility/client.js';
 import cart from 'utility/cart.js';
 import { ToastContainer, toast } from 'react-toastify';

@@ -6,7 +6,7 @@ import {
 	createToken as payloadHeader,
 	perc2color,
 } from 'utility/client.js';
-import Image from 'next/Image';
+import Image from 'next/image';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';

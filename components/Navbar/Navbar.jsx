@@ -20,7 +20,7 @@ import { logout } from 'firebase-auth/firebase-client.js';
 import { stringToColor, getUserEmail } from 'utility/client.js';
 import cart from 'utility/cart.js';
 import cartLogo from 'public/shopping-cart.png';
-import Image from 'next/Image';
+import Image from 'next/image';
 
 const Navbar = () => {
 	const [email, setEmail] = useState(null);

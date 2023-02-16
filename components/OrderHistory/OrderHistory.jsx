@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from 'styles/order-history.module.scss';
-import Image from 'next/Image';
+import Image from 'next/image';
 import DownloadIcon from '@mui/icons-material/Download';
 import { createToken as payloadHeader, getUserEmail } from 'utility/client.js';
 import axios from 'axios';

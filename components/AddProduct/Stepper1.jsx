@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Image from 'next/Image';
+import Image from 'next/image';
 import styles from 'styles/add_product.module.scss';
 
 const schema = Yup.object().shape({

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import cartLogo from 'public/shopping-cart.png';
-import Image from 'next/Image';
+import Image from 'next/image';
 import styles from 'styles/auth_navbar.module.scss';
 
 const AuthNavbar = () => {

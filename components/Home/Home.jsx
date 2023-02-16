@@ -1,7 +1,7 @@
 import SlideShow from './SlideShow.jsx';
 import styles from 'styles/home.module.scss';
 import Link from 'next/link';
-import Image from 'next/Image';
+import Image from 'next/image';
 
 const data1 = [
 	'/home/FirstCarousel/1.jpg',
