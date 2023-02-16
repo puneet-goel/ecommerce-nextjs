@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 
 const authRoutes = ['/login', '/signup', '/reset-password'];
+const errorRoute = ['/_error'];
 const routesWithGoodSEO = [
 	'/',
 	'/search',
@@ -26,7 +27,7 @@ const routesWithGoodSEO = [
 	'/reset-password',
 	'/order-history',
 	'/order-summary',
-	'/profile',
+	'/customer-service',
 ];
 
 function MyApp({ Component, pageProps }) {
@@ -36,6 +37,7 @@ function MyApp({ Component, pageProps }) {
 	const router = useRouter();
 	const isAuthRoute = authRoutes.includes(router.route);
 	const routesAccessedWithoutLogin = routesWithGoodSEO.includes(router.route);
+	const isErrorRoute = errorRoute.includes(router.route);
 
 	useEffect(() => {
 		let unsubscribe;
@@ -85,18 +87,19 @@ function MyApp({ Component, pageProps }) {
 				<title>Online Shopping Site</title>
 				<meta
 					name='description'
-					content='This application provides consumers a platform to shop online and retailers a way to sell their products directly to customers.'
+					content='This application provides consumers a platform to shop online and retailers a way to sell their products directly to customers. This application is just for learning purpose.'
 				/>
 				<link rel='icon' href='/carts.png' />
 			</Head>
-			{isAuthRoute && (
+			{isErrorRoute && <Component {...pageProps} />}
+			{!isErrorRoute && isAuthRoute && (
 				<>
 					<AuthNavbar />
 					<Component {...pageProps} />
 				</>
 			)}
 
-			{!isAuthRoute && (
+			{!isErrorRoute && !isAuthRoute && (
 				<Provider store={store}>
 					<div id='start' className='start_of_page' />
 					<Navbar />

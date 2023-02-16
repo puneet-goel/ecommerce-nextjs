@@ -59,7 +59,7 @@ const OrderHistoryComponent = () => {
 			<div className={styles.order_container}>
 				<table id='order-history'>
 					<thead>
-						<tr>
+						<tr className='elevation'>
 							<th>S.No.</th>
 							<th>Product</th>
 							<th>Number of items</th>
@@ -114,7 +114,7 @@ const OrderHistoryComponent = () => {
 							}
 
 							return (
-								<tr key={idx}>
+								<tr key={idx} className='elevation'>
 									<td>{idx + 1}.</td>
 									<td>{products}</td>
 									<td>{cur.products.length}</td>

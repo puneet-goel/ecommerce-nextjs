@@ -1,9 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from 'styles/search/search.module.scss';
 import Card from './Card';
 import Filter from './Filter';
 
 const SearchComponent = ({ products }) => {
+	const router = useRouter();
+	const query = router.query;
+
 	const [filters, setFilters] = useState({
 		sort: '',
 		stars: 0,
@@ -12,6 +16,21 @@ const SearchComponent = ({ products }) => {
 		retailer: '',
 		price: 0,
 	});
+
+	useEffect(() => {
+		if (query.price) {
+			setFilters((filters) => ({
+				...filters,
+				price: Number(query.price),
+			}));
+		}
+		if (query.category) {
+			setFilters((filters) => ({
+				...filters,
+				category: query.category,
+			}));
+		}
+	}, [query]);
 
 	/**
 	 * @description filter according to category
@@ -41,8 +60,9 @@ const SearchComponent = ({ products }) => {
 	 * @description filter according to price
 	 */
 	filteredProducts = useMemo(() => {
+		if (filters.price === 0) return filteredProducts;
 		return filteredProducts.filter(
-			(product) => product.perUnitPrice >= filters.price
+			(product) => product.perUnitPrice <= filters.price
 		);
 	}, [filters.price, filteredProducts]);
 

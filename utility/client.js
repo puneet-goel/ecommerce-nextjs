@@ -197,3 +197,8 @@ export const exportTableToCSV = () => {
 	// Download CSV file
 	downloadCSV(csv.join('\n'));
 };
+
+export const perc2color = (percentage, maxHue = 120, minHue = 0) => {
+	const hue = (percentage / 100) * (maxHue - minHue) + minHue;
+	return `hsl(${hue}, 100%, 40%)`;
+};

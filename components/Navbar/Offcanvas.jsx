@@ -60,7 +60,7 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, email }) => {
 				<h3>Retailer</h3>
 				<ul onClick={handleOffCanvas}>
 					<li>
-						<Link href='/add-product'>Add New Product</Link>
+						<Link href='/add-product'>Sell your Product</Link>
 					</li>
 					<li>
 						<Link href='/update-product'>Update Your Product</Link>
@@ -73,6 +73,9 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, email }) => {
 					<li>
 						<Link href='/about'>Get to know about us</Link>
 					</li>
+					<li>
+						<Link href='/customer-service'>Customer Service</Link>
+					</li>
 				</ul>
 
 				<hr />
@@ -82,7 +85,7 @@ const Offcanvas = ({ offCanvas, handleOffCanvas, email }) => {
 						<Link href='/profile'>Profile</Link>
 					</li>
 					<li>
-						<Link href='/profile/statistics'>Account Statistics</Link>
+						<Link href='/profile#account_statistics'>Account Statistics</Link>
 					</li>
 					<li>
 						<Link href='/profile'>Update Profile</Link>

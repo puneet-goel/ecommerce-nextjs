@@ -14,6 +14,7 @@ import PhoneInput, {
 import LaunchIcon from '@mui/icons-material/Launch';
 import 'react-phone-number-input/style.css';
 import { ToastContainer, toast } from 'react-toastify';
+import Statistics from './Statistics';
 import axios from 'axios';
 
 class ProfileComponent extends React.Component {
@@ -57,6 +58,9 @@ class ProfileComponent extends React.Component {
 
 	handleProfileSave = async (e) => {
 		e.preventDefault();
+		if (!isPossiblePhoneNumber(this.state.infoData.phoneNo)) {
+			return;
+		}
 		const toastID = toast.loading('Updating your profile');
 
 		const user = {
@@ -130,6 +134,9 @@ class ProfileComponent extends React.Component {
 						</li>
 						<li>
 							<Link href='#profile_details'>Details</Link>
+						</li>
+						<li>
+							<Link href='#account_statistics'>Account Statistics</Link>
 						</li>
 						<li>
 							<Link href='#user_products'>My Products</Link>
@@ -313,6 +320,12 @@ class ProfileComponent extends React.Component {
 							</button>
 						</div>
 					</form>
+
+					<div className={styles.profile_subcontainer} id='account_statistics'>
+						<h1>Account Statistics</h1>
+						<hr />
+						<Statistics email={this.state.email} />
+					</div>
 
 					<div className={styles.profile_subcontainer} id='user_products'>
 						<h1>My Products</h1>

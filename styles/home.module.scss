@@ -1,0 +1,60 @@
+@use 'styles/variable';
+
+.home_container {
+  .pricing_container {
+    display: flex;
+    flex-direction: column;
+    background-color: variable.$light-grey-color;
+    margin: 1em 0;
+
+    &>div {
+      display: flex;
+      justify-content: space-around;
+      margin: 1em 0;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30%;
+        height: 200px;
+        color: variable.$floralwhite-color;
+        border-radius: 8px;
+
+        @media all and (min-width: 768px) {
+          font-size: xx-large;
+        }
+      }
+
+    }
+  }
+
+  .facility_container {
+    display: flex;
+    background-color: variable.$white-color;
+    height: 80px;
+    padding: 1em;
+    margin: 1em 0;
+    overflow-x: scroll;
+    width: 100%;
+
+    &>div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 33%;
+      font-weight: 900;
+
+      img {
+        border-radius: 30px;
+        margin-right: 8px;
+        background-color: variable.$yellow-color;
+
+        @media all and (max-width:425px) {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}

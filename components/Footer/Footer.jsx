@@ -42,7 +42,7 @@ const Footer = ({ email }) => {
 						<h3> Retailer </h3>
 						<ul>
 							<li>
-								<Link href='/add-product'>Add new Product</Link>
+								<Link href='/add-product'>Sell your Product</Link>
 							</li>
 							<li>
 								<Link href='/update-product'>Update Products</Link>
@@ -54,6 +54,9 @@ const Footer = ({ email }) => {
 						<ul>
 							<li>
 								<Link href='/about'>About Us</Link>
+							</li>
+							<li>
+								<Link href='/customer-service'>Customer Service</Link>
 							</li>
 						</ul>
 					</div>
@@ -67,7 +70,9 @@ const Footer = ({ email }) => {
 								<Link href='/profile'>Update Profile</Link>
 							</li>
 							<li>
-								<Link href='/profile/statistics'>Account Statistics</Link>
+								<Link href='/profile#account_statistics'>
+									Account Statistics
+								</Link>
 							</li>
 						</ul>
 					</div>

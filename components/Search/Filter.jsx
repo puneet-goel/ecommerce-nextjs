@@ -161,13 +161,13 @@ const Filter = ({ filters, setFilters }) => {
 
 				<hr />
 				<div className={styles.range}>
-					<h4>Minimum Price: {filters.price}</h4>
+					<h4>Maximum Price: {filters.price === 0 ? 'All' : filters.price}</h4>
 					<input
 						type='range'
 						id='price'
 						name='price'
 						min='0'
-						max='100000'
+						max='10000'
 						value={filters.price}
 						onChange={(val) =>
 							setFilters({ ...filters, price: val.target.value })

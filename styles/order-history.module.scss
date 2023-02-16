@@ -42,7 +42,8 @@
     table {
       margin-top: 1em;
       font-family: variable.$verdana-font;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0px 1em;
       width: 100%;
 
       tbody tr {
@@ -50,31 +51,21 @@
         background-color: variable.$white-color;
 
         td {
-          color: variable.$grey-color;
 
           svg {
             cursor: pointer;
           }
         }
 
-        td:nth-child(5),
-        td:nth-child(2) {
-          color: variable.$black-color;
-        }
-
         &:hover {
-          background-color: variable.$hover-grey-color;
-
-          td {
-            color: variable.$black-color;
-          }
+          box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+          -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
         }
       }
 
       td,
       th {
-        border: 1px solid variable.$light-grey-color;
-        border-width: 1px 0;
         padding: 0.4em;
         text-align: center;
       }

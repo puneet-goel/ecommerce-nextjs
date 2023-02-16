@@ -34,7 +34,11 @@ const SlideShow = ({ id, data, title = '' }) => {
 		<div className='carousel_container' id={`carousel${id}`}>
 			{!!title && <p className='carousel_header'>{title}</p>}
 			<div className='carousel_wrapper'>
-				<Link href='/search'>
+				<Link
+					href={`/search${
+						title ? '?category=' + encodeURIComponent(title) : ''
+					}`}
+				>
 					<div className='carousel_slides'>
 						{data.map((cur, idx) => {
 							return (

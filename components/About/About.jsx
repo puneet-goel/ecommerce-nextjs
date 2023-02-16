@@ -51,6 +51,20 @@ const AboutComponent = ({ data }) => {
 						<p>{data.orders}+</p>
 					</div>
 				</div>
+				<div
+					className={`${styles.about_card} ${styles.reverse_card} elevation`}
+				>
+					<Image
+						alt='categories'
+						width='100'
+						height='100'
+						src='/about/category.png'
+					/>
+					<div className={styles.card_content}>
+						<p>Total Categories:</p>
+						<p>{data.categories}+</p>
+					</div>
+				</div>
 			</div>
 
 			<div className={styles.about_leader}>
