@@ -9,13 +9,7 @@ const AuthNavbar = () => {
 		<div className={`${styles.auth_navbar} elevation navbar`}>
 			<Tooltip title='Emart Home Page' placement='bottom'>
 				<Link href='/'>
-					<Image
-						src={cartLogo}
-						alt='Emart home logo'
-						width='40'
-						height='40'
-						priority
-					/>
+					<Image src={cartLogo} alt='Emart home logo' width='40' height='40' />
 					<h1>Emart</h1>
 				</Link>
 			</Tooltip>

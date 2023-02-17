@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
 import axios from 'axios';
+import shoppingBag from 'public/cart/shopping-bag.png';
 
 const CartComponent = () => {
 	const [items, setItems] = useState([]);
@@ -159,12 +160,7 @@ const CartComponent = () => {
 	return (
 		<div className={styles.cart_wrapper}>
 			<h1>
-				<Image
-					src='/cart/shopping-bag.png'
-					alt='shopping bag'
-					width='50'
-					height='50'
-				/>
+				<Image src={shoppingBag} alt='shopping bag' width='50' height='50' />
 				Your Cart
 			</h1>
 			<div className={styles.cart_container}>

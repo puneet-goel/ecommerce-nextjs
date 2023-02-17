@@ -16,6 +16,7 @@ import 'react-phone-number-input/style.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Statistics from './Statistics';
 import axios from 'axios';
+import account from 'public/profile/account.png';
 
 class ProfileComponent extends React.Component {
 	constructor(props) {
@@ -24,7 +25,7 @@ class ProfileComponent extends React.Component {
 		this.state = {
 			email: getUserEmail(),
 			imageFile: '',
-			imageLoc: '/profile/account.png',
+			imageLoc: account,
 			infoData: {
 				firstName: '',
 				lastName: '',
@@ -162,6 +163,7 @@ class ProfileComponent extends React.Component {
 										width={200}
 										height={200}
 										alt='profile'
+										priority
 									/>
 								</div>
 								<br />

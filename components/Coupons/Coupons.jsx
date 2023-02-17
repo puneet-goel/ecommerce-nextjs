@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from 'styles/coupon.module.scss';
+import priceTag from 'public/coupons/price-tag.png';
 
 const CouponsComponent = ({ coupons }) => {
 	const [curCoupon, setCurCoupon] = useState('No Coupon');
@@ -25,12 +26,7 @@ const CouponsComponent = ({ coupons }) => {
 	return (
 		<div className={styles.coupons_section}>
 			<h1>
-				<Image
-					src='/coupons/price-tag.png'
-					alt='transactions'
-					width='50'
-					height='50'
-				/>
+				<Image src={priceTag} alt='transactions' width='50' height='50' />
 				Coupons
 			</h1>
 			<div className={styles.coupons_subheader}>

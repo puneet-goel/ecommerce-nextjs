@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Tooltip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
 import moment from 'moment';
+import orderSummary from 'public/order-summary/bill.png';
 
 const OrderSummaryComponent = ({ order }) => {
 	let subtotal = 0;
@@ -59,12 +60,7 @@ const OrderSummaryComponent = ({ order }) => {
 	return (
 		<div className={styles.order_summary_wrapper}>
 			<h1>
-				<Image
-					src='/order-summary/bill.png'
-					alt='invoice'
-					width='50'
-					height='50'
-				/>
+				<Image src={orderSummary} alt='invoice' width='50' height='50' />
 				Order Summary
 			</h1>
 			<hr />
@@ -124,7 +120,7 @@ const OrderSummaryComponent = ({ order }) => {
 											<Link href={`/search/${cur._id}`}>
 												<Image
 													src={cur.image}
-													alt='shopping bag'
+													alt='product'
 													width='50'
 													height='50'
 												/>

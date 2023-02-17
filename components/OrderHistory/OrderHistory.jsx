@@ -8,6 +8,7 @@ import moment from 'moment';
 import { exportTableToCSV } from 'utility/client.js';
 import Link from 'next/link';
 import LaunchIcon from '@mui/icons-material/Launch';
+import transaction from 'public/order-history/transaction-history.png';
 
 const OrderHistoryComponent = () => {
 	const [orders, setOrders] = useState([]);
@@ -36,12 +37,7 @@ const OrderHistoryComponent = () => {
 	return (
 		<div className={styles.order_history_wrapper}>
 			<h1>
-				<Image
-					src='/order-history/transaction-history.png'
-					alt='transactions'
-					width='50'
-					height='50'
-				/>
+				<Image src={transaction} alt='transactions' width='50' height='50' />
 				Order History
 			</h1>
 			<hr />

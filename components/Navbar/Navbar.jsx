@@ -218,7 +218,6 @@ const Navbar = () => {
 								style={{
 									marginRight: '16px',
 								}}
-								priority
 							/>
 							<Typography
 								variant='h6'
@@ -330,7 +329,7 @@ const Navbar = () => {
 						right: '1em',
 						border: '1px solid #0c2e72',
 						textAlign: 'center',
-						zIndex: 1200,
+						zIndex: 1100,
 					}}
 				>
 					<Link href='/signup'>Signup</Link>

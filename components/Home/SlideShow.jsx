@@ -1,11 +1,12 @@
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const SlideShow = ({ id, data, title = '' }) => {
 	const [slide, setSlide] = useState(0);
+	const timer = useRef(Math.floor(Math.random() * 1000) + 3000);
 	const maxSlides = data.length;
 
 	const handleContols = (operation = 1) => {
@@ -15,10 +16,10 @@ const SlideShow = ({ id, data, title = '' }) => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
 			setSlide((cur) => (cur + 1 + maxSlides) % maxSlides);
-		}, 3000);
+		}, timer.current);
 
 		return () => clearInterval(intervalId);
-	}, [maxSlides]);
+	}, [maxSlides, timer]);
 
 	useEffect(() => {
 		if (document) {
@@ -44,12 +45,12 @@ const SlideShow = ({ id, data, title = '' }) => {
 							return (
 								<Image
 									src={cur}
-									width='2560'
-									height='500'
+									fill
 									key={idx}
 									className={`carousel_slide fade carousel_slide${id} elevation`}
 									alt={`${title} slideshow`}
-									priority={idx === 0}
+									placeholder='blur'
+									sizes='100vw'
 								/>
 							);
 						})}

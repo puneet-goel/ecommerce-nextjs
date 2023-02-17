@@ -9,6 +9,8 @@ import Reviews from './Reviews';
 import parse from 'html-react-parser';
 import { magnify } from 'utility/client.js';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import fastDelivery from 'public/product/fast-delivery.png';
+import cashOnDelivery from 'public/product/cash-on-delivery.png';
 
 const SpecificProductComponent = ({ product }) => {
 	const [productData, setProductData] = useState(product);
@@ -132,19 +134,19 @@ const SpecificProductComponent = ({ product }) => {
 							<tr>
 								<th>
 									<Image
-										src='/product/fast-delivery.png'
+										src={fastDelivery}
 										width='60'
 										height='60'
-										alt='delivery'
+										alt='fast delivery'
 									/>
 									<p>Free Delivery</p>
 								</th>
 								<th>
 									<Image
-										src='/product/cash-on-delivery.png'
+										src={cashOnDelivery}
 										width='60'
 										height='60'
-										alt='delivery'
+										alt='cash on delivery'
 									/>
 									<p>Cash On Delivery Available</p>
 								</th>

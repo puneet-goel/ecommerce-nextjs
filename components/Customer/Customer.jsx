@@ -13,6 +13,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useRouter } from 'next/router';
 import Tooltip from '@mui/material/Tooltip';
 import 'react-circular-progressbar/dist/styles.css';
+import customerCare from 'public/customer-care/customer-care.jpg';
 
 const CustomerComponent = ({ complaints }) => {
 	const [data, setData] = useState({
@@ -127,10 +128,11 @@ const CustomerComponent = ({ complaints }) => {
 			</div>
 			<div className={styles.container}>
 				<Image
-					src='/customer-care/customer-care.jpg'
-					width='2000'
-					height='3000'
+					src={customerCare}
+					width='500'
+					height='750'
 					alt='customer care banner'
+					placeholder='blur'
 				/>
 				<form onSubmit={register}>
 					<h1>We are here to assist you!</h1>

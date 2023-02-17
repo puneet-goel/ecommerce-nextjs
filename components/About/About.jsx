@@ -4,6 +4,11 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import styles from 'styles/about.module.scss';
 import Link from 'next/link';
+import users from 'public/about/users.png';
+import products from 'public/about/product.png';
+import orders from 'public/about/orders.png';
+import category from 'public/about/category.png';
+import founder from 'public/about/profile.jpeg';
 
 const AboutComponent = ({ data }) => {
 	return (
@@ -19,7 +24,7 @@ const AboutComponent = ({ data }) => {
 			<div className={styles.about_cards}>
 				<h2>Our Impact</h2>
 				<div className={`${styles.about_card} elevation`}>
-					<Image alt='users' width='100' height='100' src='/about/users.png' />
+					<Image alt='users' width='100' height='100' src={users} />
 					<div className={styles.card_content}>
 						<p>Total Users:</p>
 						<p>{data.users}+</p>
@@ -28,24 +33,14 @@ const AboutComponent = ({ data }) => {
 				<div
 					className={`${styles.about_card} ${styles.reverse_card} elevation`}
 				>
-					<Image
-						alt='products'
-						width='100'
-						height='100'
-						src='/about/product.png'
-					/>
+					<Image alt='products' width='100' height='100' src={products} />
 					<div className={styles.card_content}>
 						<p>Total Products:</p>
 						<p>{data.products}+</p>
 					</div>
 				</div>
 				<div className={`${styles.about_card} elevation`}>
-					<Image
-						alt='orders'
-						width='100'
-						height='100'
-						src='/about/orders.png'
-					/>
+					<Image alt='orders' width='100' height='100' src={orders} />
 					<div className={styles.card_content}>
 						<p>Total Orders Placed:</p>
 						<p>{data.orders}+</p>
@@ -54,12 +49,7 @@ const AboutComponent = ({ data }) => {
 				<div
 					className={`${styles.about_card} ${styles.reverse_card} elevation`}
 				>
-					<Image
-						alt='categories'
-						width='100'
-						height='100'
-						src='/about/category.png'
-					/>
+					<Image alt='categories' width='100' height='100' src={category} />
 					<div className={styles.card_content}>
 						<p>Total Categories:</p>
 						<p>{data.categories}+</p>
@@ -74,7 +64,8 @@ const AboutComponent = ({ data }) => {
 						alt='founder'
 						width='270'
 						height='250'
-						src='/about/profile.jpeg'
+						src={founder}
+						placeholder='blur'
 					/>
 					<div className={styles.card_content}>
 						<p>Puneet Goel</p>

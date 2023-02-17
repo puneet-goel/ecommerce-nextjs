@@ -2,35 +2,35 @@ import SlideShow from './SlideShow.jsx';
 import styles from 'styles/home.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import fastDelivery from 'public/product/fast-delivery.png';
+import cashOnDelivery from 'public/product/cash-on-delivery.png';
+import discounts from 'public/home/discounts.png';
 
-const data1 = [
-	'/home/FirstCarousel/1.jpg',
-	'/home/FirstCarousel/2.webp',
-	'/home/FirstCarousel/3.jpg',
-	'/home/FirstCarousel/4.png',
-];
+import first1 from 'public/home/FirstCarousel/1.jpg';
+import first2 from 'public/home/FirstCarousel/2.webp';
+import first3 from 'public/home/FirstCarousel/3.jpg';
+import first4 from 'public/home/FirstCarousel/4.png';
 
-const data2 = [
-	'/home/SecondCarousel/1.jpg',
-	'/home/SecondCarousel/2.jpg',
-	'/home/SecondCarousel/3.jpg',
-	'/home/SecondCarousel/4.png',
-];
+import second1 from 'public/home/SecondCarousel/1.jpg';
+import second2 from 'public/home/SecondCarousel/2.jpg';
+import second3 from 'public/home/SecondCarousel/3.jpg';
+import second4 from 'public/home/SecondCarousel/4.png';
 
-const data3 = [
-	'/home/ThirdCarousel/1.webp',
-	'/home/ThirdCarousel/2.webp',
-	'/home/ThirdCarousel/3.jpg',
-	'/home/ThirdCarousel/4.jpg',
-	'/home/ThirdCarousel/5.jpg',
-];
+import third1 from 'public/home/ThirdCarousel/1.webp';
+import third2 from 'public/home/ThirdCarousel/2.webp';
+import third3 from 'public/home/ThirdCarousel/3.jpg';
+import third4 from 'public/home/ThirdCarousel/4.jpg';
+import third5 from 'public/home/ThirdCarousel/5.jpg';
 
-const data4 = [
-	'/home/FourthCarousel/1.jpg',
-	'/home/FourthCarousel/2.jpg',
-	'/home/FourthCarousel/3.jpg',
-	'/home/FourthCarousel/4.jpg',
-];
+import fourth1 from 'public/home/FourthCarousel/1.jpg';
+import fourth2 from 'public/home/FourthCarousel/2.jpg';
+import fourth3 from 'public/home/FourthCarousel/3.jpg';
+import fourth4 from 'public/home/FourthCarousel/4.jpg';
+
+const data1 = [first1, first2, first3, first4];
+const data2 = [second1, second2, second3, second4];
+const data3 = [third1, third2, third3, third4, third5];
+const data4 = [fourth1, fourth2, fourth3, fourth4];
 
 const HomeComponent = () => {
 	return (
@@ -39,7 +39,7 @@ const HomeComponent = () => {
 			<div className={styles.facility_container}>
 				<div>
 					<Image
-						src='/product/fast-delivery.png'
+						src={fastDelivery}
 						width='60'
 						height='60'
 						alt='fast delivery'
@@ -48,7 +48,7 @@ const HomeComponent = () => {
 				</div>
 				<div>
 					<Image
-						src='/product/cash-on-delivery.png'
+						src={cashOnDelivery}
 						width='60'
 						height='60'
 						alt='cash on delivery'
@@ -56,12 +56,7 @@ const HomeComponent = () => {
 					Cash on Delivery
 				</div>
 				<div>
-					<Image
-						src='/home/discounts.png'
-						width='60'
-						height='60'
-						alt='Discounts'
-					/>
+					<Image src={discounts} width='60' height='60' alt='Discounts' />
 					Best Deals
 				</div>
 			</div>
