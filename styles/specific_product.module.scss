@@ -15,6 +15,7 @@
       .product_image {
         width: min(300px, 100%);
         height: auto;
+        cursor: none;
 
         @media all and (min-width: 768px) {
           width: 40vw;

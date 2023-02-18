@@ -27,7 +27,9 @@ const SearchComponent = ({ products }) => {
 		if (query.category) {
 			let temp = query.category;
 			if (temp === 'Clothing') {
-				temp = 'T-shirt, shoes';
+				temp = 'T-Shirt';
+			} else if (temp === 'Footwear and Cosmetics') {
+				temp = 'shoes, cosmetics';
 			}
 
 			setFilters((filters) => ({
