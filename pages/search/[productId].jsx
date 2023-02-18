@@ -2,6 +2,7 @@ import SpecificProductComponent from 'components/SpecificProduct/SpecificProduct
 import Product from 'models/Product.js';
 import dbConnect from 'connections/mongodb.js';
 import mongoose from 'mongoose';
+import { getPlaiceholder } from 'plaiceholder';
 
 const SpecificProduct = ({ data }) => {
 	const product = JSON.parse(data);
@@ -28,8 +29,14 @@ export async function getServerSideProps(context) {
 		product.views += 1;
 		await product.save();
 
+		//mongoose documents cant use spread operator
+		const data = { ...JSON.parse(JSON.stringify(product)) };
+
+		const { base64 } = await getPlaiceholder(data.image.file);
+		data.image.blurDataURL = base64;
+
 		return {
-			props: { data: JSON.stringify(product) },
+			props: { data: JSON.stringify(data) },
 		};
 	} catch (err) {
 		return {

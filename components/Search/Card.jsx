@@ -47,32 +47,36 @@ const Card = ({ product }) => {
 			href={`/search/${product._id}`}
 			className={`${styles.card} elevation`}
 		>
-			<Image
-				src={product.image.file}
-				alt='product'
-				className={styles.card_image}
-				width={200}
-				height={200}
-			/>
-			<div className={styles.card_header}>
-				<h3> {product.title} </h3>
-				<p> {product.category} </p>
+			<div className={styles.card_image}>
+				<Image
+					src={product.image.file}
+					alt='product'
+					fill
+					sizes='300px'
+					blurDataURL={product.image.blurDataURL}
+					placeholder='blur'
+				/>
 			</div>
-			<div className={styles.card_rating}>
-				{[...Array(filledStars).keys()].map((id) => {
-					return <StarIcon key={id} className={styles.golden_svg} />;
-				})}
-				{[...Array(halfStars).keys()].map((id) => {
-					return <StarHalfIcon key={id} className={styles.golden_svg} />;
-				})}
-				{[...Array(emptyStars).keys()].map((id) => {
-					return <StarBorderIcon key={id} className={styles.golden_svg} />;
-				})}
-				<span>
-					{product.rating} ({product.reviews.length} reviews)
-				</span>
+			<div className={styles.card_content}>
+				<div className={styles.card_header}>
+					<h3> {product.title} </h3>
+					<p> {product.category} </p>
+				</div>
+				<div className={styles.card_rating}>
+					{[...Array(filledStars).keys()].map((id) => {
+						return <StarIcon key={id} className={styles.golden_svg} />;
+					})}
+					{[...Array(halfStars).keys()].map((id) => {
+						return <StarHalfIcon key={id} className={styles.golden_svg} />;
+					})}
+					{[...Array(emptyStars).keys()].map((id) => {
+						return <StarBorderIcon key={id} className={styles.golden_svg} />;
+					})}
+					<span>
+						{product.rating} ({product.reviews.length} reviews)
+					</span>
+				</div>
 			</div>
-			{sale && <span className={`badge ${styles.card_badge}`}>Sale</span>}
 			<div
 				className={`badge ${styles.card_footer}`}
 				onClick={(e) => e.preventDefault()}
@@ -86,6 +90,7 @@ const Card = ({ product }) => {
 					<AddIcon fontSize='large' onClick={handleCart(1)} />
 				</div>
 			</div>
+			{sale && <div className={`badge ${styles.card_badge}`}></div>}
 		</Link>
 	);
 };

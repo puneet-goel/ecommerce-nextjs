@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
+    "@plaiceholder/next": "^2.5.0",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.2",
     "cloudinary": "^1.33.0",
@@ -28,6 +29,7 @@
     "moment": "^2.29.4",
     "mongoose": "^6.8.2",
     "next": "13.0.6",
+    "plaiceholder": "^2.5.0",
     "react": "18.2.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.2.0",
@@ -35,6 +37,7 @@
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.1",
     "sass": "^1.56.1",
+    "sharp": "^0.31.3",
     "yup": "^0.32.11"
   }
 }

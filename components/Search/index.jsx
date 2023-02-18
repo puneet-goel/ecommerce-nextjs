@@ -25,9 +25,14 @@ const SearchComponent = ({ products }) => {
 			}));
 		}
 		if (query.category) {
+			let temp = query.category;
+			if (temp === 'Clothing') {
+				temp = 'T-shirt, shoes';
+			}
+
 			setFilters((filters) => ({
 				...filters,
-				category: query.category,
+				category: temp,
 			}));
 		}
 	}, [query]);
@@ -36,12 +41,17 @@ const SearchComponent = ({ products }) => {
 	 * @description filter according to category
 	 */
 	let filteredProducts = useMemo(() => {
-		const filterCategory = filters.category.toLowerCase().trim();
+		if (filters.category === '') return products;
+		const temp = filters.category.split(',');
 
-		if (filterCategory === '') return products;
-		return products.filter((product) =>
-			product.category.toLowerCase().includes(filterCategory)
-		);
+		return products.filter((product) => {
+			for (let i = 0; i < temp.length; ++i) {
+				if (
+					product.category.toLowerCase().includes(temp[i].toLowerCase().trim())
+				)
+					return true;
+			}
+		});
 	}, [filters.category, products]);
 
 	/**
@@ -83,7 +93,10 @@ const SearchComponent = ({ products }) => {
 			filteredProducts.sort((a, b) => a.rating - b.rating);
 			break;
 		case 'arrivals':
-			filteredProducts.sort((a, b) => a.createdAt - b.createdAt);
+			filteredProducts.sort((a, b) => {
+				let dif = new Date(a.createdAt) - new Date(b.createdAt);
+				return dif;
+			});
 			break;
 		case 'lh-price':
 			filteredProducts.sort((a, b) => a.perUnitPrice - b.perUnitPrice);

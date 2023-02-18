@@ -32,15 +32,20 @@ const SpecificProductComponent = ({ product }) => {
 	const emptyStars = 5 - filledStars - halfStars;
 
 	return (
-		<div className={styles.specific_product_container}>
+		<div
+			className={`${styles.specific_product_container} min_container_height`}
+		>
 			<div className={styles.product_wrapper}>
 				<div className={styles.image_wrapper}>
 					<div className='img_magnifier_glass' />
 					<Image
 						src={productData.image.file}
-						width={1024}
-						height={400}
+						width={2000}
+						height={2000}
 						alt='product'
+						blurDataURL={productData.image.blurDataURL}
+						placeholder='blur'
+						sizes='100vw'
 						className={styles.product_image}
 						id='product_image_zoom'
 						priority
@@ -81,7 +86,7 @@ const SpecificProductComponent = ({ product }) => {
 							<tr>
 								<td>
 									<strong>M.R.P.:</strong>
-									<span>&#8377;{productData.perUnitPrice}</span>
+									<span>&#8377;{productData.perUnitPrice.toFixed(2)}</span>
 								</td>
 							</tr>
 							<tr>
@@ -93,17 +98,24 @@ const SpecificProductComponent = ({ product }) => {
 							<tr>
 								<td>
 									<strong>Effective Price:</strong>
-									<span>&#8377;{productData.perUnitPrice * 1.18}</span>
+									<span>
+										&#8377;{(productData.perUnitPrice * 1.18).toFixed(2)}
+									</span>
 									(inclusive of all taxes)
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<h3>
-						{!!productData.description
-							? parse(productData.description)
-							: 'No Description'}
-					</h3>
+
+					<div className={styles.product_description}>
+						<h4>Description: </h4>
+						<div>
+							{!!productData.description
+								? parse(productData.description)
+								: 'No Description'}
+						</div>
+					</div>
+
 					<h4>
 						Available Quantity: <span>{productData.quantity}</span>
 					</h4>
@@ -112,7 +124,7 @@ const SpecificProductComponent = ({ product }) => {
 						{productData.size.split(',').map((cur, idx) => {
 							let x = cur.trim();
 							if (x === '') return null;
-							return <div key={idx}> {cur}</div>;
+							return <div key={idx}>{x}</div>;
 						})}
 					</div>
 
@@ -122,8 +134,8 @@ const SpecificProductComponent = ({ product }) => {
 							let x = cur.trim();
 							if (x === '') return null;
 							return (
-								<div key={idx} style={{ backgroundColor: cur }}>
-									{cur}
+								<div key={idx} style={{ backgroundColor: x }}>
+									{x}
 								</div>
 							);
 						})}

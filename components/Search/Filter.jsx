@@ -161,7 +161,7 @@ const Filter = ({ filters, setFilters }) => {
 
 				<hr />
 				<div className={styles.range}>
-					<h4>Maximum Price: {filters.price === 0 ? 'All' : filters.price}</h4>
+					<h4>Maximum Price: {filters.price == 0 ? 'All' : filters.price}</h4>
 					<input
 						type='range'
 						id='price'
