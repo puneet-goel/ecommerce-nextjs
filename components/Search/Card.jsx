@@ -53,8 +53,7 @@ const Card = ({ product }) => {
 					alt='product'
 					fill
 					sizes='300px'
-					blurDataURL={product.image.blurDataURL}
-					placeholder='blur'
+					{...product.image.props}
 				/>
 			</div>
 			<div className={styles.card_content}>

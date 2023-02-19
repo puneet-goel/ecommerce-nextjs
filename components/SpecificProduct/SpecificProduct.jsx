@@ -43,8 +43,7 @@ const SpecificProductComponent = ({ product }) => {
 						width={2000}
 						height={2000}
 						alt='product'
-						blurDataURL={productData.image.blurDataURL}
-						placeholder='blur'
+						{...productData.image.props}
 						sizes='100vw'
 						className={styles.product_image}
 						id='product_image_zoom'

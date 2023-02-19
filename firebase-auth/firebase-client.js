@@ -38,6 +38,10 @@ export const login = async (email, password) => {
 
 export const logout = async () => {
 	try {
+		if (window) {
+			localStorage.clear();
+		}
+
 		await signOut(firebaseAuth);
 		if (location) location.reload();
 		return true;

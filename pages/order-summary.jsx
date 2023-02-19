@@ -55,6 +55,7 @@ export async function getServerSideProps(context) {
 			props: { data: JSON.stringify(temp) },
 		};
 	} catch (err) {
+		console.log(err);
 		return {
 			props: { data: JSON.stringify({}) },
 		};

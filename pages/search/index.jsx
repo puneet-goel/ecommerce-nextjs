@@ -19,8 +19,15 @@ export async function getServerSideProps() {
 		data.sort(() => Math.random() - 0.5);
 
 		for (let i = 0; i < data.length; i++) {
-			const { base64 } = await getPlaiceholder(data[i].image.file);
-			data[i].image.blurDataURL = base64;
+			try {
+				const { base64 } = await getPlaiceholder(data[i].image.file);
+				data[i].image.props = {
+					blurDataURL: base64,
+					placeholder: 'blur',
+				};
+			} catch (err) {
+				data[i].image.props = {};
+			}
 		}
 
 		return {
@@ -29,6 +36,7 @@ export async function getServerSideProps() {
 			},
 		};
 	} catch (err) {
+		console.log(err);
 		return {
 			props: { data: JSON.stringify([]) },
 		};

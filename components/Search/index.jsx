@@ -95,8 +95,9 @@ const SearchComponent = ({ products }) => {
 			filteredProducts.sort((a, b) => a.rating - b.rating);
 			break;
 		case 'arrivals':
+			//new arrivals first
 			filteredProducts.sort((a, b) => {
-				let dif = new Date(a.createdAt) - new Date(b.createdAt);
+				let dif = new Date(b.createdAt) - new Date(a.createdAt);
 				return dif;
 			});
 			break;

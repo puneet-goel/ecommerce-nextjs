@@ -32,13 +32,21 @@ export async function getServerSideProps(context) {
 		//mongoose documents cant use spread operator
 		const data = { ...JSON.parse(JSON.stringify(product)) };
 
-		const { base64 } = await getPlaiceholder(data.image.file);
-		data.image.blurDataURL = base64;
+		try {
+			const { base64 } = await getPlaiceholder(data.image.file);
+			data.image.props = {
+				blurDataURL: base64,
+				placeholder: 'blur',
+			};
+		} catch (err) {
+			data.image.props = {};
+		}
 
 		return {
 			props: { data: JSON.stringify(data) },
 		};
 	} catch (err) {
+		console.log(err);
 		return {
 			props: { data: JSON.stringify(null) },
 		};

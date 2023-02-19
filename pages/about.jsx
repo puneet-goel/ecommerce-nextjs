@@ -41,6 +41,7 @@ export async function getStaticProps() {
 			revalidate: 3,
 		};
 	} catch (err) {
+		console.log(err);
 		return {
 			props: { data: JSON.stringify(data) },
 			revalidate: 3,
