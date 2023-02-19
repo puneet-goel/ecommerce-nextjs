@@ -119,7 +119,7 @@ const Statistics = ({ email }) => {
 
 	return (
 		<div className={styles.graph}>
-			<p>Comparison between different products on the basis on their views:</p>
+			<p>Comparison between different products on the basis of their views:</p>
 			<svg width={width} height={height}>
 				<g
 					width={boundsWidth}

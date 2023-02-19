@@ -22,7 +22,7 @@ export async function getServerSideProps() {
 			rating /= complaints.length;
 		}
 
-		rating *= 20;
+		rating = (rating * 20).toFixed(2);
 
 		return {
 			props: {

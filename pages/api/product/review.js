@@ -49,6 +49,7 @@ const handlePost = async (req, res) => {
 			0
 		);
 		product.rating /= product.reviews.length || 1;
+		product.rating = product.rating.toFixed(1);
 
 		await product.save();
 

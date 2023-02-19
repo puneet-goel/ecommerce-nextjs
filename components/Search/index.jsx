@@ -92,7 +92,8 @@ const SearchComponent = ({ products }) => {
 	 */
 	switch (filters.sort) {
 		case 'rating':
-			filteredProducts.sort((a, b) => a.rating - b.rating);
+			//highest rating first
+			filteredProducts.sort((a, b) => b.rating - a.rating);
 			break;
 		case 'arrivals':
 			//new arrivals first
