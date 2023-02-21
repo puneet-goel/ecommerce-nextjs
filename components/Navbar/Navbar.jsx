@@ -321,7 +321,7 @@ const Navbar = () => {
 				<div
 					className='elevation'
 					style={{
-						position: 'fixed',
+						position: 'absolute',
 						top: '70px',
 						backgroundColor: 'white',
 						color: 'black',
@@ -329,7 +329,7 @@ const Navbar = () => {
 						right: '1em',
 						border: '1px solid #0c2e72',
 						textAlign: 'center',
-						zIndex: 1100,
+						zIndex: 1099,
 					}}
 				>
 					<Link href='/signup'>Signup</Link>

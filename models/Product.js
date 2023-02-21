@@ -38,6 +38,10 @@ const ProductSchema = new mongoose.Schema(
 				type: String,
 				required: true,
 			},
+			blurDataURL: {
+				type: String,
+				default: '',
+			},
 		},
 		perUnitPrice: {
 			type: Number,

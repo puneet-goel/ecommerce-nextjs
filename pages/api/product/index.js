@@ -4,6 +4,7 @@ import dbConnect from 'connections/mongodb.js';
 import userAuthencation from 'firebase-auth/firebase-admin.js';
 import cloudinary from 'connections/cloudinary.js';
 import mongoose from 'mongoose';
+import { getPlaiceholder } from 'plaiceholder';
 
 const handleGet = async (req, res) => {
 	try {
@@ -24,12 +25,21 @@ const handlePost = async (req, res) => {
 			resource_type: 'auto',
 		});
 
+		let blurUrl = '';
+		try {
+			const { base64 } = await getPlaiceholder(upload.secure_url);
+			blurUrl = base64;
+		} catch (err) {
+			blurUrl = '';
+		}
+
 		const newProduct = new Product({
 			title: req.body.title,
 			description: req.body.description,
 			image: {
 				file: upload.secure_url,
 				public_id: upload.public_id,
+				blurDataURL: blurUrl,
 			},
 			perUnitPrice: req.body.perUnitPrice,
 			quantity: req.body.quantity,
@@ -77,6 +87,14 @@ const handlePatch = async (req, res) => {
 			resource_type: 'auto',
 		});
 
+		let blurUrl = '';
+		try {
+			const { base64 } = await getPlaiceholder(upload.secure_url);
+			blurUrl = base64;
+		} catch (err) {
+			blurUrl = '';
+		}
+
 		//objects references are copied hence changing oldProduct also affects prevImageData.
 		// const prevImageData = oldProduct.image;
 
@@ -87,6 +105,7 @@ const handlePatch = async (req, res) => {
 		oldProduct.image = {
 			file: upload.secure_url,
 			public_id: upload.public_id,
+			blurDataURL: blurUrl,
 		};
 		oldProduct.perUnitPrice = req.body.perUnitPrice;
 		oldProduct.quantity = req.body.quantity;

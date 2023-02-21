@@ -1,10 +1,21 @@
 import SearchComponent from 'components/Search';
 import Product from 'models/Product.js';
 import dbConnect from 'connections/mongodb.js';
-import { getPlaiceholder } from 'plaiceholder';
 
 const Search = ({ data }) => {
 	const products = JSON.parse(data);
+
+	for (let i = 0; i < products.length; i++) {
+		if (products[i].image.blurDataURL) {
+			products[i].image.props = {
+				blurDataURL: products[i].image.blurDataURL,
+				placeholder: 'blur',
+			};
+		} else {
+			products[i].image.props = {};
+		}
+	}
+
 	return <SearchComponent products={products} />;
 };
 
@@ -17,18 +28,6 @@ export async function getServerSideProps() {
 
 		//shuffle products
 		data.sort(() => Math.random() - 0.5);
-
-		for (let i = 0; i < data.length; i++) {
-			try {
-				const { base64 } = await getPlaiceholder(data[i].image.file);
-				data[i].image.props = {
-					blurDataURL: base64,
-					placeholder: 'blur',
-				};
-			} catch (err) {
-				data[i].image.props = {};
-			}
-		}
 
 		return {
 			props: {

@@ -119,8 +119,8 @@ const SearchComponent = ({ products }) => {
 			</div>
 			<div className={styles.right}>
 				{filteredProducts.length > 0 ? (
-					filteredProducts.map((product, idx) => {
-						return <Card key={idx} product={product} />;
+					filteredProducts.map((product) => {
+						return <Card key={product._id} product={product} />;
 					})
 				) : (
 					<h3>Refresh the page</h3>
